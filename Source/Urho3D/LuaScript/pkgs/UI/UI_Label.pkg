@@ -1,0 +1,34 @@
+$#include "UI/UI_Label.h"
+
+class UI_Label : public UI_Clip
+{
+    UI_Label();
+    virtual ~UI_Label();
+    const String GetText() const;
+    void SetText(const String text);
+    bool GetWordWrap();
+    void SetWordWrap(bool b);
+    bool GetIsHtml();
+    void SetIsHtml(bool b);
+
+    tolua_property__get_set String text;
+    tolua_property__get_set bool wordWrap;
+    tolua_property__get_set bool isHtml;
+
+    tolua_readonly int textWidth;
+    tolua_readonly int textHeight;
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Label_new00
+static int tolua_UILuaAPI_UI_Label_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_Label>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Label_new00_local
+static int tolua_UILuaAPI_UI_Label_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_Label>(tolua_S);
+}
+$}

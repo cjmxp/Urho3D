@@ -36,6 +36,7 @@
 #include "../Network/NetworkEvents.h"
 #include "../Network/NetworkPriority.h"
 #include "../Network/Protocol.h"
+#include "../Network/TcpConn.h"
 #include "../Scene/Scene.h"
 
 #include <SLikeNet/MessageIdentifiers.h>
@@ -264,10 +265,14 @@ Network::Network(Context* context) :
     blacklistedRemoteEvents_.Insert(E_NETWORKUPDATE);
     blacklistedRemoteEvents_.Insert(E_NETWORKUPDATESENT);
     blacklistedRemoteEvents_.Insert(E_NETWORKSCENELOADFAILED);
+
+    TcpConn::StartUp();
 }
 
 Network::~Network()
 {
+    TcpConn::ShutDown();
+
     rakPeer_->DetachPlugin(natPunchthroughServerClient_);
     rakPeerClient_->DetachPlugin(natPunchthroughClient_);
     // If server connection exists, disconnect, but do not send an event because we are shutting down
@@ -778,6 +783,14 @@ void Network::HandleIncomingPacket(SLNet::Packet* packet, bool isServer)
         }
         packetHandled = true;
     }
+    else if (packetID == ID_CONNECTION_LOST) // We've lost connection with the other side
+    {
+        if (isServer)
+        {
+            ClientDisconnected(packet->systemAddress);
+        }
+        packetHandled = true;
+    }
     else if (packetID == ID_CONNECTION_ATTEMPT_FAILED) // We've failed to connect to the server/peer
     {
         if (natPunchServerAddress_ && packet->systemAddress == *natPunchServerAddress_) {
@@ -1032,6 +1045,7 @@ void Network::ConfigureNetworkSimulator()
 void RegisterNetworkLibrary(Context* context)
 {
     NetworkPriority::RegisterObject(context);
+    TcpConn::RegisterObject(context);
 }
 
 }

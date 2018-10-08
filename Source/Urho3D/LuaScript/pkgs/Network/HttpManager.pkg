@@ -1,0 +1,23 @@
+$#include "Network/HttpManager.h"
+
+
+class HttpManager
+{
+    HttpRequest* Get(const String& url);
+    HttpRequest* Download(const String& url, const String& filepath);
+};
+
+
+HttpManager* GetHttp();
+tolua_readonly tolua_property__get_set HttpManager* http;
+
+${
+
+#define TOLUA_DISABLE_tolua_NetworkLuaAPI_GetHttp00
+static int tolua_NetworkLuaAPI_GetHttp00(lua_State* tolua_S)
+{
+    return ToluaGetSubsystem<HttpManager>(tolua_S);
+}
+#define TOLUA_DISABLE_tolua_get_http_ptr
+#define tolua_get_http_ptr tolua_NetworkLuaAPI_GetHttp00
+$}

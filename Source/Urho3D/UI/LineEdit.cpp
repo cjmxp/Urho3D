@@ -597,10 +597,6 @@ void LineEdit::UpdateCursor()
     cursor_->SetPosition(text_->GetPosition() + IntVector2(x, 0));
     cursor_->SetSize(cursor_->GetWidth(), text_->GetRowHeight());
 
-    IntVector2 screenPosition = ElementToScreen(cursor_->GetPosition());
-    SDL_Rect rect = {screenPosition.x_, screenPosition.y_, cursor_->GetSize().x_, cursor_->GetSize().y_};
-    SDL_SetTextInputRect(&rect);
-
     // Scroll if necessary
     int sx = -GetChildOffset().x_;
     int left = clipBorder_.left_;
@@ -611,10 +607,20 @@ void LineEdit::UpdateCursor()
         sx = x - left;
     if (sx < 0)
         sx = 0;
+
+    if (x > right)
+        sx = x - right;
+    if (x < right)
+        sx = 0;
+
     SetChildOffset(IntVector2(-sx, 0));
 
+    IntVector2 screenPosition = ElementToScreen(cursor_->GetPosition());
+    SDL_Rect rect = { screenPosition.x_ - sx, screenPosition.y_, cursor_->GetSize().x_, cursor_->GetSize().y_ };
+    SDL_SetTextInputRect(&rect);
+
     // Restart blinking
-    cursorBlinkTimer_ = 0.0f;
+    //cursorBlinkTimer_ = 0.0f;
 }
 
 unsigned LineEdit::GetCharIndex(const IntVector2& position)

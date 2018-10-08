@@ -9,6 +9,7 @@ enum FontHintLevel
 
 class UI : public Object
 {
+    void SetDesignSize(const IntVector2& size);
     void SetCursor(Cursor* cursor);
     void SetFocusElement(UIElement* element, bool byKey = false);
     bool SetModalElement(UIElement* modalElement, bool enable);

@@ -46,6 +46,7 @@
 #endif
 #ifdef URHO3D_NETWORK
 #include "../Network/Network.h"
+#include "../Network/HttpManager.h"
 #endif
 #ifdef URHO3D_DATABASE
 #include "../Database/Database.h"
@@ -132,6 +133,7 @@ Engine::Engine(Context* context) :
     context_->RegisterSubsystem(new Localization(context_));
 #ifdef URHO3D_NETWORK
     context_->RegisterSubsystem(new Network(context_));
+    context_->RegisterSubsystem(new HttpManager(context_));
 #endif
 #ifdef URHO3D_DATABASE
     context_->RegisterSubsystem(new Database(context_));

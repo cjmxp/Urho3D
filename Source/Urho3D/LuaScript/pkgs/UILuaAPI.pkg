@@ -23,6 +23,10 @@ $pfile "UI/UI.pkg"
 $pfile "UI/Window.pkg"
 $pfile "UI/View3D.pkg"
 $pfile "UI/UIComponent.pkg"
+$pfile "UI/UI_Box.pkg"
+$pfile "UI/UI_Clip.pkg"
+$pfile "UI/UI_Label.pkg"
+$pfile "UI/UI_Button.pkg"
 
 $using namespace Urho3D;
 $#pragma warning(disable:4800)

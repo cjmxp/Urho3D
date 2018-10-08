@@ -64,7 +64,9 @@ public:
     explicit UI(Context* context);
     /// Destruct.
     ~UI() override;
-
+    
+    void ScaleWithScreenSize(int w, int h);
+    void SetDesignSize(const IntVector2& size);
     /// Set cursor UI element.
     void SetCursor(Cursor* cursor);
     /// Set focused UI element.
@@ -431,6 +433,8 @@ private:
     float uiScale_;
     /// Root element custom size. 0,0 for automatic resizing (default.)
     IntVector2 customSize_;
+    IntVector2 designSize_;
+
     /// Elements that should be rendered to textures.
     HashMap<UIElement*, RenderToTextureData> renderToTexture_;
 };

@@ -1,0 +1,21 @@
+$#include "UI/UI_Button.h"
+
+class UI_Button : public UI_Clip
+{
+    UI_Button();
+    virtual ~UI_Button();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Button_new00
+static int tolua_UILuaAPI_UI_Button_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_Button>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Button_new00_local
+static int tolua_UILuaAPI_UI_Button_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_Button>(tolua_S);
+}
+$}

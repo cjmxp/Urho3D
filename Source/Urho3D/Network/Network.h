@@ -33,6 +33,7 @@ namespace Urho3D
 class HttpRequest;
 class MemoryBuffer;
 class Scene;
+class TcpConn;
 
 /// %Network subsystem. Manages client-server communications using the UDP protocol.
 class URHO3D_API Network : public Object

@@ -26,6 +26,11 @@
 
 namespace Urho3D
 {
+URHO3D_EVENT(E_UIHTMLLINKCLICK, UIHtmlLinkClick)
+{
+    URHO3D_PARAM(P_HREF, Href);              // String
+    URHO3D_PARAM(P_ID, ID);              // String
+}
 
 /// Global mouse click in the UI. Sent by the UI subsystem.
 URHO3D_EVENT(E_UIMOUSECLICK, UIMouseClick)

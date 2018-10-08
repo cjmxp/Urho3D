@@ -150,6 +150,25 @@ UI::UI(Context* context) :
 
 UI::~UI() = default;
 
+void UI::SetDesignSize(const IntVector2& size)
+{
+    designSize_ = size;
+    IntVector2 screen = GetEffectiveRootElementSize();
+    ScaleWithScreenSize(screen.x_, screen.y_);
+}
+void UI::ScaleWithScreenSize(int w, int h)
+{
+    if (IntVector2::ZERO == designSize_)
+    {
+        SetScale(1);
+    }
+    else
+    {
+        float scale = Min((float)designSize_.x_ / (float)w, (float)designSize_.y_ / (float)h);
+        SetScale(scale);
+    }
+}
+
 void UI::SetCursor(Cursor* cursor)
 {
     // Remove old cursor (if any) and set new
@@ -1678,6 +1697,8 @@ void UI::SendDoubleClickEvent(UIElement* beginElement, UIElement* endElement, co
 void UI::HandleScreenMode(StringHash eventType, VariantMap& eventData)
 {
     using namespace ScreenMode;
+
+    ScaleWithScreenSize(eventData[P_WIDTH].GetInt(), eventData[P_HEIGHT].GetInt());
 
     if (!initialized_)
         Initialize();

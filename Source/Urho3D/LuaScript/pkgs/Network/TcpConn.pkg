@@ -1,0 +1,27 @@
+$#include "Network/TcpConn.h"
+
+class TcpConn : public Object
+{
+    TcpConn();
+    virtual ~TcpConn();
+
+    bool Connect(const String& host, const int port);
+    void Disconnect();
+    void Send(const char* buffer, unsigned int size);
+};
+
+
+${
+#define TOLUA_DISABLE_tolua_NetworkLuaAPI_TcpConn_new00
+static int tolua_NetworkLuaAPI_TcpConn_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<TcpConn>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_NetworkLuaAPI_TcpConn_new00_local
+static int tolua_NetworkLuaAPI_TcpConn_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<TcpConn>(tolua_S);
+}
+$}
+
