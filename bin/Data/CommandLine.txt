@@ -1,1 +1,1 @@
-Scripts/NinjaSnowWar.as
+LuaScripts/Test2.lua -w -s -v -x 1280 -y 720
