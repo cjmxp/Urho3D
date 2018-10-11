@@ -345,6 +345,7 @@ dep_option(SDL_STATIC_PIC      "Static version of the library should be built wi
 set (SOURCE_FILE_PATTERNS
   ${SDL2_SOURCE_DIR}/src/*.c
   ${SDL2_SOURCE_DIR}/src/atomic/*.c
+  ${SDL2_SOURCE_DIR}/src/net/*.c
 # Urho3D - we always disable dynamic API, so commented out ${SDL2_SOURCE_DIR}/src/dynapi/*.c
   ${SDL2_SOURCE_DIR}/src/libm/*.c
   ${SDL2_SOURCE_DIR}/src/stdlib/*.c

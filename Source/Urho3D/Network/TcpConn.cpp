@@ -7,8 +7,8 @@
 #include "../Core/Timer.h"
 #include "../NetWork/TcpEvt.h"
 
-#include "SDL/SDL_stdinc.h"
-#include "SDL/SDL_net.h"
+#include <SDL/SDL_stdinc.h>
+#include <SDL/SDL_net.h>
 
 
 namespace Urho3D
