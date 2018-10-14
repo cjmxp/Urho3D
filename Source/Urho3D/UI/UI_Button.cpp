@@ -24,33 +24,43 @@ namespace Urho3D
             lable_->SetWordWrap(false);
         }
 		lable_->SetText(v);
-		const IntVector2& size = GetSize();
-		int x = (size.x_ - lable_->textWidth) / 2;
-		int y = (size.y_ - lable_->textHeight) / 2;
-		lable_->SetPosition(x, y);
-    }
-   
-    void UI_Button::Update(float timeStep){
-        if(hovering_ && !pressed_){
-            SetIndex(1);
-        }else if(!hovering_ && pressed_){
-            pressed_=false;
-            using namespace Pressed;
-            VariantMap& eventData = GetEventDataMap();
-            eventData[P_ELEMENT] = this;
-            SendEvent(E_PRESSED, eventData);
-        }else if (!hovering_){
-            SetIndex(0);
-			SetScale(1.0f, 1.0f);
-			if (lable_ != nullptr)lable_->SetScale(1.0f, 1.0f);
-			SetHotSpot(0, 0);
-        }
+		layout_ = true;
     }
 
+	void UI_Button::Layout() {
+		if (layout_) {
+			layout_ = false;
+			const IntVector2& size = GetSize();
+			int x = (size.x_ - lable_->textWidth) / 2;
+			int y = (size.y_ - lable_->textHeight) / 2;
+			lable_->SetPosition(x, y);
+		}
+	}
+   
 	void UI_Button::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) {
 		UI_Clip::GetBatches(batches, vertexData, currentScissor);
 		if (lable_ != nullptr && lable_->GetText()!= String::EMPTY) {
+			Layout();
 			lable_->GetBatches(batches, vertexData, currentScissor);
+		}
+	}
+
+	void UI_Button::Update(float timeStep) {
+		if (hovering_ && !pressed_) {
+			SetIndex(1);
+		}
+		else if (!hovering_ && pressed_) {
+			pressed_ = false;
+			using namespace Pressed;
+			VariantMap& eventData = GetEventDataMap();
+			eventData[P_ELEMENT] = this;
+			SendEvent(E_PRESSED, eventData);
+		}
+		else if (!hovering_) {
+			SetIndex(0);
+			SetScale(1.0f, 1.0f);
+			if (lable_ != nullptr)lable_->SetScale(1.0f, 1.0f);
+			SetHotSpot(0, 0);
 		}
 	}
 

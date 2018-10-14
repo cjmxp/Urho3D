@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../UI/UI_Button.h"
+#include "../UI/UI_CheckBox.h"
 
 namespace Urho3D
 {
-    class URHO3D_API UI_Radio : public UI_Button
+    class URHO3D_API UI_Radio : public UI_CheckBox
     {
-        URHO3D_OBJECT(UI_Radio, UI_Button);
+        URHO3D_OBJECT(UI_Radio, UI_CheckBox);
     public:
         /// Construct.
         explicit UI_Radio(Context* context);
@@ -14,18 +14,8 @@ namespace Urho3D
         ~UI_Radio() override;
         const String& GetValue();
         void SetValue(const String & v);
-        bool GetSelected();
-        void SetSelected(bool v);
-        void SetSizeGrid(const String& rect);
-        /// Perform UI element update.
-        void Update(float timeStep) override;
-        /// React to mouse click begin.
-        virtual void OnClickBegin (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
-        /// React to mouse click end.
-        virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+       
     private:
-        const IntVector2& GetDrawRect();
         String value_;
-        bool selected_;
     };
 }

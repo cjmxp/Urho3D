@@ -1,31 +1,30 @@
 #pragma once
-#include "../UI/UI_Label.h"
-#include "../UI/UI_Clip.h"
+
+#include "../UI/UI_Button.h"
 
 namespace Urho3D
 {
-    class URHO3D_API UI_Button : public UI_Clip
+    class URHO3D_API UI_CheckBox : public UI_Button
     {
-        URHO3D_OBJECT(UI_Button, UI_Clip);
+        URHO3D_OBJECT(UI_CheckBox, UI_Button);
     public:
         /// Construct.
-        explicit UI_Button(Context* context);
+        explicit UI_CheckBox(Context* context);
         /// Destruct.
-        ~UI_Button() override;
-        const String& GetLable();
-        void SetLable(const String& v);
+        ~UI_CheckBox() override;
+        bool GetSelected();
+        void SetSelected(bool v);
+        void SetSizeGrid(const String& rect);
         /// Perform UI element update.
         void Update(float timeStep) override;
-		/// Return UI rendering batches.
-		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
         /// React to mouse click begin.
         virtual void OnClickBegin (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
         /// React to mouse click end.
         virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
 	protected:
-		bool layout_{false};
 		void Layout();
-		SharedPtr<UI_Label> lable_;
-		bool pressed_;
+		const IntVector2& GetDrawRect();
+	private:
+        bool selected_;
     };
 }
