@@ -208,13 +208,13 @@ public:
     void SetIsHtml(bool b) {
         htmlEnable_ = b;
     }
-    String color{"1 1 1"};
-    String font{ "Fonts/BlueHighway.ttf" };
+    String color{"1 0 0"};
+    String font{ "Fonts/kaiti.ttf" };
     int fontSize{ 12 };
     int textWidth;
     int textHeight;
 protected:
-    String text_;
+	String text_{ String::EMPTY };
    
     bool htmlEnable_{ 1 };
     bool wordWrap_{ 1 };

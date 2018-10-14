@@ -34,6 +34,18 @@ namespace Urho3D
         EnableLayoutUpdate();
     }
 
+	void UI_Box::SetHotSpot(const IntVector2& hotSpot)
+	{
+		if (hotSpot != hotSpot_)
+		{
+			hotSpot_ = hotSpot;
+		}
+	}
+
+	void UI_Box::SetHotSpot(int x, int y)
+	{
+		SetHotSpot(IntVector2(x, y));
+	}
 	void UI_Box::SetRotation(float angle)
 	{
 		if (angle != rotation_)
@@ -62,9 +74,13 @@ namespace Urho3D
 				const IntVector2& parentScreenPos = parent_->GetScreenPosition() + parent_->GetChildOffset();
 				parentTransform.SetTranslation(Vector3((float)parentScreenPos.x_, (float)parentScreenPos.y_, 0.0f));
 			}
-
-			Matrix3x4 mainTransform(Vector3((float)position_.x_, (float)position_.y_, 0.0f), Quaternion(rotation_, Vector3::FORWARD), Vector3(scale_.x_, scale_.y_, 1.0f));
-
+			float px = (float)position_.x_;// IntVector2::ZERO
+			float py = (float)position_.y_;
+			if (scale_.x_ != 1.0 || scale_.y_!=1.0) {
+				px += hotSpot_.x_;
+				py += hotSpot_.y_;
+			}
+			Matrix3x4 mainTransform(Vector3(px, py, 0.0f), Quaternion(rotation_, Vector3::FORWARD), Vector3(scale_.x_, scale_.y_, 1.0f));
 			transform_ = parentTransform * mainTransform;
 			positionDirty_ = false;
 			// Calculate an approximate screen position for GetElementAt(), or pixel-perfect child elements

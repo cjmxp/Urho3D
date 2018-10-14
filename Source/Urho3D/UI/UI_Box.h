@@ -33,11 +33,19 @@ namespace Urho3D
 		void SetScale(float x, float y);
 		/// Return UI rendering batches.
 		virtual void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor);
+		/// Return hotspot.
+		const IntVector2& GetHotSpot() const { return hotSpot_; }
+		/// Set hotspot for positioning and rotation.
+		void SetHotSpot(const IntVector2& hotSpot);
+		/// Set hotspot for positioning and rotation.
+		void SetHotSpot(int x, int y);
 	protected:
 		void Refresh();
 		Vector2 scale_;
 		float rotation_{0.0f};
 	private:
+		/// Hotspot for positioning and rotation.
+		IntVector2 hotSpot_{ IntVector2::ZERO };
 		/// Transform matrix.
 		mutable Matrix3x4 transform_;
 		int left_{ 0x7FFFFFFF };

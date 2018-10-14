@@ -16,6 +16,8 @@ namespace Urho3D
         void SetLable(const String& v);
         /// Perform UI element update.
         void Update(float timeStep) override;
+		/// Return UI rendering batches.
+		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
         /// React to mouse click begin.
         virtual void OnClickBegin (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
         /// React to mouse click end.

@@ -47,17 +47,18 @@ function CreateText()
     -- Set style to the UI root so that elements will inherit it
     ui.root.defaultStyle = uiStyle
     local button = UI_Button:new()
-    button.clipX=3;
+    button.clipX=1;
     button.clipY=1;
-    button:SetSize(32,30)
-    --button:SetSizeGrid("1 1 1 1")
+    button:SetSize(60,30)
+    button:SetSizeGrid("1 1 1 1")
+    button:SetLable("按钮")
     button:SetSkin("Textures/bt1.png")
 
     local lable = UI_Label:new()
     lable:SetPosition(100,50)
     lable.isHtml=false
     lable.wordWrap=false
-    lable.text="sadfs123afsdfsadfsdafsdsdasadsdsda"
+    lable.text="按钮"
     ui.root:AddChild(lable)
 
     ui.root:AddChild(button)

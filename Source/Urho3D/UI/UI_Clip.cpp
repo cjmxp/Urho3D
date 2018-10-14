@@ -3,7 +3,6 @@ namespace Urho3D
 {
 	UI_Clip::UI_Clip(Context* context) :
 		UI_Box(context),
-		hotSpot_(IntVector2::ZERO),
 		sizeGrid_(IntRect::ZERO),
         imageRect_(IntRect::ZERO),
 		blendMode_(BLEND_REPLACE)
@@ -12,21 +11,6 @@ namespace Urho3D
 	}
 
 	UI_Clip::~UI_Clip() = default;
-
-	void UI_Clip::SetHotSpot(const IntVector2& hotSpot)
-	{
-		if (hotSpot != hotSpot_)
-		{
-			hotSpot_ = hotSpot;
-			MarkDirty();
-		}
-	}
-
-	void UI_Clip::SetHotSpot(int x, int y)
-	{
-		SetHotSpot(IntVector2(x, y));
-	}
-
 
 	void UI_Clip::SetIndex(int i)
     {

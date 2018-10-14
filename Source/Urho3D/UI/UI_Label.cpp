@@ -249,9 +249,9 @@ namespace Urho3D
                 const FontGlyph& glyph = *glyphLocation.glyph_;
                 UIBatch pageBatch(this->owner_, BLEND_ALPHA, currentScissor, textures[glyph.page_], &vertexData);
                 pageBatch.SetColor(color);
-
-                pageBatch.AddQuad(dx + glyphLocation.x_ + glyph.offsetX_, dy + glyphLocation.y_ + glyph.offsetY_, glyph.width_,
-                    glyph.height_, glyph.x_, glyph.y_, glyph.texWidth_, glyph.texHeight_);
+				Vector2 scale = owner_->GetScale();
+                pageBatch.AddQuad((dx + glyphLocation.x_ + glyph.offsetX_)+ glyph.width_*((1.0 - scale.x_)/2), (dy + glyphLocation.y_ + glyph.offsetY_) + glyph.texHeight_*((1.0 - scale.y_)/2), glyph.width_*scale.x_,
+                    glyph.height_*scale.y_, glyph.x_, glyph.y_, glyph.texWidth_, glyph.texHeight_);
 
                 UIBatch::AddOrMerge(pageBatch, batches);
             }
@@ -588,9 +588,13 @@ namespace Urho3D
         text_ = str;
         Clear();
         AppendText(str);
+		Layout();
     }
     
-    void UI_Label::MarkDirty() { dirty_ = true; }
+    void UI_Label::MarkDirty() {
+		dirty_ = true;
+		positionDirty_ = true;
+	}
 
     void UI_Label::Clear() {
         blocks_.Clear();
@@ -699,13 +703,13 @@ namespace Urho3D
 
     void UI_Label::Layout() {
         DoLayout(textWidth, textHeight, HA_LEFT, 0, 0, GetSize().x_, wordWrap_, blocks_.Begin(), blocks_.End());
+		dirty_ = false;
     }
 
     void UI_Label::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
     {
         if (dirty_) {
             Layout();
-            dirty_ = false;
         }
 
         for (auto& block : blocks_) {

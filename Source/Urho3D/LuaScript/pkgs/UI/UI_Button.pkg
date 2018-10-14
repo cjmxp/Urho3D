@@ -4,6 +4,10 @@ class UI_Button : public UI_Clip
 {
     UI_Button();
     virtual ~UI_Button();
+    const String GetLable();
+    void SetLable(const String text);
+
+    tolua_property__get_set String lable;
 };
 
 ${

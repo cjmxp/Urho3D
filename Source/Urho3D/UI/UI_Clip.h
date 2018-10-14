@@ -28,21 +28,13 @@ namespace Urho3D
         int GetIndex();
         int GetClipX();
         int GetClipY();
-        
-        
-		/// Set hotspot for positioning and rotation.
-		void SetHotSpot(const IntVector2& hotSpot);
-		/// Set hotspot for positioning and rotation.
-		void SetHotSpot(int x, int y);
+
 		/// Set texture.
 		void SetTexture(Texture* texture);
 		/// Set part of texture to use as the image.
 		void SetImageRect(const IntRect& rect);
 		/// Set blend mode.
 		void SetBlendMode(BlendMode mode);
-		/// Return hotspot.
-		const IntVector2& GetHotSpot() const { return hotSpot_; }
-
 		/// Return texture.
 		Texture* GetTexture() const { return texture_; }
 		/// Return image rectangle.
@@ -61,8 +53,7 @@ namespace Urho3D
 		int clipY_{ 1 };
 		int index_{ 0 };
         IntVector2 drawRect_{IntVector2::ZERO};
-		/// Hotspot for positioning and rotation.
-		IntVector2 hotSpot_;
+		
 		IntRect sizeGrid_;
 		/// Rotation angle.
 		/// Texture.

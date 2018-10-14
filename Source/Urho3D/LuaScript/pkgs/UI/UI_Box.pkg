@@ -4,7 +4,26 @@ class UI_Box : public UIElement
 {
     UI_Box();
     virtual ~UI_Box();
+     const Vector2& GetScale() const;
+    void SetScale(const Vector2& scale);
+    void SetScale(float x, float y);
+    
+    void SetPosition(const IntVector2& position);
+    void SetPosition(int x, int y);
+    const IntVector2& GetHotSpot() const;
+    void SetHotSpot(const IntVector2& hotSpot);
+    void SetHotSpot(int x, int y);
+    const Vector2& GetPosition() const;
+    void SetRotation(float angle);
+    float GetRotation() const;
+
     void Margin(int l, int t, int r, int b, int cx, int cy);
+
+    tolua_property__get_set IntVector2& position;
+    tolua_property__get_set IntVector2& hotSpot;
+    tolua_property__get_set float rotation;
+    
+    tolua_property__get_set Vector2& scale;
 };
 ${
 #define TOLUA_DISABLE_tolua_UILuaAPI_UI_Box_new00
