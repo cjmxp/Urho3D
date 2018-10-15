@@ -22,10 +22,13 @@ namespace Urho3D
         virtual void OnClickBegin (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
         /// React to mouse click end.
         virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+		bool GetSelected();
+		void SetSelected(bool v);
 	protected:
 		bool layout_{false};
-		void Layout();
+		virtual void Layout();
 		SharedPtr<UI_Label> lable_;
-		bool pressed_;
+		bool pressed_{ false };
+		bool selected_{ false };
     };
 }

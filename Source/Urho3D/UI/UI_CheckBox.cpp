@@ -9,15 +9,7 @@ namespace Urho3D
         SetEnabled(true);
     }
 	UI_CheckBox::~UI_CheckBox() = default;
-    bool UI_CheckBox::GetSelected(){
-        return selected_;
-    }
-    void UI_CheckBox::SetSelected(bool v){
-        selected_ = v;
-    }
-    void UI_CheckBox::SetSizeGrid(const String& rect){
-        sizeGrid_ = IntRect::ZERO;
-    }
+
 	const IntVector2& UI_CheckBox::GetDrawRect() {
 		return drawRect_;
 	}
@@ -25,39 +17,35 @@ namespace Urho3D
 		if (layout_) {
 			layout_ = false;
 			int y = (drawRect_.y_ - lable_->textHeight) / 2;
-			lable_->SetPosition(drawRect_.x_, y);
+			IntVector2 pos = GetPosition();
+			lable_->SetPosition(IntVector2(pos.x_+drawRect_.x_+2, pos.y_+y+1));
+			SetSize(drawRect_.x_ + lable_->textWidth, drawRect_.y_ > lable_->textHeight ? drawRect_.y_ : lable_->textHeight);
 		}
 	}
 
 	void UI_CheckBox::Update(float timeStep) {
-		if (hovering_ && !selected_) {
+		if (selected_)return;
+		if (hovering_ && !pressed_) {
 			SetIndex(1);
 		}
-		else if (!hovering_ && !selected_) {
+		else if (!hovering_ && !pressed_) {
 			SetIndex(0);
-		}
-		if (!hovering_ && pressed_) {
-			pressed_ = false;
-			using namespace Pressed;
-			VariantMap& eventData = GetEventDataMap();
-			eventData[P_ELEMENT] = this;
-			SendEvent(E_PRESSED, eventData);
 		}
 	}
 
 	void UI_CheckBox::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
 	{
+		if (selected_)return;
 		if (button == MOUSEB_LEFT)
 		{
-			if (selected_) {
-				selected_ = false;
+			if (pressed_) {
 				SetIndex(1);
+				pressed_ = false;
 			}
 			else {
-				selected_ = true;
 				SetIndex(2);
+				pressed_ = true;
 			}
-			pressed_ = true;
 			hovering_ = true;
 			using namespace Released;
 			VariantMap& eventData = GetEventDataMap();
@@ -68,9 +56,9 @@ namespace Urho3D
 
 	void UI_CheckBox::OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement)
 	{
-		if (pressed_ && button == MOUSEB_LEFT)
+		if (selected_)return;
+		if (button == MOUSEB_LEFT)
 		{
-			pressed_ = false;
 			if (IsInside(screenPosition, true))
 				hovering_ = true;
 			using namespace Released;

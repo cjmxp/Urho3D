@@ -12,6 +12,8 @@ namespace Urho3D
         explicit UI_Radio(Context* context);
         /// Destruct.
         ~UI_Radio() override;
+		/// React to mouse click begin.
+		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
         const String& GetValue();
         void SetValue(const String & v);
        

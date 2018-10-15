@@ -48,18 +48,12 @@ function CreateText()
     ui.root.defaultStyle = uiStyle
     local button = UI_Button:new()
     button.clipX=1;
-    button.clipY=1;
+    button.clipY=3;
     button:SetSize(60,30)
-    button:SetSizeGrid("1 1 1 1")
     button:SetLable("按钮")
-    button:SetSkin("Textures/bt1.png")
-
-    local lable = UI_Label:new()
-    lable:SetPosition(100,50)
-    lable.isHtml=false
-    lable.wordWrap=false
-    lable.text="按钮"
-    ui.root:AddChild(lable)
+    button:SetSizeGrid("1 1 1 1")
+    button:SetSkin("Textures/button.png")
+    button:SetPosition(300,50)
 
     ui.root:AddChild(button)
     local text = LineEdit:new()
@@ -74,6 +68,26 @@ function CreateText()
     text.textElement.selectionColor=Color(0, 0, 0, 1)
     text.textElement.color=Color(1, 0, 0, 1)
     ui.root:AddChild(text)
+
+    local checkBox = UI_CheckBox:new()
+    checkBox:SetPosition(150,50)
+    checkBox.clipX=1;
+    checkBox.clipY=3;
+    checkBox.lable="测试"
+    checkBox:SetSizeGrid("1 1 1 1")
+    checkBox:SetSkin("Textures/checkbox.png")
+    ui.root:AddChild(checkBox)
+
+    local radio = UI_Radio:new()
+    radio:SetPosition(200,50)
+    radio.clipX=1;
+    radio.clipY=3;
+    radio.lable="测试"
+    radio:SetSizeGrid("1 1 1 1")
+    radio:SetSkin("Textures/radio.png")
+    ui.root:AddChild(radio)
+
+
 end
 
 function Click(type,event)

@@ -12,9 +12,7 @@ namespace Urho3D
         explicit UI_CheckBox(Context* context);
         /// Destruct.
         ~UI_CheckBox() override;
-        bool GetSelected();
-        void SetSelected(bool v);
-        void SetSizeGrid(const String& rect);
+        
         /// Perform UI element update.
         void Update(float timeStep) override;
         /// React to mouse click begin.
@@ -22,9 +20,8 @@ namespace Urho3D
         /// React to mouse click end.
         virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
 	protected:
-		void Layout();
-		const IntVector2& GetDrawRect();
-	private:
-        bool selected_;
+		virtual void Layout() override;
+		virtual const IntVector2& GetDrawRect();
+		
     };
 }

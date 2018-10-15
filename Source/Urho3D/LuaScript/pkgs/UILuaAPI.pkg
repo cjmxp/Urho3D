@@ -27,6 +27,8 @@ $pfile "UI/UI_Box.pkg"
 $pfile "UI/UI_Clip.pkg"
 $pfile "UI/UI_Label.pkg"
 $pfile "UI/UI_Button.pkg"
+$pfile "UI/UI_CheckBox.pkg"
+$pfile "UI/UI_Radio.pkg"
 
 $using namespace Urho3D;
 $#pragma warning(disable:4800)

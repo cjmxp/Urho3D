@@ -6,8 +6,12 @@ class UI_Button : public UI_Clip
     virtual ~UI_Button();
     const String GetLable();
     void SetLable(const String text);
+    const bool GetSelected();
+    void SetSelected(const bool v);
 
     tolua_property__get_set String lable;
+    
+    tolua_property__get_set bool selected;
 };
 
 ${

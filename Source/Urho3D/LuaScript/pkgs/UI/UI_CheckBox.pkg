@@ -1,0 +1,21 @@
+$#include "UI/UI_CheckBox.h"
+
+class UI_CheckBox : public UI_Button
+{
+    UI_CheckBox();
+    virtual ~UI_CheckBox();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_CheckBox_new00
+static int tolua_UILuaAPI_UI_CheckBox_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_CheckBox>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_CheckBox_new00_local
+static int tolua_UILuaAPI_UI_CheckBox_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_CheckBox>(tolua_S);
+}
+$}

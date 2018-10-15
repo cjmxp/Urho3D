@@ -47,14 +47,14 @@ namespace Urho3D
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
         
     protected:
-        const IntVector2& GetDrawRect();
+		virtual const IntVector2& GetDrawRect();
         String skin_;
 		int clipX_{ 1 };
 		int clipY_{ 1 };
 		int index_{ 0 };
         IntVector2 drawRect_{IntVector2::ZERO};
 		
-		IntRect sizeGrid_;
+		IntRect sizeGrid_{ IntRect::ZERO};
 		/// Rotation angle.
 		/// Texture.
 		SharedPtr<Texture> texture_;
