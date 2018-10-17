@@ -4,9 +4,7 @@
 namespace Urho3D
 {
     UI_Box::UI_Box(Context* context) :
-		UIElement(context),
-		scale_(Vector2::ONE),
-		rotation_(0.0f)
+		UIElement(context)
     {
         SetEnabled(false);
     }
@@ -112,7 +110,7 @@ namespace Urho3D
 	}
 	void UI_Box::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
-		Refresh();
+		Layout();
 		// Reset hovering for next frame
 		hovering_ = false;
 	}
@@ -123,9 +121,9 @@ namespace Urho3D
         bottom_ = b;
         centerX_ = cx;
         centerY_ = cy;
-        Refresh();
+		Layout();
     }
-	void UI_Box::Refresh() {
+	void UI_Box::Layout() {
 		RefreshSize();
 		RefreshPosition();
     }
@@ -150,7 +148,7 @@ namespace Urho3D
                 y=ph-h-bottom_;
             }
         }
-		UIElement::SetPosition(IntVector2(x, y));
+		SetPosition(IntVector2(x, y));
     }
     void UI_Box::RefreshSize(){
         if(parent_==nullptr)return;
@@ -164,6 +162,6 @@ namespace Urho3D
         if(top_ !=0x7FFFFFFF && bottom_ !=0x7FFFFFFF){
             h = ph-top_ -bottom_;
         }
-		UIElement::SetSize(IntVector2(w, h));
+		SetSize(IntVector2(w, h));
     }
 }

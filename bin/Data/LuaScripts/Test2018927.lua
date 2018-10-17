@@ -87,6 +87,11 @@ function CreateText()
     radio:SetSkin("Textures/radio.png")
     ui.root:AddChild(radio)
 
+    local group = UI_Group:new()
+    group:SetSize(500,30)
+    group:SetSizeGrid("1 1 1 1")
+    ui.root:AddChild(group)
+
 
 end
 

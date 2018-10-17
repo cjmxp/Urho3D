@@ -40,8 +40,8 @@ namespace Urho3D
 		/// Set hotspot for positioning and rotation.
 		void SetHotSpot(int x, int y);
 	protected:
-		void Refresh();
-		Vector2 scale_;
+		virtual void Layout();
+		Vector2 scale_{ Vector2::ONE };
 		float rotation_{0.0f};
 	private:
 		/// Hotspot for positioning and rotation.

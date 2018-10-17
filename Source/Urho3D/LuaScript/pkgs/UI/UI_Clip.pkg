@@ -13,15 +13,15 @@ class UI_Clip : public UI_Box
     void SetIndex(int);
 	void SetClipX(int);
 	void SetClipY(int);
-    void SetSkin(const String& skin);
+    void SetSkin(const String skin);
 
     int GetIndex();
     int GetClipX();
 	int GetClipY();
-    const String& GetSkin();
+    const String GetSkin();
     
     const String GetSizeGrid();
-    void SetSizeGrid(const String& rect);
+    void SetSizeGrid(const String rect);
 
     Texture* GetTexture() const;
     const IntRect& GetImageRect() const;
@@ -31,8 +31,8 @@ class UI_Clip : public UI_Box
     tolua_property__get_set int index;
     tolua_property__get_set int clipX;
     tolua_property__get_set int clipY;
-    tolua_property__get_set String& skin;
-    tolua_property__get_set String& sizeGrid;
+    tolua_property__get_set String skin;
+    tolua_property__get_set String sizeGrid;
     
     
     tolua_property__get_set Texture* texture;

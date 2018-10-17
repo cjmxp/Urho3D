@@ -105,14 +105,9 @@ namespace Urho3D
 	{
 		blendMode_ = mode;
 	}
-	bool UI_Clip::IsWithinScissor(const IntRect& currentScissor)
-	{
-		/// \todo Implement properly, for now just checks visibility flag
-		return visible_;
-	}
 	void UI_Clip::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
-		Refresh();
+		Layout();
 		bool allOpaque = true;
 		if (GetDerivedOpacity() < 1.0f || colors_[C_TOPLEFT].a_ < 1.0f || colors_[C_TOPRIGHT].a_ < 1.0f ||
 			colors_[C_BOTTOMLEFT].a_ < 1.0f || colors_[C_BOTTOMRIGHT].a_ < 1.0f)
