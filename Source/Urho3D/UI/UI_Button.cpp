@@ -31,6 +31,7 @@ namespace Urho3D
 		if (layout_) {
 			layout_ = false;
 			const IntVector2& size = GetSize();
+			if (size.x_ < lable_->textWidth + 10)SetWidth(lable_->textWidth + 10);
 			int x = (size.x_ - lable_->textWidth) / 2;
 			int y = (size.y_ - lable_->textHeight) / 2;
 			IntVector2 pos = GetPosition();

@@ -45,6 +45,7 @@ namespace Urho3D
     
 	void UI_Clip::SetSizeGrid(const String& value)
 	{
+		grid_ = value;
         Rect ret = ToRect(value);
         sizeGrid_ = IntRect((int)ret.Min().x_, (int)ret.Min().y_, (int)ret.Max().x_, (int)ret.Max().y_);
 		

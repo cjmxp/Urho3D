@@ -46,12 +46,11 @@ namespace Urho3D
         
     protected:
 		virtual const IntVector2& GetDrawRect();
-        String skin_;
+        String skin_{ String::EMPTY };
 		int clipX_{ 1 };
 		int clipY_{ 1 };
 		int index_{ 0 };
         IntVector2 drawRect_{IntVector2::ZERO};
-		
 		IntRect sizeGrid_{ IntRect::ZERO};
 		/// Rotation angle.
 		/// Texture.

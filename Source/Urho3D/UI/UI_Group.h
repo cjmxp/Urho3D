@@ -46,7 +46,7 @@ namespace Urho3D
 
     protected:
 		Vector<SharedPtr<UI_Button> > nodes_;
-		Direction dir_{ Direction::Vertical };
+		Direction dir_{ Direction::Horizontal };
 		String labels_{ String::EMPTY };
         String skin_{ String::EMPTY };
 		int clipX_{ 1 };

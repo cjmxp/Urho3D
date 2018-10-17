@@ -25,7 +25,6 @@ namespace Urho3D
 		bool GetSelected();
 		void SetSelected(bool v);
 	protected:
-		bool layout_{false};
 		virtual void Layout();
 		SharedPtr<UI_Label> lable_;
 		bool pressed_{ false };
