@@ -50,7 +50,7 @@ namespace Urho3D
 		void SetSize(int width, int height);
 
 	protected:
-		int space_{ 0 };
+		int space_{ 1 };
 		Vector<SharedPtr<UI_Button> > nodes_;
 		Direction dir_{ Direction::Horizontal };
 		String labels_{ String::EMPTY };

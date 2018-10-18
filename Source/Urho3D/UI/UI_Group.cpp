@@ -5,7 +5,7 @@ namespace Urho3D
 		UI_Box(context),
 		blendMode_(BLEND_REPLACE)
 	{
-		
+		SetEnabled(true);
 	}
 
 	UI_Group::~UI_Group() = default;
@@ -36,6 +36,21 @@ namespace Urho3D
 	{
 		if (button == MOUSEB_LEFT)
 		{
+			for (unsigned i = 0; i < nodes_.Size(); i++)
+			{
+				nodes_[i]->SetSelected(false);
+			}
+			for (unsigned i = 0; i < nodes_.Size(); i++)
+			{
+				if (nodes_[i]->GetVisible()) {
+					const IntVector2& post = nodes_[i]->GetPosition() - GetPosition();
+					IntRect rect(post, post + nodes_[i]->GetSize());
+					if (rect.IsInside(position) == INSIDE) {
+						nodes_[i]->SetSelected(true);
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -48,22 +63,26 @@ namespace Urho3D
 			layout_ = false;
 			UI_Box::Layout();
 			int len = 0;
-			int var = 0;
+			int w = 0;
+			int h = 0;
 			const IntVector2& pos = GetPosition();
 			for (unsigned i = 0; i < nodes_.Size(); i++)
 			{
 				if (nodes_[i]->GetVisible()) {
 					if (dir_ == Direction::Horizontal) {
-						nodes_[i]->SetPosition(pos.x_ + var + space_, pos.y_);
-						var += nodes_[i]->GetWidth() + space_;
+						nodes_[i]->SetPosition(pos.x_ + w + space_, pos.y_);
+						w += nodes_[i]->GetWidth() + space_;
+						h = nodes_[i]->GetHeight();
 					}
 					else {
-						nodes_[i]->SetPosition(pos.x_, pos.y_ + var + space_);
-						var += nodes_[i]->GetHeight() + space_;
+						nodes_[i]->SetPosition(pos.x_, pos.y_ + h + space_);
+						w = nodes_[i]->GetWidth();
+						h += nodes_[i]->GetHeight() + space_;
 					}
 					len++;
 				}
 			}
+			UI_Box::SetSize(w,h);
 		}
 
 	}

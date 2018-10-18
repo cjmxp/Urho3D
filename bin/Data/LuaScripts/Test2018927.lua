@@ -46,6 +46,7 @@ function CreateText()
     local uiStyle = cache:GetResource("XMLFile", "UI/DefaultStyle.xml")
     -- Set style to the UI root so that elements will inherit it
     ui.root.defaultStyle = uiStyle
+  --[[
     local button = UI_Button:new()
     button.clipX=1;
     button.clipY=3;
@@ -86,10 +87,14 @@ function CreateText()
     radio:SetSizeGrid("1 1 1 1")
     radio:SetSkin("Textures/radio.png")
     ui.root:AddChild(radio)
-
-    local group = UI_Group:new()
-    group:SetSize(500,30)
-    group:SetSizeGrid("1 1 1 1")
+    ]]--
+    local group = UI_Tab:new()
+    group:SetClipX(1)
+    group:SetClipY(3)
+    group:SetSkin("Textures/tab.png")
+    group:SetSizeGrid("0 0 0 0")
+    group:SetLabels("测试1,测试2,测试3");
+    group:SetPosition(400,50)
     ui.root:AddChild(group)
 
 
