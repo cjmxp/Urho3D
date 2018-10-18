@@ -14,7 +14,7 @@ namespace Urho3D
 		return drawRect_;
 	}
 	void UI_CheckBox::Layout() {
-		if (layout_) {
+		if (layout_ || positionDirty_) {
 			layout_ = false;
 			int y = (drawRect_.y_ - lable_->textHeight) / 2;
 			IntVector2 pos = GetPosition();
@@ -24,6 +24,7 @@ namespace Urho3D
 	}
 
 	void UI_CheckBox::Update(float timeStep) {
+		UI_Clip::Update(timeStep);
 		if (selected_)return;
 		if (hovering_ && !pressed_) {
 			SetIndex(1);

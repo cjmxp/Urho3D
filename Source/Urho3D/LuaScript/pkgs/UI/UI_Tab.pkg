@@ -1,0 +1,23 @@
+$#include "UI/UI_Tab.h"
+
+enum BlendMode{};
+
+class UI_Tab : public UI_Group
+{
+    UI_Tab();
+    virtual ~UI_Tab();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Tab_new00
+static int tolua_UILuaAPI_UI_Tab_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_Tab>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Tab_new00_local
+static int tolua_UILuaAPI_UI_Tab_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_Tab>(tolua_S);
+}
+$}

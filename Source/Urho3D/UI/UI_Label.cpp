@@ -700,7 +700,9 @@ namespace Urho3D
             textWidth = Max(width, textWidth);
         }
     }
-
+	void UI_Label::Update(float timeStep) {
+		if (dirty_) Layout();
+	}
     void UI_Label::Layout() {
         DoLayout(textWidth, textHeight, HA_LEFT, 0, 0, GetSize().x_, wordWrap_, blocks_.Begin(), blocks_.End());
 		dirty_ = false;
@@ -708,10 +710,6 @@ namespace Urho3D
 
     void UI_Label::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
     {
-        if (dirty_) {
-            Layout();
-        }
-
         for (auto& block : blocks_) {
             block->GetBatches(batches, vertexData, currentScissor);
         }

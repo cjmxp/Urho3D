@@ -28,7 +28,7 @@ namespace Urho3D
         int GetIndex();
         int GetClipX();
         int GetClipY();
-
+		virtual void Update(float timeStep) override;
 		/// Set texture.
 		void SetTexture(Texture* texture);
 		/// Set part of texture to use as the image.

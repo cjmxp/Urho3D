@@ -33,18 +33,24 @@ namespace Urho3D
 		void SetDirection(Direction d);
 		Direction GetDirection();
 
+		virtual void Update(float timeStep) override;
 		virtual void SetLabels(const String& value);
 		const String& GetLabels();
 		/// Set blend mode.
 		void SetBlendMode(BlendMode mode);
 		/// Return blend mode.
 		BlendMode GetBlendMode() const { return blendMode_; }
+		/// React to mouse click begin.
+		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
+		/// React to mouse click end.
+		virtual void OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		/// Set size.
 		void SetSize(int width, int height);
 
-    protected:
+	protected:
+		int space_{ 0 };
 		Vector<SharedPtr<UI_Button> > nodes_;
 		Direction dir_{ Direction::Horizontal };
 		String labels_{ String::EMPTY };
@@ -52,7 +58,7 @@ namespace Urho3D
 		int clipX_{ 1 };
 		int clipY_{ 1 };
         IntVector2 drawRect_{IntVector2::ZERO};
-		
+		virtual void Layout() override;
 		IntRect sizeGrid_{ IntRect::ZERO};
 		/// Blend mode flag.
 		BlendMode blendMode_;

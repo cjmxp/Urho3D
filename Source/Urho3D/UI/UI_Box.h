@@ -46,6 +46,7 @@ namespace Urho3D
 		float rotation_{0.0f};
 		bool layout_{ false };
 		String grid_{ String::EMPTY };
+		bool vary_{ false };
 	private:
 		/// Hotspot for positioning and rotation.
 		IntVector2 hotSpot_{ IntVector2::ZERO };

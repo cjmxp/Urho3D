@@ -42,7 +42,6 @@ public:
     virtual void SetTextRange(const char* s, const char* e) {
         s_ = s; e_ = e;
     }
-
     virtual void ApplyAttributes() {}
 
     const IntVector2& GetPosition() const { return position_; }
@@ -190,7 +189,7 @@ public:
     (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor,
         UIElement* beginElement) override;
     void OnHover(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor) override;
-
+	virtual void Update(float timeStep) override;
     void AppendText(const String& str);
     void Clear();
     void SetText(const String& str);

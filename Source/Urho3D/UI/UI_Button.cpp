@@ -28,7 +28,7 @@ namespace Urho3D
     }
 
 	void UI_Button::Layout() {
-		if (layout_) {
+		if (layout_ || positionDirty_) {
 			layout_ = false;
 			const IntVector2& size = GetSize();
 			if (size.x_ < lable_->textWidth + 10)SetWidth(lable_->textWidth + 10);
@@ -42,7 +42,6 @@ namespace Urho3D
 	void UI_Button::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) {
 		UI_Clip::GetBatches(batches, vertexData, currentScissor);
 		if (lable_ != nullptr && lable_->GetText()!= String::EMPTY) {
-			Layout();
 			lable_->GetBatches(batches, vertexData, currentScissor);
 		}
 	}
@@ -65,6 +64,7 @@ namespace Urho3D
 		SetHotSpot(0, 0);
 	}
 	void UI_Button::Update(float timeStep) {
+		UI_Clip::Update(timeStep);
 		if (selected_)return;
 		if (hovering_ && !pressed_) {
 			SetIndex(1);

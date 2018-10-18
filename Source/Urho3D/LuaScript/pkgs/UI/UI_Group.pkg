@@ -12,12 +12,13 @@ class UI_Group : public UI_Box
 	void SetClipX(int);
 	void SetClipY(int);
     void SetSkin(const String skin);
+    const String GetLabels();
+    void SetLabels(const String value);
 
     void SetSize(int width, int height);
     int GetClipX();
 	int GetClipY();
     const String GetSkin();
-    
     void SetSizeGrid(const String rect);
 
     BlendMode GetBlendMode() const;
@@ -26,6 +27,7 @@ class UI_Group : public UI_Box
     tolua_property__get_set int clipY;
     tolua_property__get_set String skin;
     tolua_property__get_set String sizeGrid;
+    tolua_property__get_set String labels;
     
     tolua_property__get_set BlendMode blendMode;
     tolua_readonly tolua_property__get_set Matrix3x4& transform;

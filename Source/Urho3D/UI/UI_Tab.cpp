@@ -34,26 +34,6 @@ namespace Urho3D
 		}
 	}
 
-	void UI_Tab::Layout() {
-		if (layout_) {
-			layout_ = false;
-			UI_Box::Layout();
-			int len = 0;
-			for (unsigned i = 0; i < nodes_.Size(); i++)
-			{
-				if (nodes_[i]->GetVisible()) {
-					nodes_[i]->SetClipX(clipX_);
-					nodes_[i]->SetClipX(clipY_);
-					if (skin_ != String::EMPTY)nodes_[i]->SetSkin(skin_);
-					if (grid_ != String::EMPTY)nodes_[i]->SetSizeGrid(grid_);
-					if (dir_ == Direction::Horizontal) {
-						
-					}
-					len++;
-				}
-			}
-		}
-		
-	}
+	
 	
 }

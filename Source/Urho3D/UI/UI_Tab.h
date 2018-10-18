@@ -16,9 +16,6 @@ namespace Urho3D
 		explicit UI_Tab(Context* context);
 		/// Destruct.
 		~UI_Tab() override;
-        
 		virtual void SetLabels(const String& value) override;
-    protected:
-		virtual void Layout() override;
 	};
 }

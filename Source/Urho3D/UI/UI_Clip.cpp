@@ -16,9 +16,9 @@ namespace Urho3D
     {
 		if (i < 0)i = 0;
 		if (i >= clipX_ * clipY_) i = 0;
-		
 		index_ = i;
 		if (texture_) {
+			vary_ = true;
 			int tw = texture_->GetWidth()/ clipX_;
 			int th = texture_->GetHeight()/ clipY_;
 			int y = index_ / clipX_;
@@ -37,6 +37,7 @@ namespace Urho3D
             auto* cache = GetSubsystem<ResourceCache>();
             auto* tex = cache->GetResource<Texture2D>(skin);
             SetTexture(tex);
+			vary_;
         }
     }
     const String UI_Clip::GetSizeGrid(){
@@ -45,10 +46,12 @@ namespace Urho3D
     
 	void UI_Clip::SetSizeGrid(const String& value)
 	{
-		grid_ = value;
-        Rect ret = ToRect(value);
-        sizeGrid_ = IntRect((int)ret.Min().x_, (int)ret.Min().y_, (int)ret.Max().x_, (int)ret.Max().y_);
-		
+		if (grid_ != value && value!=String::EMPTY) {
+			grid_ = value;
+			Rect ret = ToRect(value);
+			sizeGrid_ = IntRect((int)ret.Min().x_, (int)ret.Min().y_, (int)ret.Max().x_, (int)ret.Max().y_);
+			vary_ = true;
+		} 
 	}
 	void UI_Clip::SetClipX(int i) {
 		if (i <= 0) {
@@ -56,6 +59,7 @@ namespace Urho3D
 		}else {
 			clipX_ = i;
 		}
+		vary_ = true;
 	}
 
 	void UI_Clip::SetClipY(int i) {
@@ -65,6 +69,7 @@ namespace Urho3D
 		else {
 			clipY_ = i;
 		}
+		vary_ = true;
 	}
 
 	int UI_Clip::GetIndex() {
@@ -82,33 +87,39 @@ namespace Urho3D
 	void UI_Clip::SetTexture(Texture* texture)
 	{
 		texture_ = texture;
-		if (imageRect_ == IntRect::ZERO) {
-			if (texture_){
-                if(drawRect_==IntVector2::ZERO){
-                    drawRect_.x_ = texture_->GetWidth()/ clipX_;
-                    drawRect_.y_ = texture_->GetHeight()/ clipY_;
-                }
-                if (GetWidth() <= 0 || GetHeight() <= 0) SetSize(drawRect_.x_,drawRect_.y_);
-				SetIndex(index_);
-			}
-		}
 	}
     const IntVector2& UI_Clip::GetDrawRect(){
         return GetSize();
     }
 	void UI_Clip::SetImageRect(const IntRect& rect)
 	{
-		if (rect != IntRect::ZERO)
+		if (rect != IntRect::ZERO && imageRect_!= rect) {
 			imageRect_ = rect;
+		}
 	}
 
 	void UI_Clip::SetBlendMode(BlendMode mode)
 	{
 		blendMode_ = mode;
 	}
+	void UI_Clip::Update(float timeStep) {
+		if (vary_) {
+			SetIndex(index_);
+			if (texture_) {
+				if (drawRect_ == IntVector2::ZERO) {
+					drawRect_.x_ = texture_->GetWidth() / clipX_;
+					drawRect_.y_ = texture_->GetHeight() / clipY_;
+				}
+				if (GetWidth() <= 0 || GetHeight() <= 0) {
+					SetSize(drawRect_.x_, drawRect_.y_);
+				}
+			}
+			vary_ = false;
+		}
+		Layout();
+	}
 	void UI_Clip::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
-		Layout();
 		bool allOpaque = true;
 		if (GetDerivedOpacity() < 1.0f || colors_[C_TOPLEFT].a_ < 1.0f || colors_[C_TOPRIGHT].a_ < 1.0f ||
 			colors_[C_BOTTOMLEFT].a_ < 1.0f || colors_[C_BOTTOMRIGHT].a_ < 1.0f)
