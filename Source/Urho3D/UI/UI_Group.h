@@ -26,7 +26,9 @@ namespace Urho3D
         const String GetSizeGrid();
         void SetClipX(int);
         void SetClipY(int);
-
+		int GetSelectedIndex();
+		void SetSelectedIndex(int index);
+		const String& GetSelectedValue();
         int GetClipX();
         int GetClipY();
 
@@ -42,14 +44,14 @@ namespace Urho3D
 		BlendMode GetBlendMode() const { return blendMode_; }
 		/// React to mouse click begin.
 		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
-		/// React to mouse click end.
-		virtual void OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		/// Set size.
 		void SetSize(int width, int height);
 
 	protected:
+		String selectedvalue_{ String::EMPTY };
+		int selectedindex_{ -1 };
 		int space_{ 1 };
 		Vector<SharedPtr<UI_Button> > nodes_;
 		Direction dir_{ Direction::Horizontal };

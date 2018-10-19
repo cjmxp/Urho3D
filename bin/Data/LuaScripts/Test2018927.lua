@@ -89,11 +89,12 @@ function CreateText()
     ui.root:AddChild(radio)
     ]]--
     local group = UI_Tab:new()
-    group:SetClipX(1)
-    group:SetClipY(3)
-    group:SetSkin("Textures/tab.png")
+    group.clipX=1
+    group.clipY=3
+    group.skin="Textures/tab.png"
+    group.selectedIndex=0
     group:SetSizeGrid("0 0 0 0")
-    group:SetLabels("测试1,测试2,测试3");
+    group.labels="测试1,测试2,测试3"
     group:SetPosition(400,50)
     ui.root:AddChild(group)
 

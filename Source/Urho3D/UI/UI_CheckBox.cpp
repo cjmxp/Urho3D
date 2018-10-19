@@ -48,10 +48,12 @@ namespace Urho3D
 				pressed_ = true;
 			}
 			hovering_ = true;
-			using namespace Released;
-			VariantMap& eventData = GetEventDataMap();
-			eventData[P_ELEMENT] = this;
-			SendEvent(E_PRESSED, eventData);
+			if (enabled_) {
+				using namespace Released;
+				VariantMap& eventData = GetEventDataMap();
+				eventData[P_ELEMENT] = this;
+				SendEvent(E_PRESSED, eventData);
+			}
 		}
 	}
 
@@ -62,10 +64,12 @@ namespace Urho3D
 		{
 			if (IsInside(screenPosition, true))
 				hovering_ = true;
-			using namespace Released;
-			VariantMap& eventData = GetEventDataMap();
-			eventData[P_ELEMENT] = this;
-			SendEvent(E_RELEASED, eventData);
+			if (enabled_) {
+				using namespace Released;
+				VariantMap& eventData = GetEventDataMap();
+				eventData[P_ELEMENT] = this;
+				SendEvent(E_RELEASED, eventData);
+			}
 		}
 	}
 }

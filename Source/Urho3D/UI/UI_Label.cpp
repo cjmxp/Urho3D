@@ -566,11 +566,12 @@ namespace Urho3D
                 }
             }
             if (ok) {
-                using namespace UIHtmlLinkClick;
-
-                VariantMap& eventData = GetEventDataMap();
-                eventData[P_HREF] = ((HtmlBlockLink*)clickable)->href_;
-                SendEvent(E_UIHTMLLINKCLICK, eventData);
+				if (enabled_) {
+					using namespace UIHtmlLinkClick;
+					VariantMap& eventData = GetEventDataMap();
+					eventData[P_HREF] = ((HtmlBlockLink*)clickable)->href_;
+					SendEvent(E_UIHTMLLINKCLICK, eventData);
+				}
             }
         }
     }

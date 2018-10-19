@@ -1,6 +1,7 @@
 $#include "UI/UI_Group.h"
 
 enum BlendMode{};
+enum Direction{};
 
 class UI_Group : public UI_Box
 {
@@ -14,23 +15,31 @@ class UI_Group : public UI_Box
     void SetSkin(const String skin);
     const String GetLabels();
     void SetLabels(const String value);
+    const String GetSelectedValue();
+
+    void SetDirection(Direction d);
+    Direction GetDirection();
 
     void SetSize(int width, int height);
     int GetClipX();
 	int GetClipY();
     const String GetSkin();
     void SetSizeGrid(const String rect);
+    int GetSelectedIndex();
+    void SetSelectedIndex(int index);
 
     BlendMode GetBlendMode() const;
 
+    tolua_property__get_set Direction direction;
+    tolua_property__get_set int selectedIndex;
     tolua_property__get_set int clipX;
     tolua_property__get_set int clipY;
     tolua_property__get_set String skin;
     tolua_property__get_set String sizeGrid;
     tolua_property__get_set String labels;
     
-    tolua_property__get_set BlendMode blendMode;
     tolua_readonly tolua_property__get_set Matrix3x4& transform;
+    tolua_readonly tolua_property__get_set const String selectedValue;
 };
 
 ${

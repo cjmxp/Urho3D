@@ -1,4 +1,5 @@
 #include "../UI/UI_Group.h"
+#include "../UI/UIEvents.h"
 namespace Urho3D
 {
 	UI_Group::UI_Group(Context* context) :
@@ -24,12 +25,19 @@ namespace Urho3D
 			}
 		}
 		Layout();
-		for (unsigned i = 0; i < nodes_.Size(); i++)
-		{
-			if (nodes_[i]->GetVisible()) {
-				nodes_[i]->Update(timeStep);
+		if (vary_) {
+			for (unsigned i = 0; i < nodes_.Size(); i++)
+			{
+				if (nodes_[i]->GetVisible()) {
+					nodes_[i]->Update(timeStep);
+					if (selectedindex_ != -1 && i == selectedindex_) {
+						nodes_[i]->SetSelected(true);
+						selectedvalue_ = nodes_[i]->GetValue();
+					}
+				}
 			}
 		}
+		vary_ = false;
 	}
 
 	void UI_Group::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
@@ -47,17 +55,33 @@ namespace Urho3D
 					IntRect rect(post, post + nodes_[i]->GetSize());
 					if (rect.IsInside(position) == INSIDE) {
 						nodes_[i]->SetSelected(true);
+						selectedvalue_ = nodes_[i]->GetValue();
+						if (enabled_) {
+							using namespace Pressed;
+							VariantMap& eventData = GetEventDataMap();
+							eventData[P_ELEMENT] = this;
+							SendEvent(E_PRESSED, eventData);
+						}
 						break;
 					}
 				}
 			}
 		}
 	}
-
-	void UI_Group::OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement)
-	{
-	
+	void UI_Group::SetSelectedIndex(int v) {
+		if (selectedindex_ != v) {
+			selectedindex_ = v;
+			vary_ = true;
+		}
+		
 	}
+	int UI_Group::GetSelectedIndex() {
+		return selectedindex_;
+	}
+	const String& UI_Group::GetSelectedValue() {
+		return selectedvalue_;
+	}
+
 	void UI_Group::Layout() {
 		if (layout_) {
 			layout_ = false;

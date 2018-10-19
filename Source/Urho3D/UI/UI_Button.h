@@ -24,10 +24,13 @@ namespace Urho3D
         virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
 		bool GetSelected();
 		void SetSelected(bool v);
+		const String& GetValue();
+		void SetValue(const String & v);
 	protected:
+		bool selected_{ false };
+		bool pressed_{ false };
+		String value_{String::EMPTY};
 		virtual void Layout();
 		SharedPtr<UI_Label> lable_;
-		bool pressed_{ false };
-		bool selected_{ false };
     };
 }

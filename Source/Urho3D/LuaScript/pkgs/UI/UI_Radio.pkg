@@ -4,10 +4,6 @@ class UI_Radio : public UI_CheckBox
 {
     UI_Radio();
     virtual ~UI_Radio();
-    const String GetValue();
-    void SetValue(const String v);
-
-    tolua_property__get_set String value;
 };
 
 ${

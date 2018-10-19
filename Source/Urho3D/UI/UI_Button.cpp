@@ -10,7 +10,13 @@ namespace Urho3D
     }
     
     UI_Button::~UI_Button() = default;
-    
+	const String& UI_Button::GetValue()
+	{
+		return value_;
+	}
+	void UI_Button::SetValue(const Urho3D::String &v) {
+		value_ = v;
+	}
     const String& UI_Button::GetLable(){
         if(lable_!=nullptr)return lable_->GetText();
         return String::EMPTY;
@@ -72,10 +78,12 @@ namespace Urho3D
 		}
 		else if (!hovering_ && pressed_) {
 			pressed_ = false;
-			using namespace Pressed;
-			VariantMap& eventData = GetEventDataMap();
-			eventData[P_ELEMENT] = this;
-			SendEvent(E_PRESSED, eventData);
+			if (enabled_) {
+				using namespace Pressed;
+				VariantMap& eventData = GetEventDataMap();
+				eventData[P_ELEMENT] = this;
+				SendEvent(E_PRESSED, eventData);
+			}
 		}
 		else if (!hovering_) {
 			SetIndex(0);
@@ -102,10 +110,12 @@ namespace Urho3D
 				}
 				pressed_ = true;
 				hovering_ = true;
-				using namespace Released;
-				VariantMap& eventData = GetEventDataMap();
-				eventData[P_ELEMENT] = this;
-				SendEvent(E_PRESSED, eventData);
+				if (enabled_) {
+					using namespace Released;
+					VariantMap& eventData = GetEventDataMap();
+					eventData[P_ELEMENT] = this;
+					SendEvent(E_PRESSED, eventData);
+				}
 			}
         }
     }
@@ -125,10 +135,12 @@ namespace Urho3D
             pressed_ = false;
             if (IsInside(screenPosition, true))
                 hovering_ = true;
-            using namespace Released;
-            VariantMap& eventData = GetEventDataMap();
-            eventData[P_ELEMENT] = this;
-            SendEvent(E_RELEASED, eventData);
+			if (enabled_) {
+				using namespace Released;
+				VariantMap& eventData = GetEventDataMap();
+				eventData[P_ELEMENT] = this;
+				SendEvent(E_RELEASED, eventData);
+			}
         }
     }
 }
