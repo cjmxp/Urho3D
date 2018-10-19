@@ -1,1 +1,1 @@
-LuaScripts/Test2018927.lua -w -s -v -x 1280 -y 720
+LuaScripts/37_UIDrag.lua -w -s -v -x 1280 -y 720
