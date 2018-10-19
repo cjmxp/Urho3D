@@ -20,6 +20,9 @@ class UI_Group : public UI_Box
     void SetDirection(Direction d);
     Direction GetDirection();
 
+    int GetSpace();
+    void SetSpace(int v);
+
     void SetSize(int width, int height);
     int GetClipX();
 	int GetClipY();
@@ -32,6 +35,7 @@ class UI_Group : public UI_Box
 
     tolua_property__get_set Direction direction;
     tolua_property__get_set int selectedIndex;
+    tolua_property__get_set int space;
     tolua_property__get_set int clipX;
     tolua_property__get_set int clipY;
     tolua_property__get_set String skin;

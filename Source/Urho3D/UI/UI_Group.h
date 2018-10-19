@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Core/StringUtils.h"
 #include "../UI/UI_Button.h"
 #include "../UI/UI_Box.h"
 
@@ -21,23 +20,25 @@ namespace Urho3D
 		~UI_Group() override;
         
         void SetSkin(const String& skin);
-        const String& GetSkin();
+		const String& GetSkin()const { return skin_; };
         void SetSizeGrid(const String& rect);
         const String GetSizeGrid();
         void SetClipX(int);
         void SetClipY(int);
 		int GetSelectedIndex();
 		void SetSelectedIndex(int index);
-		const String& GetSelectedValue();
+		const String& GetSelectedValue()const { return selectedvalue_; };
         int GetClipX();
         int GetClipY();
 
+		int GetSpace() { return space_; };
+		void SetSpace(int v) { space_ = v; };
 		void SetDirection(Direction d);
 		Direction GetDirection();
 
 		virtual void Update(float timeStep) override;
 		virtual void SetLabels(const String& value);
-		const String& GetLabels();
+		const String& GetLabels()const { return labels_; };
 		/// Set blend mode.
 		void SetBlendMode(BlendMode mode);
 		/// Return blend mode.
@@ -48,8 +49,16 @@ namespace Urho3D
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		/// Set size.
 		void SetSize(int width, int height);
-
+		const String& GetColor()const { return color_; };
+		void SetColor(const String& value);
+		const String& GetFont()const { return font_; };
+		void SetFont(const String& value);
+		int GetFontSize() { return fontSize_; };
+		void SetFontSize(int v);
 	protected:
+		int fontSize_{ 0 };
+		String color_{ String::EMPTY };
+		String font_{ String::EMPTY };
 		String selectedvalue_{ String::EMPTY };
 		int selectedindex_{ -1 };
 		int space_{ 1 };

@@ -195,7 +195,12 @@ public:
     void SetText(const String& str);
     const String& GetText() const {return text_;};
     void AppendBlock(Block* block);
-    
+	const String& GetColor()const { return color_; };
+	void SetColor(const String& value);
+	const String& GetFont()const { return font_; };
+	void SetFont(const String& value);
+	int GetFontSize() { return fontSize_; };
+	void SetFontSize(int v);
     void MarkDirty();
     void Layout();
     bool GetWordWrap(){return wordWrap_;}
@@ -207,14 +212,13 @@ public:
     void SetIsHtml(bool b) {
         htmlEnable_ = b;
     }
-    String color{"1 0 0"};
-    String font{ "Fonts/kaiti.ttf" };
-    int fontSize{ 12 };
+    String color_{"1 0 0"};
+    String font_{ "Fonts/kaiti.ttf" };
+    int fontSize_{ 12 };
     int textWidth;
     int textHeight;
 protected:
 	String text_{ String::EMPTY };
-   
     bool htmlEnable_{ 1 };
     bool wordWrap_{ 1 };
     bool dirty_{0};

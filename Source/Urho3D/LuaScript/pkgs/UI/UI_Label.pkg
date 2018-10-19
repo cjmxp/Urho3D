@@ -5,12 +5,18 @@ class UI_Label : public UI_Clip
     UI_Label();
     virtual ~UI_Label();
     const String GetText() const;
-    void SetText(const String text);
+    void SetText(const String v);
+    const String GetColor() const;
+    void SetColor(const String v);
+    const String GetFont() const;
+    void SetFont(const String v);
     bool GetWordWrap();
     void SetWordWrap(bool b);
     bool GetIsHtml();
     void SetIsHtml(bool b);
 
+    tolua_property__get_set String color;
+    tolua_property__get_set String font;
     tolua_property__get_set String text;
     tolua_property__get_set bool wordWrap;
     tolua_property__get_set bool isHtml;

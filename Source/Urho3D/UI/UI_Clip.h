@@ -17,8 +17,8 @@ namespace Urho3D
 		/// Destruct.
 		~UI_Clip() override;
         
-        void SetSkin(const String& skin);
-        const String& GetSkin();
+		void SetSkin(const String& skin);
+        const String& GetSkin()const { return skin_; };
         void SetSizeGrid(const String& rect);
         const String GetSizeGrid();
         void SetIndex(int);

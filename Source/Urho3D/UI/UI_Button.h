@@ -12,7 +12,7 @@ namespace Urho3D
         explicit UI_Button(Context* context);
         /// Destruct.
         ~UI_Button() override;
-        const String& GetLable();
+        const String& GetLable()const;
         void SetLable(const String& v);
         /// Perform UI element update.
         void Update(float timeStep) override;
@@ -22,11 +22,20 @@ namespace Urho3D
         virtual void OnClickBegin (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
         /// React to mouse click end.
         virtual void OnClickEnd (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+		const String& GetColor()const { return color_; };
+		void SetColor(const String& value);
+		const String& GetFont()const { return font_; };
+		void SetFont(const String& value);
+		int GetFontSize() { return fontSize_; };
+		void SetFontSize(int v);
 		bool GetSelected();
 		void SetSelected(bool v);
-		const String& GetValue();
+		const String& GetValue()const { return value_; };
 		void SetValue(const String & v);
 	protected:
+		int fontSize_{ 0 };
+		String color_{ String::EMPTY };
+		String font_{ String::EMPTY };
 		bool selected_{ false };
 		bool pressed_{ false };
 		String value_{String::EMPTY};

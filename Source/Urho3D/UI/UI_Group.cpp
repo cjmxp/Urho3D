@@ -9,7 +9,7 @@ namespace Urho3D
 		SetEnabled(true);
 	}
 
-	UI_Group::~UI_Group() = default;
+	UI_Group::~UI_Group(){};
 
 	void UI_Group::Update(float timeStep) {
 		if (vary_) {
@@ -20,6 +20,10 @@ namespace Urho3D
 					nodes_[i]->SetClipY(clipY_);
 					if (skin_ != String::EMPTY)nodes_[i]->SetSkin(skin_);
 					if (grid_ != String::EMPTY)nodes_[i]->SetSizeGrid(grid_);
+					if (color_ != String::EMPTY)nodes_[i]->SetColor(color_);
+					if (font_ != String::EMPTY)nodes_[i]->SetFont(font_);
+					if (fontSize_> 0)nodes_[i]->SetFontSize(fontSize_);
+					
 					nodes_[i]->Update(timeStep);
 				}
 			}
@@ -51,7 +55,7 @@ namespace Urho3D
 			for (unsigned i = 0; i < nodes_.Size(); i++)
 			{
 				if (nodes_[i]->GetVisible()) {
-					const IntVector2& post = nodes_[i]->GetPosition() - GetPosition();
+					const IntVector2& post = nodes_[i]->GetPosition();
 					IntRect rect(post, post + nodes_[i]->GetSize());
 					if (rect.IsInside(position) == INSIDE) {
 						nodes_[i]->SetSelected(true);
@@ -78,10 +82,24 @@ namespace Urho3D
 	int UI_Group::GetSelectedIndex() {
 		return selectedindex_;
 	}
-	const String& UI_Group::GetSelectedValue() {
-		return selectedvalue_;
+	void UI_Group::SetColor(const String& v) {
+		if (color_ != v && v != String::EMPTY) {
+			color_ = v;
+			vary_ = true;
+		}
 	}
-
+	void UI_Group::SetFont(const String& v) {
+		if (font_ != v && v != String::EMPTY) {
+			font_ = v;
+			vary_ = true;
+		}
+	}
+	void UI_Group::SetFontSize(int v) {
+		if (fontSize_ != v) {
+			fontSize_ = v;
+			vary_ = true;
+		}
+	}
 	void UI_Group::Layout() {
 		if (layout_) {
 			layout_ = false;
@@ -89,31 +107,32 @@ namespace Urho3D
 			int len = 0;
 			int w = 0;
 			int h = 0;
-			const IntVector2& pos = GetPosition();
 			for (unsigned i = 0; i < nodes_.Size(); i++)
 			{
 				if (nodes_[i]->GetVisible()) {
 					if (dir_ == Direction::Horizontal) {
-						nodes_[i]->SetPosition(pos.x_ + w + space_, pos.y_);
+						nodes_[i]->SetPosition( w , 0);
 						w += nodes_[i]->GetWidth() + space_;
 						h = nodes_[i]->GetHeight();
 					}
 					else {
-						nodes_[i]->SetPosition(pos.x_, pos.y_ + h + space_);
+						nodes_[i]->SetPosition(0, + h);
 						w = nodes_[i]->GetWidth();
 						h += nodes_[i]->GetHeight() + space_;
 					}
 					len++;
 				}
 			}
-			UI_Box::SetSize(w,h);
+			if (dir_ == Direction::Horizontal) {
+				UI_Box::SetSize(w- space_, h);
+			}
+			else {
+				UI_Box::SetSize(w, h - space_);
+			}
+			
 		}
 
 	}
-    const String& UI_Group::GetSkin()
-    {
-        return skin_;
-    }
 
 	void UI_Group::SetLabels(const String& labels) {
 		if (labels_ != labels) {
@@ -121,9 +140,6 @@ namespace Urho3D
 			vary_ = true;
 			layout_ = true;
 		}
-	}
-	const String& UI_Group::GetLabels() {
-		return labels_;
 	}
 
 	void UI_Group::SetDirection(Direction d) {

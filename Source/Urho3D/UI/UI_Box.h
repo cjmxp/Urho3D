@@ -40,6 +40,7 @@ namespace Urho3D
 		/// Set hotspot for positioning and rotation.
 		void SetHotSpot(int x, int y);
 		bool GetVisible() { return visible_; }
+		void SetParent(UIElement * parent) { parent_ = parent; };
 	protected:
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };

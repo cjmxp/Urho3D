@@ -9,15 +9,15 @@ namespace Urho3D
         SetEnabled(true);
     }
     
-    UI_Button::~UI_Button() = default;
-	const String& UI_Button::GetValue()
-	{
-		return value_;
+	UI_Button::~UI_Button() {
+		if (lable_ != nullptr) {
+			lable_->SetParent(nullptr);
+		}
 	}
 	void UI_Button::SetValue(const Urho3D::String &v) {
 		value_ = v;
 	}
-    const String& UI_Button::GetLable(){
+    const String& UI_Button::GetLable() const{
         if(lable_!=nullptr)return lable_->GetText();
         return String::EMPTY;
     }
@@ -25,6 +25,7 @@ namespace Urho3D
     void UI_Button::SetLable(const String& v){
         if(lable_==nullptr){
             lable_ = SharedPtr<UI_Label>(new UI_Label(GetContext()));
+			lable_->SetParent(this);
             lable_->SetEnabled(false);
             lable_->SetIsHtml(false);
             lable_->SetWordWrap(false);
@@ -33,7 +34,26 @@ namespace Urho3D
 		layout_ = true;
     }
 
+	void UI_Button::SetColor(const String& v) {
+		if (color_ != v && v!=String::EMPTY) {
+			color_ = v;
+			vary_ = true;
+		}
+	}
+	void UI_Button::SetFont(const String& v) {
+		if (font_ != v && v != String::EMPTY) {
+			font_ = v;
+			vary_ = true;
+		}
+	}
+	void UI_Button::SetFontSize(int v) {
+		if (fontSize_ != v ) {
+			fontSize_ = v;
+			vary_ = true;
+		}
+	}
 	void UI_Button::Layout() {
+		if (lable_ == nullptr)return;
 		if (layout_ || positionDirty_) {
 			layout_ = false;
 			const IntVector2& size = GetSize();
@@ -41,8 +61,13 @@ namespace Urho3D
 			if (size.y_ < lable_->textHeight + 4)SetHeight(lable_->textHeight + 4);
 			int x = (size.x_ - lable_->textWidth) / 2;
 			int y = (size.y_ - lable_->textHeight) / 2;
-			IntVector2 pos = GetPosition();
-			lable_->SetPosition(IntVector2(pos.x_ + x, pos.y_ + y));
+			lable_->SetPosition(IntVector2( x,y));
+		}
+		if (vary_) {
+			if(color_!=String::EMPTY)lable_->SetColor(color_);
+			if (font_ != String::EMPTY)lable_->SetFont(font_);
+			if (fontSize_> 0)lable_->SetFontSize(fontSize_);
+			lable_->SetText(lable_->GetText());
 		}
 	}
    

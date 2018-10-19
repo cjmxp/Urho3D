@@ -31,6 +31,8 @@ $pfile "UI/UI_CheckBox.pkg"
 $pfile "UI/UI_Radio.pkg"
 $pfile "UI/UI_Group.pkg"
 $pfile "UI/UI_Tab.pkg"
+$pfile "UI/UI_RadioGroup.pkg"
+
 
 $using namespace Urho3D;
 $#pragma warning(disable:4800)

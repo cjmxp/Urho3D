@@ -1,16 +1,16 @@
-#include "../UI/UI_Button.h"
-#include "../UI/UI_Tab.h"
+#include "../UI/UI_Radio.h"
+#include "../UI/UI_RadioGroup.h"
 namespace Urho3D
 {
-	UI_Tab::UI_Tab(Context* context) :
+	UI_RadioGroup::UI_RadioGroup(Context* context) :
 		UI_Group(context)
 	{
 		
 	}
 
-	UI_Tab::~UI_Tab() = default;
+	UI_RadioGroup::~UI_RadioGroup() = default;
 
-	void UI_Tab::SetLabels(const String& labels) {
+	void UI_RadioGroup::SetLabels(const String& labels) {
 		if (labels_ != labels) {
 			labels_ = labels;
 			for (unsigned i = 0; i < nodes_.Size(); i++)
@@ -21,7 +21,7 @@ namespace Urho3D
 			for (unsigned i = 0; i < node.Size(); i++)
 			{
 				if (i >= nodes_.Size()) {
-					nodes_.Push(SharedPtr<UI_Button>(new UI_Button(GetContext())));
+					nodes_.Push(SharedPtr<UI_Button>(new UI_Radio(GetContext())));
 					nodes_[i]->SetVisible(true);
 					nodes_[i]->SetLable(node[i]);
 					nodes_[i]->SetParent(this);
@@ -34,7 +34,4 @@ namespace Urho3D
 			layout_ = true;
 		}
 	}
-
-	
-	
 }

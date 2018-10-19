@@ -225,13 +225,13 @@ namespace Urho3D
     void HtmlBlockTextStart::ApplyAttributes() {
         auto* cache = owner_->GetSubsystem<ResourceCache>();
         if(color_==Color::WHITE){
-            color_ = ToColor(owner_->color);
+            color_ = ToColor(owner_->color_);
         }
         if(fontSize_<=0){
-            fontSize_ = owner_->fontSize;
+            fontSize_ = owner_->fontSize_;
         }
         if(fontName_==String::EMPTY){
-            fontName_ = owner_->font;
+            fontName_ = owner_->font_;
         }
         font_ = cache->GetResource<Font>(fontName_);
         fontface_ = font_ ? font_->GetFace(fontSize_) : nullptr;
@@ -584,7 +584,23 @@ namespace Urho3D
     {
     }
 
-    
+	void UI_Label::SetColor(const String& value) {
+		if (color_ != value && value!=String::EMPTY) {
+			color_ = value;
+		}
+		
+	}
+
+	void UI_Label::SetFont(const String& value) {
+		if (font_ != value && value != String::EMPTY) {
+			font_ = value;
+		}
+	}
+	void UI_Label::SetFontSize(int value) {
+		if (fontSize_ != value ) {
+			fontSize_ = value;
+		}
+	}
     void UI_Label::SetText(const Urho3D::String &str){
         text_ = str;
         Clear();

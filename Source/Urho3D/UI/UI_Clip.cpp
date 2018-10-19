@@ -26,10 +26,6 @@ namespace Urho3D
 			SetImageRect(IntRect(x*tw, y*th, tw, th));
 		}
 	}
-    const String& UI_Clip::GetSkin()
-    {
-        return skin_;
-    }
     void UI_Clip::SetSkin(const String& skin)
     {
         if(skin_ != skin && skin!=""){
@@ -114,9 +110,9 @@ namespace Urho3D
 					SetSize(drawRect_.x_, drawRect_.y_);
 				}
 			}
-			vary_ = false;
 		}
 		Layout();
+		vary_ = false;
 	}
 	void UI_Clip::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
