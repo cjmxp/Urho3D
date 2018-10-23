@@ -41,6 +41,7 @@ namespace Urho3D
 		void SetHotSpot(int x, int y);
 		bool GetVisible() { return visible_; }
 		void SetParent(UIElement * parent) { parent_ = parent; };
+		bool InRect(const IntRect& rect, const IntVector2& pos);
 	protected:
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };

@@ -11,6 +11,15 @@ namespace Urho3D
 		explicit UI_HSlider(Context* context);
 		/// Destruct.
 		~UI_HSlider() override;
+		virtual void OnHover(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
+		virtual void Update(float timeStep) override;
+		/// React to mouse click begin.
+		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
+		/// React to mouse click end.
+		virtual void OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+		/// Return UI rendering batches.
+		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
+		void SetSkin(const String& skin);
 		SharedPtr<UI_Button> button{nullptr};
 	};
 }

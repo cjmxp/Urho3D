@@ -33,7 +33,7 @@ namespace Urho3D
             auto* cache = GetSubsystem<ResourceCache>();
             auto* tex = cache->GetResource<Texture2D>(skin);
             SetTexture(tex);
-			vary_;
+			vary_ = true;
         }
     }
     const String UI_Clip::GetSizeGrid(){

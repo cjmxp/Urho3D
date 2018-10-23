@@ -1,0 +1,26 @@
+$#include "UI/UI_HSlider.h"
+
+enum BlendMode{};
+
+class UI_HSlider : public UI_Clip
+{
+    UI_HSlider();
+    virtual ~UI_HSlider();
+    void SetSkin(const String skin);
+    const String GetSkin();
+    tolua_property__get_set String skin;
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_HSlider_new00
+static int tolua_UILuaAPI_UI_HSlider_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_HSlider>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_HSlider_new00_local
+static int tolua_UILuaAPI_UI_HSlider_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_HSlider>(tolua_S);
+}
+$}

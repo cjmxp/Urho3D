@@ -108,6 +108,12 @@ namespace Urho3D
 		Vector3 transformedPos = GetTransform() * floatPos;
 		return IntVector2((int)transformedPos.x_, (int)transformedPos.y_);
 	}
+	bool UI_Box::InRect(const IntRect& rect, const IntVector2& pos) {
+		if (rect == IntRect::ZERO) {
+			return IntRect(GetPosition(), GetPosition()+GetSize()).IsInside(pos);
+		}
+		return rect.IsInside(pos);
+	}
 	void UI_Box::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
 		Layout();

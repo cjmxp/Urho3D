@@ -55,9 +55,7 @@ namespace Urho3D
 			for (unsigned i = 0; i < nodes_.Size(); i++)
 			{
 				if (nodes_[i]->GetVisible()) {
-					const IntVector2& post = nodes_[i]->GetPosition();
-					IntRect rect(post, post + nodes_[i]->GetSize());
-					if (rect.IsInside(position) == INSIDE) {
+					if (nodes_[i]->InRect(IntRect::ZERO,position) == INSIDE) {
 						nodes_[i]->SetSelected(true);
 						selectedvalue_ = nodes_[i]->GetValue();
 						if (enabled_) {

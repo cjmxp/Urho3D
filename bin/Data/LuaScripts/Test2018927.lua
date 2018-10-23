@@ -70,6 +70,7 @@ function CreateText()
     text.textElement.color=Color(1, 0, 0, 1)
     ui.root:AddChild(text)
 ]]--
+--[[
     local checkBox = UI_CheckBox:new()
     checkBox:SetPosition(100,0)
     checkBox.clipX=1;
@@ -117,15 +118,21 @@ function CreateText()
     clip.sizeGrid="5 30 5 5"
     clip:SetPosition(100,200)
     clip:SetSize(200,200)
+]]--
+    local hslider = UI_HSlider:new()
+    hslider.skin="Textures/hslider.png"
+    --hslider.sizeGrid="5 30 5 5"
+    hslider:SetPosition(100,250)
 
     local box = UI_Box:new()
     box:SetPosition(0,0)
     
-    box:AddChild(checkBox)
-    box:AddChild(radio)
-    box:AddChild(group)
-    box:AddChild(button)
-    box:AddChild(clip)
+    --box:AddChild(checkBox)
+    --box:AddChild(radio)
+    --box:AddChild(group)
+    --box:AddChild(button)
+    --box:AddChild(clip)
+    box:AddChild(hslider)
     ui.root:AddChild(box)
 
 end
