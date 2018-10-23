@@ -17,9 +17,21 @@ namespace Urho3D
 		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
 		/// React to mouse click end.
 		virtual void OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+		/// React to mouse drag begin.
+		virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
+		/// React to mouse drag motion.
+		virtual void OnDragMove (const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers,Cursor* cursor);
+		/// React to mouse drag end.
+		virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor);
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		void SetSkin(const String& skin);
 		SharedPtr<UI_Button> button{nullptr};
+		float GetValue();
+		void SetValue(float v);
+	protected:
+		virtual void Layout();
+		int offset_{ 0 };
+		IntVector2 move{ IntVector2::ZERO};
 	};
 }
