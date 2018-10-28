@@ -1,0 +1,23 @@
+$#include "UI/UI_VScrollBar.h"
+
+enum BlendMode{};
+
+class UI_VScrollBar : public UI_HScrollBar
+{
+    UI_VScrollBar();
+    virtual ~UI_VScrollBar();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_VScrollBar_new00
+static int tolua_UILuaAPI_UI_VScrollBar_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_VScrollBar>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_VScrollBar_new00_local
+static int tolua_UILuaAPI_UI_VScrollBar_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_VScrollBar>(tolua_S);
+}
+$}

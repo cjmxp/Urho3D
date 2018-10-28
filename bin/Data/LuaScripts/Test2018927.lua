@@ -119,14 +119,13 @@ function CreateText()
     clip:SetPosition(100,200)
     clip:SetSize(200,200)
 ]]--
-    local hslider = UI_HSlider:new()
-    hslider.skin="Textures/hslider.png"
+    local hslider = UI_VScrollBar:new()
+    hslider.skin="Textures/vscroll.png"
     --hslider.sizeGrid="5 30 5 5"
     hslider:SetPosition(100,250)
-    hslider:SetValue(1.8)
     local box = UI_Box:new()
     box:SetPosition(0,0)
-    
+    box:SetSize(400,400)
     --box:AddChild(checkBox)
     --box:AddChild(radio)
     --box:AddChild(group)

@@ -28,7 +28,7 @@ namespace Urho3D
 	}
     void UI_Clip::SetSkin(const String& skin)
     {
-        if(skin_ != skin && skin!=""){
+        if(skin_ != skin && skin!=String::EMPTY){
             skin_ = skin;
             auto* cache = GetSubsystem<ResourceCache>();
             auto* tex = cache->GetResource<Texture2D>(skin);

@@ -34,6 +34,9 @@ $pfile "UI/UI_Tab.pkg"
 $pfile "UI/UI_RadioGroup.pkg"
 $pfile "UI/UI_HSlider.pkg"
 $pfile "UI/UI_VSlider.pkg"
+$pfile "UI/UI_HScrollBar.pkg"
+$pfile "UI/UI_VScrollBar.pkg"
+
 
 $using namespace Urho3D;
 $#pragma warning(disable:4800)

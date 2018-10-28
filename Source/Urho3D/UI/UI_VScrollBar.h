@@ -1,18 +1,19 @@
 #pragma once
-#include "../UI/UI_Clip.h"
+#include "../UI/UI_VSlider.h"
 #include "../UI/UI_Button.h"
+#include "../UI/UI_HScrollBar.h"
+
 namespace Urho3D
 {
-	class URHO3D_API UI_HSlider : public UI_Clip
+	class URHO3D_API UI_VScrollBar : public UI_HScrollBar
 	{
-		URHO3D_OBJECT(UI_HSlider, UI_Clip);
+		URHO3D_OBJECT(UI_VScrollBar, UI_HScrollBar);
 	public:
 		/// Construct.
-		explicit UI_HSlider(Context* context);
+		explicit UI_VScrollBar(Context* context);
 		/// Destruct.
-		~UI_HSlider() override;
+		~UI_VScrollBar() override;
 		virtual void OnHover(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
-		virtual void Update(float timeStep) override;
 		/// React to mouse click begin.
 		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
 		/// React to mouse click end.
@@ -20,20 +21,11 @@ namespace Urho3D
 		/// React to mouse drag begin.
 		virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
 		/// React to mouse drag motion.
-		virtual void OnDragMove (const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers,Cursor* cursor);
+		virtual void OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor);
 		/// React to mouse drag end.
 		virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor);
-		/// Return UI rendering batches.
-		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-		void SetSkin(const String& skin);
-		SharedPtr<UI_Button> button_{nullptr};
-		float GetValue();
-		void SetValue(float v);
 	protected:
 		virtual void Layout();
-		int offset_{ 0 };
-		float value_{ 0.0 };
-		bool isvalue_{ false };
-		IntVector2 move{ IntVector2::ZERO};
+		virtual void init() override;
 	};
 }

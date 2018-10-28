@@ -13,6 +13,6 @@ namespace Urho3D
 		/// React to mouse drag begin.
 		virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
 	protected:
-		virtual void Layout();
+		virtual void Layout() override;
 	};
 }
