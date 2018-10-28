@@ -1,0 +1,23 @@
+$#include "UI/UI_VSlider.h"
+
+enum BlendMode{};
+
+class UI_VSlider : public UI_HSlider
+{
+    UI_VSlider();
+    virtual ~UI_VSlider();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_VSlider_new00
+static int tolua_UILuaAPI_UI_VSlider_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_VSlider>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_VSlider_new00_local
+static int tolua_UILuaAPI_UI_VSlider_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_VSlider>(tolua_S);
+}
+$}

@@ -15,11 +15,7 @@ namespace Urho3D
 	UI_HSlider::~UI_HSlider() = default;
 	void UI_HSlider::Update(float timeStep) {
 		button->Update(timeStep);
-		if (vary_) {
-			UI_Clip::Update(timeStep);
-			return;
-		}
-		
+		UI_Clip::Update(timeStep);
 	}
 	void UI_HSlider::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int btn, int btns, int qualifiers, Cursor* cursor)
 	{
@@ -37,6 +33,13 @@ namespace Urho3D
 		{
 			if (button->InRect(IntRect::ZERO, position)) {
 				button->OnClickEnd(position, screenPosition, btn, btns, qualifiers, cursor, beginElement);
+			}
+			else if (move == IntVector2::ZERO) {
+				layout_ = true;
+				move = position;
+				offset_ = 0;
+				Layout();
+				move = IntVector2::ZERO;
 			}
 		}
 	}
@@ -56,6 +59,8 @@ namespace Urho3D
 		else {
 			offset_ = button->GetWidth() / 2;
 		}
+		move = IntVector2::ZERO;
+		button->SetSelected(true);
 	}
 	void UI_HSlider::OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor)
 	{
@@ -67,6 +72,7 @@ namespace Urho3D
 	{
 		offset_ = 0;
 		move = IntVector2::ZERO;
+		button->SetSelected(false);
 	}
 	void UI_HSlider::SetSkin(const String& skin) {
 		UI_Clip::SetSkin(skin);
@@ -82,9 +88,19 @@ namespace Urho3D
 	}
 
 	void UI_HSlider::Layout() {
-		if (layout_) {
+		if (layout_ || isvalue_) {
+			if (offset_ == 0) {
+				offset_ = button->GetWidth() / 2;
+			}
 			const IntVector2& size = GetSize();
-			IntVector2 p = IntVector2(move.x_ - offset_, button->GetPosition().y_);
+			IntVector2 p = IntVector2(0, 0);
+			int width = GetWidth() - button->GetWidth();
+			if (isvalue_) {
+				p.x_ = width * value_;
+			}
+			else {
+				p.x_ = move.x_ - offset_;
+			}
 			if (p.x_ < 0) {
 				p.x_ = 0;
 			}
@@ -94,13 +110,15 @@ namespace Urho3D
 			p.y_ = (GetHeight() - button->GetHeight()) / 2;
 			button->SetPosition(p);
 			layout_ = false;
+			isvalue_ = false;
+			value_ = (float)p.x_ / width;
+			if (value_ > 1.0)value_ = 1.0;
+			if (value_ < 0.0)value_ = 0.0;
 		}
 	}
 
 	float UI_HSlider::GetValue() {
-		int width = GetWidth() - button->GetWidth();
-		int p = button->GetPosition().x_;
-		return (float)p / width;
+		return value_;
 	}
 
 	void UI_HSlider::SetValue(float value) {
@@ -110,8 +128,7 @@ namespace Urho3D
 		if (value > 1.0) {
 			value = 1.0;
 		}
-		int width = GetWidth() - button->GetWidth();
-		move.x_ = width * value;
-		layout_ = true;
+		value_ = value;
+		isvalue_ = true;
 	}
 }

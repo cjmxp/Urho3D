@@ -3,7 +3,7 @@
 namespace Urho3D
 {
 	UI_VSlider::UI_VSlider(Context* context) :
-		UI_VSlider(context)
+		UI_HSlider(context)
 	{
 	}
 
@@ -17,12 +17,24 @@ namespace Urho3D
 		else {
 			offset_ = button->GetHeight() / 2;
 		}
+		move = IntVector2::ZERO;
+		button->SetSelected(true);
 	}
 
 	void UI_VSlider::Layout() {
-		if (layout_) {
+		if (layout_ || isvalue_) {
+			if (offset_ == 0) {
+				offset_ = button->GetHeight() / 2;
+			}
 			const IntVector2& size = GetSize();
-			IntVector2 p = IntVector2(move.x_ - offset_, button->GetPosition().y_);
+			IntVector2 p = IntVector2(0, 0);
+			int height = GetHeight() - button->GetHeight();
+			if (isvalue_) {
+				p.y_ = height * value_;
+			}
+			else {
+				p.y_ = move.y_ - offset_;
+			}
 			if (p.y_ < 0) {
 				p.y_ = 0;
 			}
@@ -32,24 +44,10 @@ namespace Urho3D
 			p.x_ = (GetWidth() - button->GetWidth()) / 2;
 			button->SetPosition(p);
 			layout_ = false;
+			isvalue_ = false;
+			value_ = (float)p.y_ / height;
+			if (value_ > 1.0)value_ = 1.0;
+			if (value_ < 0.0)value_ = 0.0;
 		}
-	}
-
-	float UI_VSlider::GetValue() {
-		int height = GetHeight() - button->GetHeight();
-		int p = button->GetPosition().y_;
-		return (float)p / height;
-	}
-
-	void UI_VSlider::SetValue(float value) {
-		if (value < 0) {
-			value = 0;
-		}
-		if (value > 1.0) {
-			value = 1.0;
-		}
-		int height = GetHeight() - button->GetHeight();
-		move.x_ = height * value;
-		layout_ = true;
 	}
 }

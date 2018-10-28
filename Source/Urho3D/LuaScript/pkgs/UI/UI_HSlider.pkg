@@ -8,7 +8,10 @@ class UI_HSlider : public UI_Clip
     virtual ~UI_HSlider();
     void SetSkin(const String skin);
     const String GetSkin();
+    float GetValue();
+	void SetValue(float v);
     tolua_property__get_set String skin;
+    tolua_property__get_set float value;
 };
 
 ${

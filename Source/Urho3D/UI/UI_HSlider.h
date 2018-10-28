@@ -32,6 +32,8 @@ namespace Urho3D
 	protected:
 		virtual void Layout();
 		int offset_{ 0 };
+		float value_{ 0.0f };
+		bool isvalue_{ false };
 		IntVector2 move{ IntVector2::ZERO};
 	};
 }
