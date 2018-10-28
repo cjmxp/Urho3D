@@ -123,7 +123,7 @@ function CreateText()
     hslider.skin="Textures/hslider.png"
     --hslider.sizeGrid="5 30 5 5"
     hslider:SetPosition(100,250)
-
+    hslider:SetValue(1.8)
     local box = UI_Box:new()
     box:SetPosition(0,0)
     
