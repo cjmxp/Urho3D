@@ -23,6 +23,7 @@ namespace Urho3D
 			down_->SetClipY(3);
 		}
 	}
+
 	void UI_VScrollBar::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
 	{
 		if (up_->InRect(IntRect::ZERO, position)) {
@@ -97,6 +98,7 @@ namespace Urho3D
 			slider_->OnDragMove(pos_, screenPosition, deltaPos, buttons, qualifiers, cursor);
 		}
 	}
+
 	void UI_VScrollBar::OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor)
 	{
 		if (onDrag_) {
@@ -106,7 +108,6 @@ namespace Urho3D
 			onDrag_ = false;
 		}
 	}
-
 
 	void UI_VScrollBar::Layout() {
 		if (layout_ && GetParent()!=nullptr) {
