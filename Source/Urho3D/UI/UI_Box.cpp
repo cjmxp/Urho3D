@@ -52,6 +52,58 @@ namespace Urho3D
 			MarkDirty();
 		}
 	}
+	void UI_Box::InitXml() {
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			if (names[i] == "name") {
+				SetName(names[i]);
+			}
+			else if (names[i] == "scaleX") {
+				SetScale(ToFloat(root.GetAttribute(names[i]).CString()),GetScale().y_);
+			}
+			else if (names[i] == "scaleY") {
+				SetScale(GetScale().x_, ToFloat(root.GetAttribute(names[i]).CString()));
+			}
+			else if(names[i] == "scale") {
+				float scale = ToFloat(root.GetAttribute(names[i]).CString());
+				SetScale(scale, scale);
+			}
+			else if (names[i] == "x") {
+				SetPosition(ToInt(root.GetAttribute(names[i]).CString()), GetPosition().y_);
+			}
+			else if (names[i] == "y") {
+				SetPosition(GetPosition().x_, ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "width") {
+				SetWidth(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "height") {
+				SetHeight(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			
+		}
+	}
+
+	const String& UI_Box::GetXml() {
+		return xml_str_;
+	}
+
+	void UI_Box::SetXml(const String& str) {
+		if (xml_str_ != str && str != String::EMPTY) {
+			xml_str_ = str;
+			if (xml_ == nullptr) {
+				xml_ = SharedPtr<XMLFile>(new XMLFile(GetContext()));
+			}
+			xml_->Parse(str);
+		}
+	}
+	XMLElement UI_Box::GetRoot(const String& name) {
+		if (xml_ != nullptr) {
+			return xml_->GetRoot(name);
+		}
+		return XMLElement();
+	}
 	void UI_Box::SetScale(const Vector2& scale)
 	{
 		if (scale != scale_)

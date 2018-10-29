@@ -77,7 +77,7 @@ public:
     void Patch(XMLFile* patchFile);
     /// Patch the XMLFile with another XMLElement. Based on RFC 5261.
     void Patch(const XMLElement& patchElement);
-
+	bool Parse(const String& str);
 private:
     /// Add an node in the Patch.
     void PatchAdd(const pugi::xml_node& patch, pugi::xpath_node& original) const;

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../Core/StringUtils.h"
 #include "../UI/UIElement.h"
 
 namespace Urho3D
@@ -42,13 +42,19 @@ namespace Urho3D
 		bool GetVisible() { return visible_; }
 		void SetParent(UIElement * parent) { parent_ = parent; };
 		bool InRect(const IntRect& rect, const IntVector2& pos);
+		const String& GetXml();
+		virtual void SetXml(const String& str);
+		XMLElement GetRoot(const String& name = String::EMPTY);
 	protected:
+		virtual void InitXml() = 0;
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };
 		float rotation_{0.0f};
 		bool layout_{ false };
 		String grid_{ String::EMPTY };
 		bool vary_{ false };
+		String xml_str_{String::EMPTY};
+		SharedPtr<XMLFile> xml_{ nullptr };
 	private:
 		/// Hotspot for positioning and rotation.
 		IntVector2 hotSpot_{ IntVector2::ZERO };

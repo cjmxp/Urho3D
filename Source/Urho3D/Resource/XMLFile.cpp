@@ -75,7 +75,17 @@ void XMLFile::RegisterObject(Context* context)
 {
     context->RegisterFactory<XMLFile>();
 }
-
+bool XMLFile::Parse(const String& str){
+	if (str == String::EMPTY || str.Length()==0)return false;
+	if (!document_->load_buffer(str.CString(), str.Length()));
+	{
+		URHO3D_LOGERROR("Could not parse XML data for str");
+		document_->reset();
+		return false;
+	}
+	SetMemoryUse(str.Length());
+	return true;
+}
 bool XMLFile::BeginLoad(Deserializer& source)
 {
     unsigned dataSize = source.GetSize();
