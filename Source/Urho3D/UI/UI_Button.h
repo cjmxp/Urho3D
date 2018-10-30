@@ -32,6 +32,7 @@ namespace Urho3D
 		void SetSelected(bool v);
 		const String& GetValue()const { return value_; };
 		void SetValue(const String & v);
+		virtual void InitAttribute() override;
 	protected:
 		int fontSize_{ 0 };
 		String color_{ String::EMPTY };

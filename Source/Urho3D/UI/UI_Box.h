@@ -14,7 +14,22 @@ namespace Urho3D
 		~UI_Box() override;
 		/// Manually update layout. Should not be necessary in most cases, but is provided for completeness.
 		void UpdateLayout();
-		void Margin(int l, int t, int r, int b, int cx, int cy);
+		/// Perform UI element update.
+		virtual void Update(float timeStep);
+		int GetTop();
+		void SetTop(int v);
+		int GetLeft();
+		void SetLeft(int v);
+		int GetRight();
+		void SetRight(int v);
+		int GetBottom();
+		void SetBottom(int v);
+		int GetCenterX();
+		void SetCenterX(int v);
+		int GetCenterY();
+		void SetCenterY(int v);
+
+
 		/// Convert screen coordinates to element coordinates.
 		IntVector2 ScreenToElement(const IntVector2& screenPosition) override;
 		/// Convert element coordinates to screen coordinates.
@@ -45,8 +60,9 @@ namespace Urho3D
 		const String& GetXml();
 		virtual void SetXml(const String& str);
 		XMLElement GetRoot(const String& name = String::EMPTY);
+		virtual void InitAttribute();
 	protected:
-		virtual void InitXml() = 0;
+		virtual void InitChilds();
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };
 		float rotation_{0.0f};
@@ -60,12 +76,12 @@ namespace Urho3D
 		IntVector2 hotSpot_{ IntVector2::ZERO };
 		/// Transform matrix.
 		mutable Matrix3x4 transform_;
-		int left_{ 0x7FFFFFFF };
-		int top_{ 0x7FFFFFFF };
-		int right_{ 0x7FFFFFFF };
-		int bottom_{ 0x7FFFFFFF };
-		int centerX_{ 0x7FFFFFFF };
-		int centerY_{ 0x7FFFFFFF };
+		int left_{ -1 };
+		int top_{ -1 };
+		int right_{ -1 };
+		int bottom_{ -1 };
+		int centerX_{ -1 };
+		int centerY_{ -1 };
 		void RefreshPosition();
 		void RefreshSize();
 	};

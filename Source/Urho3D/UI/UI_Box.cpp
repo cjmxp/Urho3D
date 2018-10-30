@@ -31,7 +31,10 @@ namespace Urho3D
 
         EnableLayoutUpdate();
     }
-
+	void UI_Box::Update(float timeStep)
+	{
+		Layout();
+	}
 	void UI_Box::SetHotSpot(const IntVector2& hotSpot)
 	{
 		if (hotSpot != hotSpot_)
@@ -52,22 +55,12 @@ namespace Urho3D
 			MarkDirty();
 		}
 	}
-	void UI_Box::InitXml() {
+	void UI_Box::InitAttribute() {
 		XMLElement root = GetRoot();
 		Vector<String> names = root.GetAttributeNames();
 		for (int i = 0; i < names.Size(); i++) {
 			if (names[i] == "name") {
 				SetName(names[i]);
-			}
-			else if (names[i] == "scaleX") {
-				SetScale(ToFloat(root.GetAttribute(names[i]).CString()),GetScale().y_);
-			}
-			else if (names[i] == "scaleY") {
-				SetScale(GetScale().x_, ToFloat(root.GetAttribute(names[i]).CString()));
-			}
-			else if(names[i] == "scale") {
-				float scale = ToFloat(root.GetAttribute(names[i]).CString());
-				SetScale(scale, scale);
 			}
 			else if (names[i] == "x") {
 				SetPosition(ToInt(root.GetAttribute(names[i]).CString()), GetPosition().y_);
@@ -81,10 +74,47 @@ namespace Urho3D
 			else if (names[i] == "height") {
 				SetHeight(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			
+			else if (names[i] == "top") {
+				SetTop(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "left") {
+				SetLeft(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "right") {
+				SetRight(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "bottom") {
+				SetBottom(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "centerX") {
+				SetCenterX(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "centerY") {
+				SetCenterY(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "disabled")  {
+				SetEnabled(ToBool(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "scaleX") {
+				SetScale(ToFloat(root.GetAttribute(names[i]).CString()), GetScale().y_);
+			}
+			else if (names[i] == "scaleY") {
+				SetScale(GetScale().x_, ToFloat(root.GetAttribute(names[i]).CString()));
+			}
+			else if (names[i] == "scale") {
+				float scale = ToFloat(root.GetAttribute(names[i]).CString());
+				SetScale(scale, scale);
+			}
+			else if (names[i] == "visible") {
+				SetVisible(ToBool(root.GetAttribute(names[i]).CString()));
+			}
+			InitChilds();
 		}
 	}
-
+	void UI_Box::InitChilds()
+	{
+	
+	}
 	const String& UI_Box::GetXml() {
 		return xml_str_;
 	}
@@ -168,41 +198,89 @@ namespace Urho3D
 	}
 	void UI_Box::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
-		Layout();
+		
 		// Reset hovering for next frame
 		hovering_ = false;
 	}
-    void UI_Box::Margin(int l,int t,int r,int b,int cx,int cy){
-        left_ = l;
-        top_ = t;
-        right_ = r;
-        bottom_ = b;
-        centerX_ = cx;
-        centerY_ = cy;
-		Layout();
-    }
+	int UI_Box::GetTop()
+	{
+		return top_;
+	}
+	void UI_Box::SetTop(int v)
+	{
+		top_ = v;
+		layout_ = true;
+	}
+	int UI_Box::GetLeft() {
+		return left_;
+	}
+	void UI_Box::SetLeft(int v)
+	{
+		left_ = v;
+		layout_ = true;
+	}
+	int UI_Box::GetRight()
+	{
+		return right_;
+	}
+	void UI_Box::SetRight(int v)
+	{
+		right_ = v;
+		layout_ = true;
+	}
+	int UI_Box::GetBottom()
+	{
+		return bottom_;
+	}
+	void UI_Box::SetBottom(int v)
+	{
+		bottom_ = v;
+		layout_ = true;
+	}
+	int UI_Box::GetCenterX()
+	{
+		return centerX_;
+	}
+	void UI_Box::SetCenterX(int v)
+	{
+		centerX_ = v;
+		layout_ = true;
+	}
+	int UI_Box::GetCenterY()
+	{
+		return centerY_;
+	}
+	void UI_Box::SetCenterY(int v)
+	{
+		centerY_ = v;
+		layout_ = true;
+	}
+
 	void UI_Box::Layout() {
-		RefreshSize();
-		RefreshPosition();
+		if (layout_ || positionDirty_) {
+			RefreshSize();
+			RefreshPosition();
+		}
+		layout_ = false;
     }
     void UI_Box::RefreshPosition(){
         int x = position_.x_;
         int y = position_.y_;
-        if(left_ !=0x7FFFFFFF)x=left_;
-        if(top_ !=0x7FFFFFFF)y=top_;
+		if (left_ >= 0)x = left_;
+        if(top_ >= 0)y=top_;
         if(parent_!=nullptr){
             int pw = parent_->GetWidth();
             int ph = parent_->GetHeight();
 			int w = GetWidth();
 			int h = GetHeight();
-            if(centerX_ !=0x7FFFFFFF){
+            if(centerX_ >= 0){
                 x = (pw-w)/2+centerX_;
-            }else if(left_ == 0x7FFFFFFF && right_ !=0x7FFFFFFF){
+            }else if(left_ < 0 && right_ >= 0){
                 x=pw-w-right_;
             }
-            if(centerY_ !=0x7FFFFFFF){
+            if(centerY_ >= 0){
                 y = (ph-h)/2+centerY_;
-            }else if(top_ ==0x7FFFFFFF && bottom_ !=0x7FFFFFFF){
+            }else if(top_ < 0 && bottom_ >= 0){
                 y=ph-h-bottom_;
             }
         }
@@ -214,10 +292,10 @@ namespace Urho3D
         int ph = parent_->GetHeight();
         int w = GetWidth();
         int h = GetHeight();
-        if(left_ !=0x7FFFFFFF && right_ !=0x7FFFFFFF){
+        if(left_ >= 0 && right_ >= 0){
             w = pw-left_ -right_;
         }
-        if(top_ !=0x7FFFFFFF && bottom_ !=0x7FFFFFFF){
+        if(top_ >= 0 && bottom_ >= 0){
             h = ph-top_ -bottom_;
         }
 		SetSize(IntVector2(w, h));

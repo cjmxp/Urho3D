@@ -33,6 +33,7 @@ namespace Urho3D
 		const String& GetSkin();
 		float GetValue();
 		void SetValue(float v);
+		virtual void InitAttribute() override;
 	protected:
 		String skin_{String::EMPTY};
 		IntVector2 pos_{ IntVector2::ZERO };

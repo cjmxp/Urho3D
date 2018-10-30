@@ -518,7 +518,10 @@ namespace Urho3D
 
         return (*ctx->text == 0);
     }
-
+	void UI_Label::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
     void UI_Label::AppendText(const String & str)
     {
         ParseCtx ctx;

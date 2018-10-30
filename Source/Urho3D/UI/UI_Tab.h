@@ -13,5 +13,6 @@ namespace Urho3D
 		/// Destruct.
 		~UI_Tab() override;
 		virtual void SetLabels(const String& value) override;
+		virtual void InitAttribute() override;
 	};
 }

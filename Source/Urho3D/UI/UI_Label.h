@@ -217,6 +217,7 @@ public:
     int fontSize_{ 12 };
     int textWidth;
     int textHeight;
+	virtual void InitAttribute() override;
 protected:
 	String text_{ String::EMPTY };
     bool htmlEnable_{ 1 };

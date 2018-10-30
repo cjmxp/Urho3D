@@ -8,10 +8,13 @@ class UI_Group : public UI_Box
     UI_Group();
     virtual ~UI_Group();
 
-
+    BlendMode GetBlendMode() const;
     void SetBlendMode(BlendMode mode);
+    int GetClipX();
 	void SetClipX(int);
+    int GetClipY();
 	void SetClipY(int);
+    const String GetSkin();
     void SetSkin(const String skin);
     const String GetLabels();
     void SetLabels(const String value);
@@ -24,15 +27,11 @@ class UI_Group : public UI_Box
     void SetSpace(int v);
 
     void SetSize(int width, int height);
-    int GetClipX();
-	int GetClipY();
-    const String GetSkin();
     void SetSizeGrid(const String rect);
     int GetSelectedIndex();
     void SetSelectedIndex(int index);
 
-    BlendMode GetBlendMode() const;
-
+    
     tolua_property__get_set Direction direction;
     tolua_property__get_set int selectedIndex;
     tolua_property__get_set int space;
@@ -42,7 +41,6 @@ class UI_Group : public UI_Box
     tolua_property__get_set String sizeGrid;
     tolua_property__get_set String labels;
     
-    tolua_readonly tolua_property__get_set Matrix3x4& transform;
     tolua_readonly tolua_property__get_set const String selectedValue;
 };
 

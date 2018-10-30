@@ -14,6 +14,12 @@ namespace Urho3D
 			lable_->SetParent(nullptr);
 		}
 	}
+
+	void UI_Button::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
+
 	void UI_Button::SetValue(const Urho3D::String &v) {
 		value_ = v;
 	}

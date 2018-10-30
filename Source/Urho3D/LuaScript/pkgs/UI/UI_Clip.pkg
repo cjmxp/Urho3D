@@ -7,38 +7,26 @@ class UI_Clip : public UI_Box
     UI_Clip();
     virtual ~UI_Clip();
 
-    void SetTexture(Texture* texture);
-    void SetImageRect(const IntRect& rect);
+    BlendMode GetBlendMode() const;
     void SetBlendMode(BlendMode mode);
-    void SetIndex(int);
-	void SetClipX(int);
-	void SetClipY(int);
-    void SetSkin(const String skin);
-
     int GetIndex();
+    void SetIndex(int);
     int GetClipX();
-	int GetClipY();
+	void SetClipX(int);
+    int GetClipY();
+	void SetClipY(int);
     const String GetSkin();
-    
+    void SetSkin(const String skin);
     const String GetSizeGrid();
     void SetSizeGrid(const String rect);
 
-    Texture* GetTexture() const;
-    const IntRect& GetImageRect() const;
-    BlendMode GetBlendMode() const;
-
-    const Matrix3x4& GetTransform() const;
     tolua_property__get_set int index;
     tolua_property__get_set int clipX;
     tolua_property__get_set int clipY;
     tolua_property__get_set String skin;
     tolua_property__get_set String sizeGrid;
-    
-    
-    tolua_property__get_set Texture* texture;
-    tolua_property__get_set IntRect& imageRect;
+
     tolua_property__get_set BlendMode blendMode;
-    tolua_readonly tolua_property__get_set Matrix3x4& transform;
 };
 
 ${

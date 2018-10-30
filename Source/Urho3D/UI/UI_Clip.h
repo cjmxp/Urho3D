@@ -43,7 +43,7 @@ namespace Urho3D
 		BlendMode GetBlendMode() const { return blendMode_; }
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-        
+		virtual void InitAttribute() override;
     protected:
 		virtual const IntVector2& GetDrawRect();
         String skin_{ String::EMPTY };

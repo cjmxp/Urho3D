@@ -9,7 +9,11 @@ namespace Urho3D
 	}
 
 	UI_HScrollBar::~UI_HScrollBar() = default;
-	
+
+	void UI_HScrollBar::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
 	void UI_HScrollBar::SetSkin(const String& skin)
 	{
 		init();

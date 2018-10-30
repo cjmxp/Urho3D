@@ -122,8 +122,10 @@ function CreateText()
     local hslider = UI_VScrollBar:new()
     hslider.skin="Textures/vscroll.png"
     --hslider.sizeGrid="5 30 5 5"
-    hslider:SetPosition(100,250)
+    
     local box = UI_Box:new()
+    box.left=100
+    box.right=0
     box:SetPosition(0,0)
     box:SetSize(400,400)
     --box:AddChild(checkBox)

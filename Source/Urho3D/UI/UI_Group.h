@@ -55,6 +55,7 @@ namespace Urho3D
 		void SetFont(const String& value);
 		int GetFontSize() { return fontSize_; };
 		void SetFontSize(int v);
+		virtual void InitAttribute() override;
 	protected:
 		int fontSize_{ 0 };
 		String color_{ String::EMPTY };

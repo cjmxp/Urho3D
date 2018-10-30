@@ -13,7 +13,6 @@ class UI_Button : public UI_Clip
 
     tolua_property__get_set String value;
     tolua_property__get_set String lable;
-    
     tolua_property__get_set bool selected;
 };
 

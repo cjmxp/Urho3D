@@ -8,6 +8,12 @@ namespace Urho3D
     {
     }
     UI_Radio::~UI_Radio() = default;
+
+	void UI_Radio::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
+
 	void UI_Radio::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
 	{
 		if (selected_)return;

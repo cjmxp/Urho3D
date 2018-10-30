@@ -16,13 +16,28 @@ class UI_Box : public UIElement
     const Vector2& GetPosition() const;
     void SetRotation(float angle);
     float GetRotation() const;
-
-    void Margin(int l, int t, int r, int b, int cx, int cy);
+    int GetTop();
+    void SetTop(int v);
+    int GetLeft();
+    void SetLeft(int v);
+    int GetRight();
+    void SetRight(int v);
+    int GetBottom();
+    void SetBottom(int v);
+    int GetCenterX();
+    void SetCenterX(int v);
+    int GetCenterY();
+    void SetCenterY(int v);
 
     tolua_property__get_set IntVector2& position;
     tolua_property__get_set IntVector2& hotSpot;
     tolua_property__get_set float rotation;
-    
+    tolua_property__get_set int top;
+    tolua_property__get_set int left;
+    tolua_property__get_set int right;
+    tolua_property__get_set int bottom;
+    tolua_property__get_set int centerX;
+    tolua_property__get_set int centerY;
     tolua_property__get_set Vector2& scale;
 };
 ${

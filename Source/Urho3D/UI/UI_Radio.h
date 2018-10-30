@@ -14,5 +14,6 @@ namespace Urho3D
         ~UI_Radio() override;
 		/// React to mouse click begin.
 		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
+		virtual void InitAttribute() override;
     };
 }

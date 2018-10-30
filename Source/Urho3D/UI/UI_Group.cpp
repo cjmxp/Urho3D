@@ -10,7 +10,10 @@ namespace Urho3D
 	}
 
 	UI_Group::~UI_Group(){};
-
+	void UI_Group::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
 	void UI_Group::Update(float timeStep) {
 		if (vary_) {
 			for (unsigned i = 0; i < nodes_.Size(); i++)

@@ -29,6 +29,7 @@ namespace Urho3D
 		SharedPtr<UI_Button> button_{nullptr};
 		float GetValue();
 		void SetValue(float v);
+		virtual void InitAttribute() override;
 	protected:
 		virtual void Layout();
 		int offset_{ 0 };

@@ -11,7 +11,10 @@ namespace Urho3D
 	}
 
 	UI_Clip::~UI_Clip() = default;
-
+	void UI_Clip::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
 	void UI_Clip::SetIndex(int i)
     {
 		if (i < 0)i = 0;

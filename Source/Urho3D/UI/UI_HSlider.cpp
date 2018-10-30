@@ -13,6 +13,11 @@ namespace Urho3D
 	}
 
 	UI_HSlider::~UI_HSlider() = default;
+
+	void UI_HSlider::InitAttribute()
+	{
+		UI_Box::InitAttribute();
+	}
 	void UI_HSlider::Update(float timeStep) {
 		button_->Update(timeStep);
 		UI_Clip::Update(timeStep);
