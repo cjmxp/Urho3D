@@ -108,12 +108,17 @@ namespace Urho3D
 			else if (names[i] == "visible") {
 				SetVisible(ToBool(root.GetAttribute(names[i]).CString()));
 			}
-			InitChilds();
 		}
 	}
 	void UI_Box::InitChilds()
 	{
-	
+		XMLElement root = GetRoot();
+		if (root.IsNull())return;
+		XMLElement node = root.GetNext();
+		while (!node.IsNull()) {
+			printf_s("%s \n",node.GetName());
+			node = root.GetNext();
+		}
 	}
 	const String& UI_Box::GetXml() {
 		return xml_str_;

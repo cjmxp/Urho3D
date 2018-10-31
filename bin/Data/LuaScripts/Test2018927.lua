@@ -43,7 +43,7 @@ function CreateText()
     Log:WriteRaw(cc:GetParent().GetSize())
 
    ]]--
-    local uiStyle = cache:GetResource("XMLFile", "UI/DefaultStyle.xml")
+    local uiStyle = cache:GetResource("XMLFile", "UI/test.xml")
     -- Set style to the UI root so that elements will inherit it
     ui.root.defaultStyle = uiStyle
   --[[
@@ -126,8 +126,9 @@ function CreateText()
     local box = UI_Box:new()
     box.left=100
     box.right=0
-    box:SetPosition(0,0)
-    box:SetSize(400,400)
+    box.xml='<root width="400" height="400" x="100" y="0"></root>'
+    box:InitAttribute()
+    box:InitChilds()
     --box:AddChild(checkBox)
     --box:AddChild(radio)
     --box:AddChild(group)

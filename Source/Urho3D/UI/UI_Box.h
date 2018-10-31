@@ -61,8 +61,8 @@ namespace Urho3D
 		virtual void SetXml(const String& str);
 		XMLElement GetRoot(const String& name = String::EMPTY);
 		virtual void InitAttribute();
-	protected:
 		virtual void InitChilds();
+	protected:
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };
 		float rotation_{0.0f};
@@ -72,6 +72,7 @@ namespace Urho3D
 		String xml_str_{String::EMPTY};
 		SharedPtr<XMLFile> xml_{ nullptr };
 	private:
+		HashMap<String, WeakPtr<UI_Box>> vars_;
 		/// Hotspot for positioning and rotation.
 		IntVector2 hotSpot_{ IntVector2::ZERO };
 		/// Transform matrix.
