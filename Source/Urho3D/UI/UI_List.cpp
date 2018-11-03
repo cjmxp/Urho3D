@@ -8,8 +8,8 @@ namespace Urho3D
 	}
 
 	UI_List::~UI_List() = default;
-	void UI_List::InitAttribute()
+	void UI_List::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Box::InitAttribute(box);
 	}
 }

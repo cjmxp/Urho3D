@@ -12,6 +12,6 @@ namespace Urho3D
 		explicit UI_List(Context* context);
 		/// Destruct.
 		~UI_List() override;
-		virtual void InitAttribute() override;
+		virtual void InitAttribute(UI_Box* box = nullptr) override;
 	};
 }

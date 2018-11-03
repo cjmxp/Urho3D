@@ -189,7 +189,6 @@ public:
     (const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor,
         UIElement* beginElement) override;
     void OnHover(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor) override;
-	virtual void Update(float timeStep) override;
     void AppendText(const String& str);
     void Clear();
     void SetText(const String& str);
@@ -217,7 +216,7 @@ public:
     int fontSize_{ 12 };
     int textWidth;
     int textHeight;
-	virtual void InitAttribute() override;
+	virtual void InitAttribute(UI_Box* box = nullptr) override;
 protected:
 	String text_{ String::EMPTY };
     bool htmlEnable_{ 1 };

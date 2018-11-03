@@ -4,14 +4,13 @@ class UI_Box : public UIElement
 {
     UI_Box();
     virtual ~UI_Box();
+    const Variant& GetVar(const String key);
     const Vector2& GetScale() const;
     void SetScale(const Vector2& scale);
     void SetScale(float x, float y);
-    
     const IntVector2& GetHotSpot() const;
     void SetHotSpot(const IntVector2& hotSpot);
     void SetHotSpot(int x, int y);
-    const Vector2& GetPosition() const;
     void SetRotation(float angle);
     float GetRotation() const;
     int GetTop();
@@ -31,9 +30,6 @@ class UI_Box : public UIElement
     void InitAttribute();
     void InitChilds();
 
-
-
-    tolua_property__get_set IntVector2& position;
     tolua_property__get_set IntVector2& hotSpot;
     tolua_property__get_set float rotation;
     tolua_property__get_set String xml;

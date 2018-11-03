@@ -15,9 +15,32 @@ namespace Urho3D
 		}
 	}
 
-	void UI_Button::InitAttribute()
+	void UI_Button::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Clip::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "lable") {
+				SetLable(root.GetAttribute(names[i]));
+			}
+			else if(name == "color") {
+				SetColor(root.GetAttribute(names[i]));
+			}
+			else if (name == "font") {
+				SetFont(root.GetAttribute(names[i]));
+			}
+			else if (name == "fontsize") {
+				SetFontSize(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "value") {
+				SetValue(root.GetAttribute(names[i]));
+			}
+			else if (name == "selected") {
+				SetSelected(ToBool(root.GetAttribute(names[i]).CString()));
+			}
+		}
 	}
 
 	void UI_Button::SetValue(const Urho3D::String &v) {

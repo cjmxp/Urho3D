@@ -11,9 +11,29 @@ namespace Urho3D
 	}
 
 	UI_Clip::~UI_Clip() = default;
-	void UI_Clip::InitAttribute()
+	void UI_Clip::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Box::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "skin") {
+				SetSkin(root.GetAttribute(names[i]));
+			}
+			else if (name == "sizegrid") {
+				SetSizeGrid(root.GetAttribute(names[i]));
+			}
+			else if (name == "clipx") {
+				SetClipX(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "clipy") {
+				SetClipY(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "index") {
+				SetIndex(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+		}
 	}
 	void UI_Clip::SetIndex(int i)
     {
@@ -26,7 +46,10 @@ namespace Urho3D
 			int th = texture_->GetHeight()/ clipY_;
 			int y = index_ / clipX_;
 			int x = index_ % clipX_;
-			SetImageRect(IntRect(x*tw, y*th, tw, th));
+			IntRect rect = IntRect(x*tw, y*th, tw, th);
+			if (rect != IntRect::ZERO && imageRect_ != rect) {
+				imageRect_ = rect;
+			}
 		}
 	}
     void UI_Clip::SetSkin(const String& skin)
@@ -35,7 +58,7 @@ namespace Urho3D
             skin_ = skin;
             auto* cache = GetSubsystem<ResourceCache>();
             auto* tex = cache->GetResource<Texture2D>(skin);
-            SetTexture(tex);
+			texture_ = tex;
 			vary_ = true;
         }
     }
@@ -83,19 +106,9 @@ namespace Urho3D
 		return clipY_;
 	}
 
-	void UI_Clip::SetTexture(Texture* texture)
-	{
-		texture_ = texture;
-	}
     const IntVector2& UI_Clip::GetDrawRect(){
         return GetSize();
     }
-	void UI_Clip::SetImageRect(const IntRect& rect)
-	{
-		if (rect != IntRect::ZERO && imageRect_!= rect) {
-			imageRect_ = rect;
-		}
-	}
 
 	void UI_Clip::SetBlendMode(BlendMode mode)
 	{
@@ -119,6 +132,7 @@ namespace Urho3D
 	}
 	void UI_Clip::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
 	{
+		if (texture_ == nullptr)return;
 		bool allOpaque = true;
 		if (GetDerivedOpacity() < 1.0f || colors_[C_TOPLEFT].a_ < 1.0f || colors_[C_TOPRIGHT].a_ < 1.0f ||
 			colors_[C_BOTTOMLEFT].a_ < 1.0f || colors_[C_BOTTOMRIGHT].a_ < 1.0f)

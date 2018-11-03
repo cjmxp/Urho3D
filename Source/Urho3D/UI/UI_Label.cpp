@@ -518,9 +518,33 @@ namespace Urho3D
 
         return (*ctx->text == 0);
     }
-	void UI_Label::InitAttribute()
+	void UI_Label::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Clip::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "text") {
+				SetText(root.GetAttribute(names[i]));
+			}
+			else if (name == "color") {
+				SetColor(root.GetAttribute(names[i]));
+			}
+			else if (name == "font") {
+				SetFont(root.GetAttribute(names[i]));
+			}
+			else if (name == "fontsize") {
+				SetFontSize(ToInt(root.GetAttribute(names[i])));
+			}
+			else if (name == "wordwrap") {
+				SetWordWrap(ToBool(root.GetAttribute(names[i])));
+			}
+			else if (name == "ishtml") {
+				SetIsHtml(ToBool(root.GetAttribute(names[i])));
+			}
+			
+		}
 	}
     void UI_Label::AppendText(const String & str)
     {
@@ -720,16 +744,19 @@ namespace Urho3D
             textWidth = Max(width, textWidth);
         }
     }
-	void UI_Label::Update(float timeStep) {
-		if (dirty_) Layout();
-	}
+
     void UI_Label::Layout() {
-        DoLayout(textWidth, textHeight, HA_LEFT, 0, 0, GetSize().x_, wordWrap_, blocks_.Begin(), blocks_.End());
+		if (dirty_) {
+			DoLayout(textWidth, textHeight, HA_LEFT, 0, 0, GetSize().x_, wordWrap_, blocks_.Begin(), blocks_.End());
+			if (GetWidth() == 0)SetWidth(textWidth);
+			if (GetHeight() == 0)SetHeight(textHeight);
+		}
 		dirty_ = false;
     }
 
     void UI_Label::GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor)
     {
+		UI_Clip::GetBatches(batches, vertexData, currentScissor);
         for (auto& block : blocks_) {
             block->GetBatches(batches, vertexData, currentScissor);
         }

@@ -9,10 +9,7 @@ namespace Urho3D
 	}
 
 	UI_Tab::~UI_Tab() = default;
-	void UI_Tab::InitAttribute()
-	{
-		UI_Box::InitAttribute();
-	}
+
 	void UI_Tab::SetLabels(const String& labels) {
 		if (labels_ != labels) {
 			labels_ = labels;

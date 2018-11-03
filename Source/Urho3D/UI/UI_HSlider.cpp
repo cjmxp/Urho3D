@@ -14,9 +14,20 @@ namespace Urho3D
 
 	UI_HSlider::~UI_HSlider() = default;
 
-	void UI_HSlider::InitAttribute()
+	void UI_HSlider::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Clip::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "skin") {
+				SetSkin(root.GetAttribute(names[i]));
+			}
+			else if (name == "value") {
+				SetValue(ToFloat(root.GetAttribute(names[i])));
+			}
+		}
 	}
 	void UI_HSlider::Update(float timeStep) {
 		button_->Update(timeStep);

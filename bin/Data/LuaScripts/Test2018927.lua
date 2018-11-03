@@ -119,22 +119,12 @@ function CreateText()
     clip:SetPosition(100,200)
     clip:SetSize(200,200)
 ]]--
-    local hslider = UI_VScrollBar:new()
-    hslider.skin="Textures/vscroll.png"
-    --hslider.sizeGrid="5 30 5 5"
     
     local box = UI_Box:new()
-    box.left=100
-    box.right=0
-    box.xml='<root width="400" height="400" x="100" y="0"></root>'
+    box:SetPosition(0,0)
+    box.xml='<root width="400" height="400"><hslider skin="Textures/hslider.png" y="50"></hslider><button x="10" lable="测试" skin="Textures/button.png" clipX="1" ClipY="3" /><label x="100" width="35" height="30" text="文本" /></root>'
     box:InitAttribute()
     box:InitChilds()
-    --box:AddChild(checkBox)
-    --box:AddChild(radio)
-    --box:AddChild(group)
-    --box:AddChild(button)
-    --box:AddChild(clip)
-    box:AddChild(hslider)
     ui.root:AddChild(box)
 
 end

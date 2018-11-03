@@ -1,4 +1,15 @@
 #include "../UI/UI_Box.h"
+#include "../UI/UI_Clip.h"
+#include "../UI/UI_Button.h"
+#include "../UI/UI_CheckBox.h"
+#include "../UI/UI_HScrollBar.h"
+#include "../UI/UI_VScrollBar.h"
+#include "../UI/UI_HSlider.h"
+#include "../UI/UI_VSlider.h"
+#include "../UI/UI_Radio.h"
+#include "../UI/UI_RadioGroup.h"
+#include "../UI/UI_Tab.h"
+
 #include "../UI/UIEvents.h"
 
 namespace Urho3D
@@ -55,89 +66,180 @@ namespace Urho3D
 			MarkDirty();
 		}
 	}
-	void UI_Box::InitAttribute() {
+
+	void UI_Box::InitAttribute(UI_Box* box_) {
 		XMLElement root = GetRoot();
 		Vector<String> names = root.GetAttributeNames();
+		if (box_ == nullptr)box_ = this;
 		for (int i = 0; i < names.Size(); i++) {
-			if (names[i] == "name") {
+			String name = names[i].ToLower();
+			if (name == "name") {
 				SetName(names[i]);
 			}
-			else if (names[i] == "x") {
+			else if (name == "x") {
 				SetPosition(ToInt(root.GetAttribute(names[i]).CString()), GetPosition().y_);
 			}
-			else if (names[i] == "y") {
+			else if (name == "y") {
 				SetPosition(GetPosition().x_, ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "width") {
+			else if (name == "width") {
 				SetWidth(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "height") {
+			else if (name == "height") {
 				SetHeight(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "top") {
+			else if (name == "top") {
 				SetTop(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "left") {
+			else if (name == "left") {
 				SetLeft(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "right") {
+			else if (name == "right") {
 				SetRight(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "bottom") {
+			else if (name == "bottom") {
 				SetBottom(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "centerX") {
+			else if (name == "centerX") {
 				SetCenterX(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "centerY") {
+			else if (name == "centerY") {
 				SetCenterY(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "disabled")  {
+			else if (name == "disabled")  {
 				SetEnabled(ToBool(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "scaleX") {
+			else if (name == "scaleX") {
 				SetScale(ToFloat(root.GetAttribute(names[i]).CString()), GetScale().y_);
 			}
-			else if (names[i] == "scaleY") {
+			else if (name == "scaleY") {
 				SetScale(GetScale().x_, ToFloat(root.GetAttribute(names[i]).CString()));
 			}
-			else if (names[i] == "scale") {
+			else if (name == "scale") {
 				float scale = ToFloat(root.GetAttribute(names[i]).CString());
 				SetScale(scale, scale);
 			}
-			else if (names[i] == "visible") {
+			else if (name == "visible") {
 				SetVisible(ToBool(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "var") {
+				box_->SetVar(root.GetAttribute(names[i]), this);
 			}
 		}
 	}
-	void UI_Box::InitChilds()
+	void UI_Box::InitChilds(UI_Box* box_)
 	{
+		if (box_ == nullptr)box_ = this;
 		XMLElement root = GetRoot();
 		if (root.IsNull())return;
-		XMLElement node = root.GetNext();
+		XMLElement node = root.GetChild();
 		while (!node.IsNull()) {
-			printf_s("%s \n",node.GetName());
-			node = root.GetNext();
+			String name = node.GetName().ToLower();
+			if (name == "clip") {
+				UI_Clip * box = new UI_Clip(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "box") {
+				UI_Box* box = new UI_Box(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "button") {
+				UI_Button * box = new UI_Button(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "checkbox") {
+				UI_CheckBox * box = new UI_CheckBox(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "hscrollbar") {
+				UI_HScrollBar * box = new UI_HScrollBar(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "vscrollbar") {
+				UI_VScrollBar * box = new UI_VScrollBar(GetContext());
+				box->SetXml(node);
+				box->InitAttribute();
+				box->InitChilds();
+				AddChild(box);
+			}
+			else if (name == "hslider") {
+				UI_HSlider * box = new UI_HSlider(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "vslider") {
+				UI_VSlider * box = new UI_VSlider(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "label") {
+				UI_Label * box = new UI_Label(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "radio") {
+				UI_Radio * box = new UI_Radio(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "radiogroup") {
+				UI_RadioGroup * box = new UI_RadioGroup(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			else if (name == "tab") {
+				UI_Tab * box = new UI_Tab(GetContext());
+				box->SetXml(node);
+				box->InitAttribute(box_);
+				box->InitChilds(box_);
+				AddChild(box);
+			}
+			node = node.GetNext();
 		}
 	}
 	const String& UI_Box::GetXml() {
 		return xml_str_;
 	}
-
+	void UI_Box::SetXml(const XMLElement& xml) {
+		xml_ = xml;
+	}
 	void UI_Box::SetXml(const String& str) {
 		if (xml_str_ != str && str != String::EMPTY) {
 			xml_str_ = str;
-			if (xml_ == nullptr) {
-				xml_ = SharedPtr<XMLFile>(new XMLFile(GetContext()));
+			if (xmlfile_ == nullptr) {
+				xmlfile_ = SharedPtr<XMLFile>(new XMLFile(GetContext()));
 			}
-			xml_->Parse(str);
+			xmlfile_->FromString(str);
+			xml_ = xmlfile_->GetRoot();
 		}
 	}
 	XMLElement UI_Box::GetRoot(const String& name) {
-		if (xml_ != nullptr) {
-			return xml_->GetRoot(name);
-		}
-		return XMLElement();
+		return xml_;
 	}
 	void UI_Box::SetScale(const Vector2& scale)
 	{

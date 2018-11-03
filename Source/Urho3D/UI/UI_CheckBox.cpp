@@ -10,10 +10,7 @@ namespace Urho3D
     }
 	UI_CheckBox::~UI_CheckBox() = default;
 
-	void UI_CheckBox::InitAttribute()
-	{
-		UI_Box::InitAttribute();
-	}
+
 	const IntVector2& UI_CheckBox::GetDrawRect() {
 		return drawRect_;
 	}

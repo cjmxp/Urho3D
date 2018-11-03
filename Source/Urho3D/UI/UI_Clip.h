@@ -17,8 +17,8 @@ namespace Urho3D
 		/// Destruct.
 		~UI_Clip() override;
         
-		void SetSkin(const String& skin);
-        const String& GetSkin()const { return skin_; };
+		virtual void SetSkin(const String& skin);
+		const String& GetSkin()const { return skin_; };
         void SetSizeGrid(const String& rect);
         const String GetSizeGrid();
         void SetIndex(int);
@@ -29,21 +29,13 @@ namespace Urho3D
         int GetClipX();
         int GetClipY();
 		virtual void Update(float timeStep) override;
-		/// Set texture.
-		void SetTexture(Texture* texture);
-		/// Set part of texture to use as the image.
-		void SetImageRect(const IntRect& rect);
 		/// Set blend mode.
 		void SetBlendMode(BlendMode mode);
-		/// Return texture.
-		Texture* GetTexture() const { return texture_; }
-		/// Return image rectangle.
-		const IntRect& GetImageRect() const { return imageRect_; }
 		/// Return blend mode.
 		BlendMode GetBlendMode() const { return blendMode_; }
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-		virtual void InitAttribute() override;
+		virtual void InitAttribute(UI_Box* box = nullptr) override;
     protected:
 		virtual const IntVector2& GetDrawRect();
         String skin_{ String::EMPTY };

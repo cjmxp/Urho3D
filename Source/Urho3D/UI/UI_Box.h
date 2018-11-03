@@ -59,9 +59,13 @@ namespace Urho3D
 		bool InRect(const IntRect& rect, const IntVector2& pos);
 		const String& GetXml();
 		virtual void SetXml(const String& str);
+		virtual void SetXml(const XMLElement& xml);
 		XMLElement GetRoot(const String& name = String::EMPTY);
-		virtual void InitAttribute();
-		virtual void InitChilds();
+		virtual void InitAttribute(UI_Box* box = nullptr);
+		virtual void InitChilds(UI_Box* box = nullptr);
+		const Variant& GetVar(const String& key) {
+			return UIElement::GetVar(key);
+		};
 	protected:
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };
@@ -70,9 +74,9 @@ namespace Urho3D
 		String grid_{ String::EMPTY };
 		bool vary_{ false };
 		String xml_str_{String::EMPTY};
-		SharedPtr<XMLFile> xml_{ nullptr };
+		XMLElement xml_{ XMLElement::EMPTY };
 	private:
-		HashMap<String, WeakPtr<UI_Box>> vars_;
+		SharedPtr<XMLFile> xmlfile_{nullptr};
 		/// Hotspot for positioning and rotation.
 		IntVector2 hotSpot_{ IntVector2::ZERO };
 		/// Transform matrix.

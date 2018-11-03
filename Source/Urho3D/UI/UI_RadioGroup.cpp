@@ -10,10 +10,6 @@ namespace Urho3D
 
 	UI_RadioGroup::~UI_RadioGroup() = default;
 
-	void UI_RadioGroup::InitAttribute()
-	{
-		UI_Box::InitAttribute();
-	}
 
 	void UI_RadioGroup::SetLabels(const String& labels) {
 		if (labels_ != labels) {

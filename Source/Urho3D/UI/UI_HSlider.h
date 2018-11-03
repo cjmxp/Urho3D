@@ -25,11 +25,11 @@ namespace Urho3D
 		virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor);
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-		void SetSkin(const String& skin);
+		virtual void SetSkin(const String& skin) override;
 		SharedPtr<UI_Button> button_{nullptr};
 		float GetValue();
 		void SetValue(float v);
-		virtual void InitAttribute() override;
+		virtual void InitAttribute(UI_Box* box = nullptr) override;
 	protected:
 		virtual void Layout();
 		int offset_{ 0 };

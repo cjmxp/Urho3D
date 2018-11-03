@@ -10,9 +10,52 @@ namespace Urho3D
 	}
 
 	UI_Group::~UI_Group(){};
-	void UI_Group::InitAttribute()
+	void UI_Group::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Box::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "skin") {
+				SetSkin(root.GetAttribute(names[i]));
+			}
+			else if (name == "sizegrid") {
+				SetSizeGrid(root.GetAttribute(names[i]));
+			}
+			else if (name == "clipx") {
+				SetClipX(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "clipy") {
+				SetClipY(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "selectedindex") {
+				SetSelectedIndex(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "space") {
+				SetSpace(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "direction") {
+				if (root.GetAttribute(names[i]) == "horizontal") {
+					SetDirection(Horizontal);
+				}
+				else {
+					SetDirection(Vertical);
+				}
+			}
+			else if (name == "color") {
+				SetColor(root.GetAttribute(names[i]));
+			}
+			else if (name == "font") {
+				SetFont(root.GetAttribute(names[i]));
+			}
+			else if (name == "fontsize") {
+				SetFontSize(ToInt(root.GetAttribute(names[i]).CString()));
+			}
+			else if (name == "labels") {
+				SetLabels(root.GetAttribute(names[i]));
+			}
+		}
 	}
 	void UI_Group::Update(float timeStep) {
 		if (vary_) {

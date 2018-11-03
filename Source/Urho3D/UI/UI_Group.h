@@ -27,15 +27,21 @@ namespace Urho3D
         void SetClipY(int);
 		int GetSelectedIndex();
 		void SetSelectedIndex(int index);
-		const String& GetSelectedValue()const { return selectedvalue_; };
         int GetClipX();
         int GetClipY();
-
 		int GetSpace() { return space_; };
 		void SetSpace(int v) { space_ = v; };
 		void SetDirection(Direction d);
 		Direction GetDirection();
-
+		/// Set size.
+		void SetSize(int width, int height);
+		const String& GetColor()const { return color_; };
+		void SetColor(const String& value);
+		const String& GetFont()const { return font_; };
+		void SetFont(const String& value);
+		int GetFontSize() { return fontSize_; };
+		void SetFontSize(int v);
+		const String& GetSelectedValue()const { return selectedvalue_; };
 		virtual void Update(float timeStep) override;
 		virtual void SetLabels(const String& value);
 		const String& GetLabels()const { return labels_; };
@@ -47,15 +53,8 @@ namespace Urho3D
 		virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
-		/// Set size.
-		void SetSize(int width, int height);
-		const String& GetColor()const { return color_; };
-		void SetColor(const String& value);
-		const String& GetFont()const { return font_; };
-		void SetFont(const String& value);
-		int GetFontSize() { return fontSize_; };
-		void SetFontSize(int v);
-		virtual void InitAttribute() override;
+		
+		virtual void InitAttribute(UI_Box* box = nullptr) override;
 	protected:
 		int fontSize_{ 0 };
 		String color_{ String::EMPTY };

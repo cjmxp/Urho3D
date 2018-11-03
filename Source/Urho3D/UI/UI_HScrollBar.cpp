@@ -10,9 +10,20 @@ namespace Urho3D
 
 	UI_HScrollBar::~UI_HScrollBar() = default;
 
-	void UI_HScrollBar::InitAttribute()
+	void UI_HScrollBar::InitAttribute(UI_Box* box)
 	{
-		UI_Box::InitAttribute();
+		UI_Box::InitAttribute(box);
+		XMLElement root = GetRoot();
+		Vector<String> names = root.GetAttributeNames();
+		for (int i = 0; i < names.Size(); i++) {
+			String name = names[i].ToLower();
+			if (name == "skin") {
+				SetSkin(root.GetAttribute(names[i]));
+			}
+			else if (name == "value") {
+				SetValue(ToFloat(root.GetAttribute(names[i])));
+			}
+		}
 	}
 	void UI_HScrollBar::SetSkin(const String& skin)
 	{
