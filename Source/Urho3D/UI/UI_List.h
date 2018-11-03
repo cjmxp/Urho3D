@@ -1,6 +1,6 @@
 #pragma once
-
 #include "../UI/UI_Box.h"
+#include "../UI/UI_HScrollBar.h"
 
 namespace Urho3D
 {
@@ -12,6 +12,9 @@ namespace Urho3D
 		explicit UI_List(Context* context);
 		/// Destruct.
 		~UI_List() override;
-		virtual void InitAttribute(UI_Box* box = nullptr) override;
+		virtual void InitChilds(UI_Box* box = nullptr) override;
+	protected:
+		XMLElement render_{ XMLElement::EMPTY };
+		XMLElement scrollbar_{ XMLElement::EMPTY };
 	};
 }
