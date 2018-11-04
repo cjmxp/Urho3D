@@ -407,4 +407,34 @@ namespace Urho3D
         }
 		SetSize(IntVector2(w, h));
     }
+	UI_Box* UI_Box::GetChild(const StringHash& name)
+	{
+		for (unsigned i = 0;i<children_.Size();i++)
+		{
+			if (children_[i]->GetName().ToHash() == name.ToHash()) {
+				UI_Box* node = static_cast<UI_Box*>(children_[i].Get());
+				return node;
+			}
+			
+		}
+		return nullptr;
+	}
+	void UI_Box::SetDataSource(Variant& source)
+	{
+		dataSource_ = source;
+		if (source.GetTypeName() == "VariantMap") {
+			const VariantMap& map = source.GetVariantMap();
+			Vector<StringHash> keys = map.Keys();
+			UI_Box* node = nullptr;
+			for(unsigned i = 0;i<keys.Size();i++)
+			{
+				node = GetChild(keys[i]);
+				if (node != nullptr) {
+					Variant* value = map[keys[i]];
+					node->SetDataSource(*value);
+				}
+			
+			}
+		}
+	}
 }

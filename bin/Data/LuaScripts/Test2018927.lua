@@ -121,6 +121,10 @@ function CreateText()
 ]]--
     
     local box = UI_Box:new()
+    local aa = VariantMap()
+    aa["key"]=10
+    box:SetDataSource(Variant(aa))
+    aa=nil
     box:SetPosition(0,0)
     box.xml='<root width="400" height="400"><hslider skin="Textures/hslider.png" y="50"></hslider><button x="10" lable="测试" skin="Textures/button.png" clipX="1" ClipY="3" /><label x="100" width="35" height="30" text="文本" /></root>'
     box:InitAttribute()

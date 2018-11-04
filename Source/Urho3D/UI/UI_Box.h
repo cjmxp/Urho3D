@@ -66,6 +66,9 @@ namespace Urho3D
 		const Variant& GetVar(const String& key) {
 			return UIElement::GetVar(key);
 		};
+		const Variant& GetDataSource() { return dataSource_; };
+		virtual void SetDataSource(Variant& source);
+		UI_Box* GetChild(const StringHash& name);
 	protected:
 		virtual void Layout();
 		Vector2 scale_{ Vector2::ONE };
@@ -75,6 +78,7 @@ namespace Urho3D
 		bool vary_{ false };
 		String xml_str_{String::EMPTY};
 		XMLElement xml_{ XMLElement::EMPTY };
+		Variant dataSource_{ Variant::EMPTY };
 	private:
 		SharedPtr<XMLFile> xmlfile_{nullptr};
 		/// Hotspot for positioning and rotation.

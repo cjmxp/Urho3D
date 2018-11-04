@@ -29,6 +29,8 @@ class UI_Box : public UIElement
     void SetXml(const String str);
     void InitAttribute();
     void InitChilds();
+    const Variant& GetDataSource();
+    void SetDataSource(Variant& source);
 
     tolua_property__get_set IntVector2& hotSpot;
     tolua_property__get_set float rotation;
@@ -40,6 +42,7 @@ class UI_Box : public UIElement
     tolua_property__get_set int centerX;
     tolua_property__get_set int centerY;
     tolua_property__get_set Vector2& scale;
+    tolua_property__get_set Variant& dataSource;
 };
 ${
 #define TOLUA_DISABLE_tolua_UILuaAPI_UI_Box_new00
