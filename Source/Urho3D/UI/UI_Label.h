@@ -217,6 +217,7 @@ public:
     int textWidth;
     int textHeight;
 	virtual void InitAttribute(UI_Box* box = nullptr) override;
+	virtual void SetDataSource(Variant& source) override;
 protected:
 	String text_{ String::EMPTY };
     bool htmlEnable_{ 1 };

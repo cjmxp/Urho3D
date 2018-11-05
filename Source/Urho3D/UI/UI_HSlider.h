@@ -30,6 +30,7 @@ namespace Urho3D
 		float GetValue();
 		void SetValue(float v);
 		virtual void InitAttribute(UI_Box* box = nullptr) override;
+		virtual void SetDataSource(Variant& source) override;
 	protected:
 		virtual void Layout();
 		int offset_{ 0 };

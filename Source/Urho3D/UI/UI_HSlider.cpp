@@ -149,4 +149,11 @@ namespace Urho3D
 		value_ = value;
 		isvalue_ = true;
 	}
+	void UI_HSlider::SetDataSource(Variant& source)
+	{
+		dataSource_ = source;
+		if (source.GetTypeName() == "Float") {
+			SetValue(source.GetFloat());
+		}
+	}
 }

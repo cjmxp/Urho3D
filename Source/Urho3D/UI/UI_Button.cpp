@@ -197,4 +197,15 @@ namespace Urho3D
 			}
         }
     }
+	void UI_Button::SetDataSource(Variant& source)
+	{
+		dataSource_ = source;
+		if (source.GetTypeName() == "String") {
+			SetLable(source.GetString());
+			SetValue(source.GetString());
+		}
+		else if (source.GetTypeName() == "Bool") {
+			SetSelected(source.GetBool());
+		}
+	}
 }

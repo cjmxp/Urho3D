@@ -181,4 +181,11 @@ namespace Urho3D
 			slider_->SetSize(width - up_->GetWidth() - down_->GetWidth(), up_->GetHeight());
 		}
 	}
+	void UI_HScrollBar::SetDataSource(Variant& source)
+	{
+		dataSource_ = source;
+		if (source.GetTypeName() == "Float") {
+			SetValue(source.GetFloat());
+		}
+	}
 }

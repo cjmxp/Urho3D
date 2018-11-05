@@ -546,6 +546,13 @@ namespace Urho3D
 			
 		}
 	}
+	void UI_Label::SetDataSource(Variant& source)
+	{
+		dataSource_ = source;
+		if (source.GetTypeName() == "String") {
+			SetText(source.GetString());
+		}
+	}
     void UI_Label::AppendText(const String & str)
     {
         ParseCtx ctx;

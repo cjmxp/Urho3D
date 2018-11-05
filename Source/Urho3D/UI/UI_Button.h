@@ -33,6 +33,7 @@ namespace Urho3D
 		const String& GetValue()const { return value_; };
 		void SetValue(const String & v);
 		virtual void InitAttribute(UI_Box* box = nullptr) override;
+		virtual void SetDataSource(Variant& source) override;
 	protected:
 		int fontSize_{ 0 };
 		String color_{ String::EMPTY };

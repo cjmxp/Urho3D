@@ -34,6 +34,7 @@ namespace Urho3D
 		float GetValue();
 		void SetValue(float v);
 		virtual void InitAttribute(UI_Box* box = nullptr) override;
+		virtual void SetDataSource(Variant& source) override;
 	protected:
 		String skin_{String::EMPTY};
 		IntVector2 pos_{ IntVector2::ZERO };
