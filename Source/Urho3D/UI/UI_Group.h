@@ -55,6 +55,7 @@ namespace Urho3D
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		
 		virtual void InitAttribute(UI_Box* box = nullptr) override;
+        virtual void SetDataSource(Variant& source) override;
 	protected:
 		int fontSize_{ 0 };
 		String color_{ String::EMPTY };

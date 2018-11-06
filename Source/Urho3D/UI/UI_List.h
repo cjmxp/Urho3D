@@ -12,18 +12,18 @@ namespace Urho3D
 		explicit UI_List(Context* context);
 		/// Destruct.
 		~UI_List() override;
-		virtual void InitAttribute(UI_Box* box = nullptr);
-		virtual void InitChilds(UI_Box* box = nullptr) override;
-		int GetRepeaX() { return repeaX_;};
-		void SetRepeaX(int v) { repeaX_ = v; vary_ = true; };
-		int GetRepeaY() { return repeaY_; };
-		void SetRepeaY(int v) { repeaY_ = v; vary_ = true; };
-		int GetSpeaceX() { return speaceX_; };
-		void SetSpeaceX(int v) { speaceX_ = v; vary_ = true; };
-		int GetSpeaceY() { return speaceY_; };
-		void SetSpeaceY(int v) { speaceY_ = v; vary_ = true; };
+		int GetRepeatX() { return repeatX_;};
+		void SetRepeatX(int v) { repeatX_ = v; vary_ = true; };
+		int GetRepeatY() { return repeatY_; };
+		void SetRepeatY(int v) { repeatY_ = v; vary_ = true; };
+		int GetSpaceX() { return spaceX_; };
+		void SetSpaceX(int v) { spaceX_ = v; vary_ = true; };
+		int GetSpaceY() { return spaceY_; };
+		void SetSpaceY(int v) { spaceY_ = v; vary_ = true; };
 		Vector<Variant>& GetValue() { return list_; };
 		void SetValue(const Vector<Variant>& list) { list_ = list; vary_ = true; };
+        virtual void InitAttribute(UI_Box* box = nullptr) override;
+        virtual void InitChilds(UI_Box* box = nullptr) override;
 		virtual void SetDataSource(Variant& source) override;
 	protected:
 		virtual void Layout() override;
@@ -33,9 +33,9 @@ namespace Urho3D
 		
 		XMLElement render_xml_{ XMLElement::EMPTY };
 		XMLElement scrollbar_xml_{ XMLElement::EMPTY };
-		int repeaX_{ 0 };
-		int repeaY_{ 0 };
-		int speaceX_{ 0 };
-		int speaceY_{ 0 };
+		int repeatX_{ 1 };
+		int repeatY_{ 1 };
+		int spaceX_{ 0 };
+		int spaceY_{ 0 };
 	};
 }

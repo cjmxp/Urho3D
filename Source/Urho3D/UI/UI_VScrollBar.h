@@ -25,7 +25,7 @@ namespace Urho3D
 		/// React to mouse drag end.
 		virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor);
 	protected:
-		virtual void Layout();
+		virtual void Layout() override;
 		virtual void init() override;
 	};
 }

@@ -15,7 +15,7 @@ namespace Urho3D
 		/// Manually update layout. Should not be necessary in most cases, but is provided for completeness.
 		void UpdateLayout();
 		/// Perform UI element update.
-		virtual void Update(float timeStep);
+		virtual void Update(float timeStep) override;
 		int GetTop();
 		void SetTop(int v);
 		int GetLeft();
@@ -47,7 +47,7 @@ namespace Urho3D
 		/// Set scale. Scale also affects child sprites.
 		void SetScale(float x, float y);
 		/// Return UI rendering batches.
-		virtual void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor);
+		virtual void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
 		/// Return hotspot.
 		const IntVector2& GetHotSpot() const { return hotSpot_; }
 		/// Set hotspot for positioning and rotation.

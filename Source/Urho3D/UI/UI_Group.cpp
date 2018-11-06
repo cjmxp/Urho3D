@@ -101,7 +101,7 @@ namespace Urho3D
 			for (unsigned i = 0; i < nodes_.Size(); i++)
 			{
 				if (nodes_[i]->GetVisible()) {
-					if (nodes_[i]->InRect(IntRect::ZERO,position) == INSIDE) {
+					if (nodes_[i]->InRect(IntRect::ZERO,position)) {
 						nodes_[i]->SetSelected(true);
 						selectedvalue_ = nodes_[i]->GetValue();
 						if (enabled_) {
@@ -263,4 +263,14 @@ namespace Urho3D
 			}
 		}
 	}
+    void UI_Group::SetDataSource(Variant& source)
+    {
+        dataSource_ = source;
+        if (source.GetTypeName() == "String") {
+            SetLabels(source.GetString());
+        }
+        else if (source.GetTypeName()=="Double" || source.GetTypeName()=="Int" || source.GetTypeName()=="Float"){
+            SetSelectedIndex(source.GetInt());
+        }
+    }
 }

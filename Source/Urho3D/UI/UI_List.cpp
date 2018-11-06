@@ -15,17 +15,17 @@ namespace Urho3D
 		if (box_ == nullptr)box_ = this;
 		for (unsigned i = 0; i < names.Size(); i++) {
 			String name = names[i].ToLower();
-			if (name == "repeax") {
-				SetRepeaX(ToInt(root.GetAttribute(names[i]).CString()));
+			if (name == "repeatx") {
+				SetRepeatX(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (name == "repeay") {
-				SetRepeaY(ToInt(root.GetAttribute(names[i]).CString()));
+			else if (name == "repeaty") {
+				SetRepeatY(ToInt(root.GetAttribute(names[i]).CString()));
 			}
-			else if (name == "speacex") {
-				SetSpeaceX(ToInt(root.GetAttribute(names[i]).CString()));
+			else if (name == "spacex") {
+				SetSpaceX(ToInt(root.GetAttribute(names[i]).CString()));
 			}
 			else if (name == "speacey") {
-				SetSpeaceY(ToInt(root.GetAttribute(names[i]).CString()));
+				SetSpaceY(ToInt(root.GetAttribute(names[i]).CString()));
 			}
 		}
 	}
@@ -33,7 +33,7 @@ namespace Urho3D
 	{
 		if (box_ == nullptr)box_ = this;
 		if (itembox_ == nullptr) {
-			SharedPtr<UI_Box> itembox_ = SharedPtr<UI_Box>(new UI_Box(GetContext()));
+			itembox_ = SharedPtr<UI_Box>(new UI_Box(GetContext()));
 			AddChild(itembox_);
 		}
 		XMLElement root = GetRoot();
@@ -42,18 +42,19 @@ namespace Urho3D
 		while (!node.IsNull()) {
 			String name = node.GetName().ToLower();
 			if (node.HasAttribute("name")) {
-				if (node.GetAttribute("name") == "render" && name == "box") {
+				if (node.GetAttribute("name").ToLower() == "render" && name == "box") {
 					render_xml_ = node;
-					
-				}else if (node.GetAttribute("name") == "scrollbar" && (name == "hscrollbar" || name == "vscrollbar")) {
+				}else if (node.GetAttribute("name").ToLower() == "scrollbar" && (name == "hscrollbar" || name == "vscrollbar")) {
 					scrollbar_xml_ = node;
 					if (bar_ == nullptr) {
 						if (name == "hscrollbar") {
-							SharedPtr<UI_HScrollBar> bar_ = SharedPtr<UI_HScrollBar>(new UI_HScrollBar(GetContext()));
+							bar_ = SharedPtr<UI_HScrollBar>(new UI_HScrollBar(GetContext()));
 						}
 						else {
-							SharedPtr<UI_HScrollBar> bar_ = SharedPtr<UI_HScrollBar>(new UI_VScrollBar(GetContext()));
+							bar_ = SharedPtr<UI_HScrollBar>(new UI_VScrollBar(GetContext()));
 						}
+                        bar_->SetXml(scrollbar_xml_);
+                        bar_->InitAttribute(this);
 						AddChild(bar_);
 					}
 				}
@@ -63,7 +64,7 @@ namespace Urho3D
 	}
 	void UI_List::Layout() {
 		UI_Box::Layout();
-		if (vary_ && list_.Size()>0) {
+		if (vary_ && list_.Size()>0 ) {
 			const Vector<SharedPtr<UIElement>>& childs = itembox_->GetChildren();
 			for (unsigned i = 0; i < childs.Size(); i++) {
 				childs[i]->SetVisible(false);
@@ -77,10 +78,12 @@ namespace Urho3D
 				if (i >= childs.Size()) {
 					node = new UI_Box(GetContext());
 					node->SetXml(render_xml_);
-					x = i % repeaX_;
-					y = i / repeaX_;
-					x = x * node->GetWidth() + x * speaceX_;
-					y = y * node->GetHeight() + y * speaceY_;
+                    node->InitAttribute(this);
+                    node->InitChilds(this);
+					x = (int)i % repeatX_;
+					y = (int)i / repeatX_;
+					x = (int)x * node->GetWidth() + x * spaceX_;
+					y = (int)y * node->GetHeight() + y * spaceY_;
 					node->SetPosition(x,y);
 					node->SetVisible(true);
 					if (x > w)w = x;
@@ -92,6 +95,7 @@ namespace Urho3D
 				}
 				node->SetDataSource(list_[i]);
 			}
+            itembox_->SetSize(w-spaceX_, h-spaceY_);
 			vary_ = false;
 		}
 	}
@@ -99,8 +103,7 @@ namespace Urho3D
 	{
 		dataSource_ = source;
 		if (source.GetTypeName() == "VariantVector") {
-			const VariantVector& value = source.GetVariantVector();
-			SetValue(value);
+			SetValue(source.GetVariantVector());
 		}
 	}
 }

@@ -120,15 +120,16 @@ function CreateText()
     clip:SetSize(200,200)
 ]]--
     
-    local box = UI_Box:new()
-    local aa = VariantMap()
-    aa["key"]=10
-    box:SetDataSource(Variant(aa))
+    local box = require "mornui/List"
+    box.init=function(self,name)
+        self.name=name
+    end
+    box:init("测试")
+    print(box.name)
+    box:SetValue({Variant(10), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11)})
     aa=nil
     box:SetPosition(0,0)
-    box.xml='<root width="400" height="400"><hslider skin="Textures/hslider.png" y="50"></hslider><button x="10" lable="测试" skin="Textures/button.png" clipX="1" ClipY="3" /><label x="100" width="35" height="30" text="文本" /></root>'
-    box:InitAttribute()
-    box:InitChilds()
+    --box:SetValue(Vector(Variant(10)))
     ui.root:AddChild(box)
 
 end

@@ -1,0 +1,36 @@
+$#include "UI/UI_List.h"
+
+class UI_List : public UI_Box
+{
+    UI_List();
+    virtual ~UI_List();
+    int GetRepeatX();
+    void SetRepeatX(int v);
+    int GetRepeatY();
+    void SetRepeatY(int v);
+    int GetSpaceX();
+    void SetSpaceX(int v);
+    int GetSpaceY();
+    void SetSpaceY(int v);
+    Vector<Variant>& GetValue();
+    void SetValue(const Vector<Variant>& list);
+
+    tolua_property__get_set int repeatX;
+    tolua_property__get_set int repeatY;
+    tolua_property__get_set int spaceX;
+    tolua_property__get_set int spaceY;
+    tolua_property__get_set Vector<Variant>& value;
+};
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_List_new00
+static int tolua_UILuaAPI_UI_List_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_List>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_List_new00_local
+static int tolua_UILuaAPI_UI_List_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_List>(tolua_S);
+}
+$}

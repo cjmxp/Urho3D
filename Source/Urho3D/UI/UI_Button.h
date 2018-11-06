@@ -41,7 +41,7 @@ namespace Urho3D
 		bool selected_{ false };
 		bool pressed_{ false };
 		String value_{String::EMPTY};
-		virtual void Layout();
+		virtual void Layout() override;
 		SharedPtr<UI_Label> lable_;
     };
 }
