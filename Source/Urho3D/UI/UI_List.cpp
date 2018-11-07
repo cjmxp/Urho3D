@@ -5,6 +5,7 @@ namespace Urho3D
 		UI_Box(context)
 	{
 		SetClipChildren(true);
+        SetSortChildren(false);
 	}
 
 	UI_List::~UI_List() = default;
@@ -32,10 +33,11 @@ namespace Urho3D
 	void UI_List::InitChilds(UI_Box* box_)
 	{
 		if (box_ == nullptr)box_ = this;
-		if (itembox_ == nullptr) {
-			itembox_ = SharedPtr<UI_Box>(new UI_Box(GetContext()));
-			AddChild(itembox_);
-		}
+        if (itembox_ == nullptr) {
+            itembox_ = SharedPtr<UI_Box>(new UI_Box(GetContext()));
+            itembox_->SetName("content");
+            AddChild(itembox_);
+        }
 		XMLElement root = GetRoot();
 		if (root.IsNull())return;
 		XMLElement node = root.GetChild();
@@ -53,6 +55,8 @@ namespace Urho3D
 						else {
 							bar_ = SharedPtr<UI_HScrollBar>(new UI_VScrollBar(GetContext()));
 						}
+                    
+                        bar_->SetPriority(1);
                         bar_->SetXml(scrollbar_xml_);
                         bar_->InitAttribute(this);
 						AddChild(bar_);

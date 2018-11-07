@@ -74,7 +74,7 @@ namespace Urho3D
 		for (int i = 0; i < names.Size(); i++) {
 			String name = names[i].ToLower();
 			if (name == "name") {
-				SetName(names[i]);
+				SetName(root.GetAttribute(names[i]));
 			}
 			else if (name == "x") {
 				SetPosition(ToInt(root.GetAttribute(names[i]).CString()), GetPosition().y_);

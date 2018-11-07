@@ -126,7 +126,7 @@ function CreateText()
     end
     box:init("测试")
     print(box.name)
-    box:SetValue({Variant(10), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11), Variant(11)})
+    box:SetValue({Variant(10),Variant(10),Variant(10),Variant(10),Variant(10),Variant(10),Variant(10),Variant(10),Variant(10)})
     aa=nil
     box:SetPosition(0,0)
     --box:SetValue(Vector(Variant(10)))
