@@ -63,6 +63,7 @@ namespace Urho3D
 		XMLElement GetRoot(const String& name = String::EMPTY);
 		virtual void InitAttribute(UI_Box* box = nullptr);
 		virtual void InitChilds(UI_Box* box = nullptr);
+        virtual void OnScroll(float value);
 		const Variant& GetVar(const String& key) {
 			return UIElement::GetVar(key);
 		};

@@ -18,6 +18,7 @@ namespace Urho3D
 		UIElement(context)
     {
         SetEnabled(false);
+        SetSortChildren(false);
     }
 
     UI_Box::~UI_Box() = default;
@@ -66,7 +67,7 @@ namespace Urho3D
 			MarkDirty();
 		}
 	}
-
+    void UI_Box::OnScroll(float value){}
 	void UI_Box::InitAttribute(UI_Box* box_) {
 		XMLElement root = GetRoot();
 		Vector<String> names = root.GetAttributeNames();

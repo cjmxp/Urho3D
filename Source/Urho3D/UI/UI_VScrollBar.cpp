@@ -28,18 +28,35 @@ namespace Urho3D
 	{
 		if (up_->InRect(IntRect::ZERO, position)) {
 			up_->OnClickBegin(position, screenPosition, button, buttons, qualifiers, cursor);
-			slider_->SetValue(slider_->GetValue() - 0.1);
+            if(max_>0){
+                slider_->SetValue(slider_->GetValue() - 0.1);
+                if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                    UI_Box* parent = static_cast<UI_Box *>(parent_);
+                    parent->OnScroll(slider_->GetValue());
+                }
+            }
 			return;
 		}
 		if (slider_->InRect(IntRect::ZERO, position)) {
-			pos_ = position;
-			pos_.y_ -= up_->GetHeight();
-			slider_->OnClickBegin(pos_, screenPosition, button, buttons, qualifiers, cursor);
+            if(max_>0){
+                pos_.y_ -= up_->GetHeight();
+                slider_->OnClickBegin(pos_, screenPosition, button, buttons, qualifiers, cursor);
+                if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                    UI_Box* parent = static_cast<UI_Box *>(parent_);
+                    parent->OnScroll(slider_->GetValue());
+                }
+            }
 			return;
 		}
 		if (down_->InRect(IntRect::ZERO, position)) {
 			down_->OnClickBegin(position, screenPosition, button, buttons, qualifiers, cursor);
-			slider_->SetValue(slider_->GetValue() + 0.1);
+            if(max_>0){
+                slider_->SetValue(slider_->GetValue() + 0.1);
+                if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                    UI_Box* parent = static_cast<UI_Box *>(parent_);
+                    parent->OnScroll(slider_->GetValue());
+                }
+            }
 			return;
 		}
 	}
@@ -50,10 +67,14 @@ namespace Urho3D
 			up_->OnClickEnd(position, screenPosition, button, buttons, qualifiers, cursor, beginElement);
 			return;
 		}
-		if (slider_->InRect(IntRect::ZERO, position)) {
+		if (slider_->InRect(IntRect::ZERO, position) && max_>0) {
 			pos_ = position;
 			pos_.y_ -= up_->GetHeight();
 			slider_->OnClickEnd(pos_, screenPosition, button, buttons, qualifiers, cursor, beginElement);
+            if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                UI_Box* parent = static_cast<UI_Box *>(parent_);
+                parent->OnScroll(slider_->GetValue());
+            }
 			return;
 		}
 		if (down_->InRect(IntRect::ZERO, position)) {
@@ -82,29 +103,44 @@ namespace Urho3D
 
 	void UI_VScrollBar::OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers,Cursor* cursor)
 	{
+        if(max_<=0)return;
 		if (slider_->InRect(IntRect::ZERO, position)) {
 			pos_ = position;
 			pos_.y_ -= up_->GetHeight();
 			slider_->OnDragBegin(pos_, screenPosition, buttons, qualifiers, cursor);
+            if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                UI_Box* parent = static_cast<UI_Box *>(parent_);
+                parent->OnScroll(slider_->GetValue());
+            }
 			onDrag_ = true;
 		}
 	}
 
 	void UI_VScrollBar::OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor)
 	{
+        if(max_<=0)return;
 		if (onDrag_) {
 			pos_ = position;
 			pos_.y_ -= up_->GetHeight();
 			slider_->OnDragMove(pos_, screenPosition, deltaPos, buttons, qualifiers, cursor);
+            if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                UI_Box* parent = static_cast<UI_Box *>(parent_);
+                parent->OnScroll(slider_->GetValue());
+            }
 		}
 	}
 
 	void UI_VScrollBar::OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor)
 	{
+        if(max_<=0)return;
 		if (onDrag_) {
 			pos_ = position;
 			pos_.y_ -= up_->GetHeight();
 			slider_->OnDragEnd(pos_, screenPosition, dragButtons, releaseButton, cursor);
+            if(parent_!=nullptr && parent_->GetTypeName()!="UIElement"){
+                UI_Box* parent = static_cast<UI_Box *>(parent_);
+                parent->OnScroll(slider_->GetValue());
+            }
 			onDrag_ = false;
 		}
 	}

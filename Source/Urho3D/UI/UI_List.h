@@ -1,7 +1,7 @@
 #pragma once
 #include "../UI/UI_Box.h"
 #include "../UI/UI_VScrollBar.h"
-
+#include "../Core/Timer.h"
 namespace Urho3D
 {
 	class URHO3D_API UI_List : public UI_Box
@@ -12,6 +12,17 @@ namespace Urho3D
 		explicit UI_List(Context* context);
 		/// Destruct.
 		~UI_List() override;
+        virtual void OnScroll(float value) override;
+        /// React to mouse click begin.
+        virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
+        /// React to mouse click end.
+        virtual void OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement) override;
+        /// React to mouse drag begin.
+        virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor) override;
+        /// React to mouse drag motion.
+        virtual void OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor) override;
+        /// React to mouse drag end.
+        virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor) override;
 		int GetRepeatX() { return repeatX_;};
 		void SetRepeatX(int v) { repeatX_ = v; vary_ = true; };
 		int GetRepeatY() { return repeatY_; };
@@ -30,7 +41,8 @@ namespace Urho3D
 		Vector<Variant> list_;
 		SharedPtr<UI_Box> itembox_{nullptr};
 		SharedPtr<UI_HScrollBar> bar_{ nullptr };
-		
+        int distance_{0};
+        unsigned time_{0};
 		XMLElement render_xml_{ XMLElement::EMPTY };
 		XMLElement scrollbar_xml_{ XMLElement::EMPTY };
 		int repeatX_{ 1 };

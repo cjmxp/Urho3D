@@ -33,9 +33,12 @@ namespace Urho3D
 		const String& GetSkin();
 		float GetValue();
 		void SetValue(float v);
+        int GetMax(){return max_;};
+        void SetMax(int v){max_=v;};
 		virtual void InitAttribute(UI_Box* box = nullptr) override;
 		virtual void SetDataSource(Variant& source) override;
 	protected:
+        int max_{0};
 		String skin_{String::EMPTY};
 		IntVector2 pos_{ IntVector2::ZERO };
 		bool onDrag_{ false };

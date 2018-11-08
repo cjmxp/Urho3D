@@ -4,11 +4,78 @@ namespace Urho3D
 	UI_List::UI_List(Context* context) :
 		UI_Box(context)
 	{
+        SetEnabled(true);
 		SetClipChildren(true);
-        SetSortChildren(false);
 	}
 
 	UI_List::~UI_List() = default;
+    
+    void UI_List::OnScroll(float value)
+    {
+        if(bar_->GetName()=="hscrollbar"){
+            int x = bar_->GetMax()*value;
+            itembox_->SetPosition(-x,0);
+        }else{
+            int y = bar_->GetMax()*value;
+            itembox_->SetPosition(0,-y);
+        }
+    }
+    void UI_List::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
+    {
+        if (bar_->InRect(IntRect::ZERO, position)) {
+            bar_->OnClickBegin(position, screenPosition, button, buttons, qualifiers, cursor);
+        }
+    }
+    
+    void UI_List::OnClickEnd(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor, UIElement* beginElement)
+    {
+        if (bar_->InRect(IntRect::ZERO, position)) {
+            bar_->OnClickEnd(position, screenPosition, button, buttons, qualifiers, cursor, beginElement);
+        }
+        
+    }
+    
+    void UI_List::OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor)
+    {
+        if (bar_->InRect(IntRect::ZERO, position)) {
+            bar_->OnDragBegin(position, screenPosition, buttons, qualifiers, cursor);
+        }
+        else{
+            time_ = Time::GetSystemTime();
+            if(bar_->GetName()=="hscrollbar")
+            {
+                distance_ = screenPosition.x_;
+            }else{
+                distance_ = screenPosition.y_;
+            }
+        }
+    }
+    
+    void UI_List::OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor)
+    {
+        if (bar_->InRect(IntRect::ZERO, position)) {
+            bar_->OnDragMove(position, screenPosition, deltaPos, buttons, qualifiers, cursor);
+        }
+    }
+    
+    void UI_List::OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor)
+    {
+        if (bar_->InRect(IntRect::ZERO, position)) {
+            bar_->OnDragEnd(position, screenPosition, dragButtons, releaseButton, cursor);
+        }
+        else{
+            time_ = Time::GetSystemTime() - time_;
+            if(bar_->GetName()=="hscrollbar")
+            {
+                distance_ = abs(screenPosition.x_ - distance_);
+            }else{
+                distance_ = abs(screenPosition.y_ - distance_);
+            }
+            printf("距离:%u 时间:%d 平均:%f\n",distance_,time_,(float)distance_/time_);
+        }
+        
+    }
+    
 	void UI_List::InitAttribute(UI_Box* box_) {
 		UI_Box::InitAttribute(box_);
 		XMLElement root = GetRoot();
@@ -51,9 +118,11 @@ namespace Urho3D
 					if (bar_ == nullptr) {
 						if (name == "hscrollbar") {
 							bar_ = SharedPtr<UI_HScrollBar>(new UI_HScrollBar(GetContext()));
+                            bar_->SetName("hscrollbar");
 						}
 						else {
 							bar_ = SharedPtr<UI_HScrollBar>(new UI_VScrollBar(GetContext()));
+                            bar_->SetName("vscrollbar");
 						}
                     
                         bar_->SetPriority(1);
@@ -84,22 +153,34 @@ namespace Urho3D
 					node->SetXml(render_xml_);
                     node->InitAttribute(this);
                     node->InitChilds(this);
-					x = (int)i % repeatX_;
-					y = (int)i / repeatX_;
-					x = (int)x * node->GetWidth() + x * spaceX_;
-					y = (int)y * node->GetHeight() + y * spaceY_;
-					node->SetPosition(x,y);
-					node->SetVisible(true);
-					if (x > w)w = x;
-					if (y > h)h = y;
-					itembox_->AddChild(node);
+                    x = (int)i % repeatX_;
+                    y = (int)i / repeatX_;
+                    x = (int)x * node->GetWidth() + x * spaceX_;
+                    y = (int)y * node->GetHeight() + y * spaceY_;
+                    node->SetPosition(x,y);
+                    node->SetVisible(true);
+                    if (x > w)w = x;
+                    if (y > h)h = y;
+                    itembox_->AddChild(node);
 				}
 				else {
 					node = static_cast<UI_Box*>(childs[i].Get());
 				}
 				node->SetDataSource(list_[i]);
 			}
-            itembox_->SetSize(w-spaceX_, h-spaceY_);
+            if(bar_->GetName()=="hscrollbar"){
+                if(list_.Size() % repeatX_!=0)w+=node->GetWidth();
+                itembox_->SetSize(w-spaceX_, h-spaceY_);
+                int value = itembox_->GetWidth()-GetWidth();
+                if(value<0)value=0;
+                bar_->SetMax(value);
+            }else{
+                if(list_.Size() % repeatX_!=0)h+=node->GetHeight();
+                itembox_->SetSize(w-spaceX_, h-spaceY_);
+                int value = itembox_->GetHeight()-GetHeight();
+                if(value<0)value=0;
+                bar_->SetMax(value);
+            }
 			vary_ = false;
 		}
 	}
