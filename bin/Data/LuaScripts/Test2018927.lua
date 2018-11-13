@@ -46,7 +46,7 @@ function CreateText()
     local uiStyle = cache:GetResource("XMLFile", "UI/test.xml")
     -- Set style to the UI root so that elements will inherit it
     ui.root.defaultStyle = uiStyle
-  --[[
+--[[
     local button = UI_Button:new()
     button.clipX=1;
     button.clipY=3;
@@ -119,8 +119,7 @@ function CreateText()
     clip:SetPosition(100,200)
     clip:SetSize(200,200)
 ]]--
-    
-    local box = require "mornui/List"
+    local box = require("mornui/List")
     box.init=function(self,name)
         self.name=name
     end

@@ -26,6 +26,8 @@ namespace Urho3D
 		virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor) override;
 		/// Return UI rendering batches.
 		void GetBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) override;
+        /// React to mouse wheel.
+        virtual void OnWheel(int delta, MouseButtonFlags buttons, QualifierFlags qualifiers) override;
 		SharedPtr<UI_Button> up_{ nullptr };
 		SharedPtr<UI_HSlider> slider_{ nullptr };
 		SharedPtr<UI_Button> down_{ nullptr };

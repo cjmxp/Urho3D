@@ -66,6 +66,8 @@ namespace Urho3D
         if(max_>0)
         {
            slider_->SetValue(value);
+            UI_Box* parent = static_cast<UI_Box *>(parent_);
+            parent->OnScroll(slider_->GetValue());
         }
 	}
 
@@ -75,7 +77,10 @@ namespace Urho3D
 		down_->Update(timeStep);
 		Layout();
 	}
-
+    void UI_HScrollBar::OnWheel(int delta, MouseButtonFlags buttons, QualifierFlags qualifiers)
+    {
+        SetValue(GetValue()+((float)(-delta/4)*0.1));
+    }
 	void UI_HScrollBar::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
 	{
 		if (up_->InRect(IntRect::ZERO, position)) {

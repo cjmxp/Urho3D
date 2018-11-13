@@ -12,6 +12,8 @@ namespace Urho3D
 		explicit UI_List(Context* context);
 		/// Destruct.
 		~UI_List() override;
+        /// Return whether the element could handle wheel input.
+        bool IsWheelHandler() const override { return true; }
         virtual void OnScroll(float value) override;
         /// React to mouse click begin.
         virtual void OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor) override;
@@ -23,6 +25,8 @@ namespace Urho3D
         virtual void OnDragMove(const IntVector2& position, const IntVector2& screenPosition, const IntVector2& deltaPos, int buttons, int qualifiers, Cursor* cursor) override;
         /// React to mouse drag end.
         virtual void OnDragEnd(const IntVector2& position, const IntVector2& screenPosition, int dragButtons, int releaseButton, Cursor* cursor) override;
+        /// React to mouse wheel.
+        virtual void OnWheel(int delta, MouseButtonFlags buttons, QualifierFlags qualifiers) override;
 		int GetRepeatX() { return repeatX_;};
 		void SetRepeatX(int v) { repeatX_ = v; vary_ = true; };
 		int GetRepeatY() { return repeatY_; };

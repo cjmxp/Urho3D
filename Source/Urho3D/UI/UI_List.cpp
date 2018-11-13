@@ -1,3 +1,4 @@
+#include "../UI/UI.h"
 #include "../UI/UI_List.h"
 namespace Urho3D
 {
@@ -6,6 +7,9 @@ namespace Urho3D
 	{
         SetEnabled(true);
 		SetClipChildren(true);
+        SetEnabled(true);
+        focusMode_ = FM_FOCUSABLE_DEFOCUSABLE;
+        
 	}
 
 	UI_List::~UI_List() = default;
@@ -74,6 +78,10 @@ namespace Urho3D
             printf("距离:%u 时间:%d 平均:%f\n",distance_,time_,(float)distance_/time_);
         }
         
+    }
+    
+    void UI_List::OnWheel(int delta, MouseButtonFlags buttons, QualifierFlags qualifiers) {
+        bar_->OnWheel(delta,buttons,qualifiers);
     }
     
 	void UI_List::InitAttribute(UI_Box* box_) {
