@@ -1,0 +1,22 @@
+$#include "UI/UI_Dialog.h"
+class UI_Dialog : public UI_Box
+{
+    UI_Dialog();
+    virtual ~UI_Dialog();
+    void Show();
+	void Close();
+};
+
+${
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Dialog_new00
+static int tolua_UILuaAPI_UI_Dialog_new00(lua_State* tolua_S)
+{
+    return ToluaNewObject<UI_Dialog>(tolua_S);
+}
+
+#define TOLUA_DISABLE_tolua_UILuaAPI_UI_Dialog_new00_local
+static int tolua_UILuaAPI_UI_Dialog_new00_local(lua_State* tolua_S)
+{
+    return ToluaNewObjectGC<UI_Dialog>(tolua_S);
+}
+$}

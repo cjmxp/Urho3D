@@ -9,7 +9,9 @@
 #include "../UI/UI_Radio.h"
 #include "../UI/UI_RadioGroup.h"
 #include "../UI/UI_Tab.h"
-
+#include "../UI/UI_Dialog.h"
+#include "../UI/UI_View.h"
+#include "../UI/UI_List.h"
 #include "../UI/UIEvents.h"
 
 namespace Urho3D
@@ -150,6 +152,34 @@ namespace Urho3D
 				box->InitChilds(box_);
 				AddChild(box);
 			}
+            else if (name == "list") {
+                UI_List * box = new UI_List(GetContext());
+                box->SetXml(node);
+                box->InitAttribute(box_);
+                box->InitChilds(box_);
+                AddChild(box);
+            }
+            else if (name == "tab") {
+                UI_Tab * box = new UI_Tab(GetContext());
+                box->SetXml(node);
+                box->InitAttribute(box_);
+                box->InitChilds(box_);
+                AddChild(box);
+            }
+            else if (name == "view") {
+                UI_View * box = new UI_View(GetContext());
+                box->SetXml(node);
+                box->InitAttribute(box_);
+                box->InitChilds(box_);
+                AddChild(box);
+            }
+            else if (name == "dialog") {
+                UI_Dialog * box = new UI_Dialog(GetContext());
+                box->SetXml(node);
+                box->InitAttribute(box_);
+                box->InitChilds(box_);
+                AddChild(box);
+            }
 			else if (name == "button") {
 				UI_Button * box = new UI_Button(GetContext());
 				box->SetXml(node);
@@ -208,13 +238,6 @@ namespace Urho3D
 			}
 			else if (name == "radiogroup") {
 				UI_RadioGroup * box = new UI_RadioGroup(GetContext());
-				box->SetXml(node);
-				box->InitAttribute(box_);
-				box->InitChilds(box_);
-				AddChild(box);
-			}
-			else if (name == "tab") {
-				UI_Tab * box = new UI_Tab(GetContext());
 				box->SetXml(node);
 				box->InitAttribute(box_);
 				box->InitChilds(box_);

@@ -4,6 +4,21 @@
 
 namespace Urho3D
 {
+    class UI_Label;
+    class UI_Clip;
+    class UI_Button;
+    class UI_CheckBox;
+    class UI_HScrollBar;
+    class UI_VScrollBar;
+    class UI_HSlider;
+    class UI_VSlider;
+    class UI_Radio;
+    class UI_RadioGroup;
+    class UI_Tab;
+    class UI_Dialog;
+    class UI_View;
+    class UI_List;
+    
     class URHO3D_API UI_Box : public UIElement
     {
         URHO3D_OBJECT(UI_Box, UIElement);
@@ -64,9 +79,81 @@ namespace Urho3D
 		virtual void InitAttribute(UI_Box* box = nullptr);
 		virtual void InitChilds(UI_Box* box = nullptr);
         virtual void OnScroll(float value);
-		const Variant& GetVar(const String& key) {
-			return UIElement::GetVar(key);
+        UI_Box* GetBox(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Box*>(UIElement::GetVar(key).GetVoidPtr());
 		};
+        
+        UI_Button* GetButton(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Button*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_CheckBox* GetCheckBox(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_CheckBox*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_Clip* GetClip(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Clip*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_Dialog* GetDialog(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Dialog*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_HScrollBar* GetHScrollBar(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_HScrollBar*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_HSlider* GetHSlider(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_HSlider*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_Label* GetLabel(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Label*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_List* GetList(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_List*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_Radio* GetRadio(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Radio*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_RadioGroup* GetRadioGroup(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_RadioGroup*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_Tab* GetTab(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_Tab*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_VScrollBar* GetVScrollBar(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_VScrollBar*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_VSlider* GetVSlider(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_VSlider*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
+        UI_View* GetView(const String& key) {
+            if(UIElement::GetVar(key)==Variant::EMPTY)return nullptr;
+            return static_cast<UI_View*>(UIElement::GetVar(key).GetVoidPtr());
+        };
+        
 		const Variant& GetDataSource() { return dataSource_; };
 		virtual void SetDataSource(Variant& source);
 		UI_Box* GetChild(const StringHash& name);

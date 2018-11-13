@@ -4,7 +4,22 @@ class UI_Box : public UIElement
 {
     UI_Box();
     virtual ~UI_Box();
-    const Variant& GetVar(const String key);
+    UI_Box* GetBox(const String key);
+    UI_Button* GetButton(const String key);
+    UI_CheckBox* GetCheckBox(const String key);
+    UI_Clip* GetClip(const String key);
+    UI_Dialog* GetDialog(const String key);
+    UI_HScrollBar* GetHScrollBar(const String key);
+    UI_HSlider* GetHSlider(const String key);
+    UI_Label* GetLabel(const String key);
+    UI_List* GetList(const String key);
+    UI_Radio* GetRadio(const String key);
+    UI_RadioGroup* GetRadioGroup(const String key);
+    UI_Tab* GetTab(const String key);
+    UI_VScrollBar* GetVScrollBar(const String key);
+    UI_VSlider* GetVSlider(const String key);
+    UI_View* GetView(const String key);
+
     const Vector2& GetScale() const;
     void SetScale(const Vector2& scale);
     void SetScale(float x, float y);

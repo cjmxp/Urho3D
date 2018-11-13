@@ -124,8 +124,9 @@ function CreateText()
         self.name=name
     end
     box:init("测试")
-    print(box.name)
-    box:SetValue({Variant(1),Variant(2),Variant(3),Variant(4),Variant(5),Variant(6),Variant(7),Variant(8),Variant(9),Variant(10),Variant(11),Variant(12),Variant(13),Variant(14),Variant(15),Variant(16),Variant(17),Variant(18),Variant(19),Variant(20),Variant(21),Variant(22),Variant(23),Variant(24),Variant(25),Variant(26)})
+    box.list:SetName("垃圾")
+    print(box.name,box.list.name)
+    box.list:SetValue({Variant(1),Variant(2),Variant(3),Variant(4),Variant(5),Variant(6),Variant(7),Variant(8),Variant(9),Variant(10),Variant(11),Variant(12),Variant(13),Variant(14),Variant(15),Variant(16),Variant(17),Variant(18),Variant(19),Variant(20),Variant(21),Variant(22),Variant(23),Variant(24),Variant(25),Variant(26)})
     aa=nil
     box:SetPosition(0,0)
     --box:SetValue(Vector(Variant(10)))

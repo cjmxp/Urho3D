@@ -11,7 +11,7 @@ namespace Urho3D
 		/// Destruct.
 		~UI_VSlider() override;
 		/// React to mouse drag begin.
-		virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor);
+		virtual void OnDragBegin(const IntVector2& position, const IntVector2& screenPosition, int buttons, int qualifiers, Cursor* cursor) override;
 	protected:
 		virtual void Layout() override;
 	};
