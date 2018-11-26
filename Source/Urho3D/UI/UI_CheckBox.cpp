@@ -17,9 +17,14 @@ namespace Urho3D
 	void UI_CheckBox::Layout() {
 		if (layout_ || positionDirty_) {
 			layout_ = false;
-			int y = (drawRect_.y_ - lable_->textHeight);
-			lable_->SetPosition(IntVector2(drawRect_.x_+2, y+2));
-			SetSize(drawRect_.x_ + lable_->textWidth, drawRect_.y_ > lable_->textHeight ? drawRect_.y_ : lable_->textHeight);
+			int textWidth = 0;
+			int textHeight = 0;
+			if (lable_ != nullptr){
+				textWidth = lable_->textWidth;
+				textHeight = lable_->textHeight;
+				lable_->SetPosition(IntVector2(drawRect_.x_ + 2, drawRect_.y_- textHeight + 2));
+			}
+			SetSize(drawRect_.x_ + textWidth, drawRect_.y_ > textHeight ? drawRect_.y_ : textHeight);
 		}
 	}
 

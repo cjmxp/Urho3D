@@ -5,9 +5,8 @@ namespace Urho3D
 		UI_Box(context),
 		sizeGrid_(IntRect::ZERO),
         imageRect_(IntRect::ZERO),
-		blendMode_(BLEND_REPLACE)
+		blendMode_(BLEND_ALPHA)
 	{
-		
 	}
 
 	UI_Clip::~UI_Clip() = default;

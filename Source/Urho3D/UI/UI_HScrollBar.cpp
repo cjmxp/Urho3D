@@ -79,7 +79,7 @@ namespace Urho3D
 	}
     void UI_HScrollBar::OnWheel(int delta, MouseButtonFlags buttons, QualifierFlags qualifiers)
     {
-        SetValue(GetValue()+((float)(-delta/4)*0.1));
+        SetValue(GetValue()+((float)(-delta)*0.1));
     }
 	void UI_HScrollBar::OnClickBegin(const IntVector2& position, const IntVector2& screenPosition, int button, int buttons, int qualifiers, Cursor* cursor)
 	{

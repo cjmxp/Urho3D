@@ -4,20 +4,21 @@
 --     - Adding a Text element to the graphical user interface
 --     - Subscribing to and handling of update events
 
-require "LuaScripts/Utilities/Sample"
+
+
 
 function Start()
     -- Execute the common startup for samples
-    SampleStart()
+    --SampleStart()
 
     -- Create "Hello World" Text
     CreateText()
-
+    input.mouseVisible = true
     -- Set the mouse mode to use in the sample
-    SampleInitMouseMode(MM_FREE)
+    --SampleInitMouseMode(MM_FREE)
 
     -- Finally, hook-up this HelloWorld instance to handle update events
-    SubscribeToEvents()
+   -- SubscribeToEvents()
 end
 
 function CreateText()
@@ -43,9 +44,6 @@ function CreateText()
     Log:WriteRaw(cc:GetParent().GetSize())
 
    ]]--
-    local uiStyle = cache:GetResource("XMLFile", "UI/test.xml")
-    -- Set style to the UI root so that elements will inherit it
-    ui.root.defaultStyle = uiStyle
 --[[
     local button = UI_Button:new()
     button.clipX=1;
@@ -120,49 +118,12 @@ function CreateText()
     clip:SetSize(200,200)
 ]]--
     local box = require("mornui/List")
-    box.init=function(self,name)
-        self.name=name
-    end
-    box:init("测试")
-    box.list:SetName("垃圾")
-    print(box.name,box.list.name)
-    box.list:SetValue({Variant(1),Variant(2),Variant(3),Variant(4),Variant(5),Variant(6),Variant(7),Variant(8),Variant(9),Variant(10),Variant(11),Variant(12),Variant(13),Variant(14),Variant(15),Variant(16),Variant(17),Variant(18),Variant(19),Variant(20),Variant(21),Variant(22),Variant(23),Variant(24),Variant(25),Variant(26)})
-    aa=nil
-    box:SetPosition(0,0)
     --box:SetValue(Vector(Variant(10)))
     ui.root:AddChild(box)
 
 end
 
-function Click(type,event)
-   
-end
-function SubscribeToEvents()
-    print("SubscribeToEvents")
-    -- Subscribe HandleUpdate() function for processing update events
-    --SubscribeToEvent("Update", "HandleUpdate")
-    
-end
 
-function HandleUpdate(eventType, eventData)
-    --frame(eventData["TimeStep"]:GetFloat())
-    
-    -- Do nothing for now, could be extended to eg. animate the display
-end
-function frame(timeStep)
-    time=time+timeStep
-    if time>0.8 then
-        time=0.0
-        --clip.index = clip.index+1
-    end
-    
-end
--- Create XML patch instructions for screen joystick layout specific to this sample app
-function GetScreenJoystickPatchString()
-    return
-        "<patch>" ..
-        "    <add sel=\"/element/element[./attribute[@name='Name' and @value='Hat0']]\">" ..
-        "        <attribute name=\"Is Visible\" value=\"false\" />" ..
-        "    </add>" ..
-        "</patch>"
-end
+
+
+

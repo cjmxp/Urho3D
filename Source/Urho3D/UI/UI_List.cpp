@@ -132,8 +132,6 @@ namespace Urho3D
 							bar_ = SharedPtr<UI_HScrollBar>(new UI_VScrollBar(GetContext()));
                             bar_->SetName("vscrollbar");
 						}
-                    
-                        bar_->SetPriority(1);
                         bar_->SetXml(scrollbar_xml_);
                         bar_->InitAttribute(this);
 						AddChild(bar_);

@@ -19,8 +19,7 @@ namespace Urho3D
     UI_Box::UI_Box(Context* context) :
 		UIElement(context)
     {
-        SetEnabled(false);
-        SetSortChildren(false);
+		SetTraversalMode(TM_DEPTH_FIRST);
     }
 
     UI_Box::~UI_Box() = default;
@@ -138,7 +137,7 @@ namespace Urho3D
 		XMLElement node = root.GetChild();
 		while (!node.IsNull()) {
 			String name = node.GetName().ToLower();
-			if (name == "clip") {
+			if (name == "clip" || name == "image") {
 				UI_Clip * box = new UI_Clip(GetContext());
 				box->SetXml(node);
 				box->InitAttribute(box_);

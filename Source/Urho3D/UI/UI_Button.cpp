@@ -7,6 +7,8 @@ namespace Urho3D
     UI_Clip(context)
     {
         SetEnabled(true);
+		SetClipX(1);
+		SetClipY(3);
     }
     
 	UI_Button::~UI_Button() {
