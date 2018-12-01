@@ -4,6 +4,7 @@
 #include "../Core/Object.h"
 #include "../Container/List.h"
 #include "../Network/HttpRequest.h"
+#include "../Network/HttpBuffer.h"
 #include "../IO/Serializer.h"
 #include "../IO/VectorBuffer.h"
 
@@ -18,8 +19,8 @@ public:
 
     HttpManager(Context* c);
 
-    HttpRequest* Get(const String& url);
-    HttpRequest* Download(const String& url, const String& filepath);
+    HttpBuffer* Get(const String& url);
+    HttpBuffer* SycGet(const String& url);
 
 
 
@@ -27,24 +28,7 @@ private:
 
     void HandleBeginFrame(StringHash eventType, VariantMap& eventData);
     void SendError(const String & msg);
-
-    enum RequestType {
-        GET, DOWNLOAD,
-    };
-
-    struct RequestInfo : public RefCounted {
-        RequestType type_;
-        String url_;
-        String filepath_;
-        Serializer* serializer_;
-        VectorBuffer tempBuffer_;
-        SharedPtr<HttpRequest> request_;
-        ~RequestInfo() {
-            delete serializer_;
-        }
-    };
-
-    List<SharedPtr<RequestInfo> > quene_;
+    List<SharedPtr<HttpBuffer> > quene_;
 };
 
 }

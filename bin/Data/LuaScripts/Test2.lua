@@ -119,26 +119,32 @@ function InitWindow()
 end
 
 function HandleControlClicked(eventType, eventData)
-
+    print(fileSystem:GetProgramDir())
+    print(fileSystem:GetUserDocumentsDir())
+    print(fileSystem:GetAppPreferencesDir())
+    print(fileSystem:GetTemporaryDir())
+    print(tcp)
     if not tcp then
         http:Get('http://coolaf.com/static/js/ie-emulation-modes-warning.js')
-        http:Download('http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css', './bootstrap.css')
-        http:Download('http://libs.baidu.com/jquery/1.9.1/jquery.min.js', './jquery.js')
+        --http:Download('http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css', './bootstrap.css')
+        --http:Download('http://libs.baidu.com/jquery/1.9.1/jquery.min.js', './jquery.js')
         
         SubscribeToEvent('RequestOK', function(_, e)
-            print('aaaaaaaaaaaaaaaaa')
             if e.Buffer then
                 local buffer = e.Buffer:GetVoidPtr('VectorBuffer')
                 print(buffer:ReadString())
             else
-                print('download ok', e.Filepath:GetString())
+                --print('download ok', e.Filepath:GetString())
             end
         end)
         SubscribeToEvent('RequestErr', function(_, e)
             local buffer = e.Message:GetString()
-            print(buffer)
+            --print(buffer)
         end)
-
+        local arr = fileSystem:ScanDir("./","*.*",SCAN_FILES,false)
+        --for i, v in ipairs(arr) do
+        --    print(i, v)
+        --end 
         -- tcp = TcpConn()
         -- tcp:Connect('127.0.0.1',8888)
         -- SubscribeToEvent(tcp, 'TcpConnected', function(_, e)

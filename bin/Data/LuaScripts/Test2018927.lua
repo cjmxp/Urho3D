@@ -3,20 +3,32 @@
 --     - Using the Sample utility functions as a base for the application
 --     - Adding a Text element to the graphical user interface
 --     - Subscribing to and handling of update events
-
+--require "LuaScripts/Utilities/Sample"
 
 
 
 function Start()
     -- Execute the common startup for samples
     --SampleStart()
-
     -- Create "Hello World" Text
     CreateText()
     input.mouseVisible = true
     -- Set the mouse mode to use in the sample
     --SampleInitMouseMode(MM_FREE)
+    local uiStyle = cache:GetResource("XMLFile", "UI/DefaultStyle.xml")
+    if uiStyle == nil then
+        return
+    end
 
+    -- Create console
+    engine:CreateConsole()
+    console.defaultStyle = uiStyle
+    console.background.opacity = 0.8
+    console:SetVisible(true)
+    local arr = fileSystem:ScanDir("./","*.*",SCAN_FILES,false)
+    for i, v in ipairs(arr) do
+        print(i, v)
+    end 
     -- Finally, hook-up this HelloWorld instance to handle update events
    -- SubscribeToEvents()
 end

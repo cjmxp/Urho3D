@@ -37,7 +37,7 @@
 #include "../Resource/ResourceCache.h"
 #include "../Resource/ResourceEvents.h"
 #include "../Resource/XMLFile.h"
-
+#include "../Network/HttpManager.h"
 #include "../DebugNew.h"
 
 #include <cstdio>
@@ -158,7 +158,14 @@ bool ResourceCache::AddPackageFile(const String& fileName, unsigned priority)
     SharedPtr<PackageFile> package(new PackageFile(context_));
     return package->Open(fileName) && AddPackageFile(package, priority);
 }
-
+    
+bool ResourceCache::InitUIPackage(const String& url)
+{
+    auto* http = GetSubsystem<HttpManager>();
+    HttpRequest* ret  = http->Get(url);
+    //http
+    return true;
+}
 bool ResourceCache::AddManualResource(Resource* resource)
 {
     if (!resource)

@@ -96,6 +96,7 @@ public:
     bool AddPackageFile(const String& fileName, unsigned priority = PRIORITY_LAST);
     /// Add a manually created resource. Must be uniquely named within its type.
     bool AddManualResource(Resource* resource);
+    bool InitUIPackage(const String& url);
     /// Remove a resource load directory.
     void RemoveResourceDir(const String& pathName);
     /// Remove a package file. Optionally release the resources loaded from it.

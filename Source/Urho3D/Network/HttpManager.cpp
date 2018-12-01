@@ -15,36 +15,20 @@ HttpManager::HttpManager(Context * c)
     SubscribeToEvent(E_BEGINFRAME, URHO3D_HANDLER(HttpManager, HandleBeginFrame));
 }
 
-HttpRequest* HttpManager::Get(const String& url)
+HttpBuffer* HttpManager::Get(const String& url)
 {
-    SharedPtr<RequestInfo> request(new RequestInfo);
-    request->type_ = GET;
-    request->url_ = url;
-
-    request->request_ = new HttpRequest(request->url_, "GET", StringVector(), "");
-    request->serializer_ = new VectorBuffer();
-
-    quene_.Push(request);
-
-    return request->request_;
+    SharedPtr<HttpBuffer> reques = SharedPtr<HttpBuffer>(new HttpBuffer(GetContext()));
+    reques->SetUrl(url);
+    quene_.Push(reques);
+    return reques.Get();
 }
 
-HttpRequest* HttpManager::Download(const String& url, const String& filepath)
+HttpBuffer* HttpManager::SycGet(const String& url)
 {
-    SharedPtr<RequestInfo> request(new RequestInfo);
-    request->type_ = DOWNLOAD;
-    request->url_ = url;
-    request->filepath_ = filepath;
-
-    request->serializer_ = new File(context_, request->filepath_, FILE_WRITE);
-    if (!request->serializer_)
-        return nullptr;
-
-    request->request_ = new HttpRequest(request->url_, "GET", StringVector(), "");
-
-    quene_.Push(request);
-
-    return request->request_;
+    SharedPtr<HttpBuffer> reques = SharedPtr<HttpBuffer>(new HttpBuffer(GetContext()));
+    reques->SetUrl(url);
+    quene_.Push(reques);
+    return reques.Get();
 }
 
 void HttpManager::SendError(const String& msg) {
@@ -60,8 +44,30 @@ void HttpManager::SendError(const String& msg) {
 void HttpManager::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
 {
     
-    for (List<SharedPtr<RequestInfo> >::Iterator it = quene_.Begin(); it != quene_.End(); ) {
-        SharedPtr<RequestInfo>& info = *it;
+    for (List<SharedPtr<HttpBuffer> >::Iterator it = quene_.Begin(); it != quene_.End(); ) {
+        SharedPtr<HttpBuffer>& http = *it;
+        const String& state = http->GetState();
+        if(state=="Loading" || state=="Init"){
+            http->Load();
+        }
+        else if(state=="Close")
+        {
+            
+        }
+        else if(state=="Ok")
+        {
+            
+        }
+        else if(state=="Free")
+        {
+            it = quene_.Erase(it);
+            continue;
+        }else{
+            
+            
+        }
+        it++;
+        /*
         bool remove = false;
 
         if (info->request_->GetState() == HTTP_ERROR) {
@@ -106,7 +112,7 @@ void HttpManager::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
         }
         else {
             it++;
-        }
+        }*/
     }
 }
 
