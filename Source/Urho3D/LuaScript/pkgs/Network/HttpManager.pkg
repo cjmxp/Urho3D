@@ -3,8 +3,8 @@ $#include "Network/HttpManager.h"
 
 class HttpManager
 {
-    HttpRequest* Get(const String& url);
-    HttpRequest* Download(const String& url, const String& filepath);
+    HttpBuffer* Get(const String& url);
+    HttpBuffer* Download(const String& url);
 };
 
 

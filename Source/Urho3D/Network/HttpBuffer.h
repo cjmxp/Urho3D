@@ -15,12 +15,13 @@ class URHO3D_API HttpBuffer : public Object
 public:
     HttpBuffer(Context* c);
     ~HttpBuffer() override;
-    const VectorBuffer& GetData();
+    VectorBuffer* GetData();
     const String& GetUrl();
     void SetUrl(const String& url);
     const String& GetState();
     bool Load();
     void Free();
+    bool ready_{false};
 private:
     SharedPtr<HttpRequest> request_;
     String state_;

@@ -22,8 +22,6 @@ namespace Urho3D
 
     URHO3D_EVENT(E_REQUESTOK, RequestOK)
     {
-        URHO3D_PARAM(P_REQUEST, Request);      // HttpRequest
-        URHO3D_PARAM(P_FILEPATH, Filepath);      // FilePath, for download
         URHO3D_PARAM(P_BUFFER, Buffer);      // VectorBuffer, for get
     }
 

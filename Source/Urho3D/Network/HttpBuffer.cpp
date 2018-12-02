@@ -10,12 +10,13 @@ HttpBuffer::HttpBuffer(Context * c):Object(c)
 }
 HttpBuffer::~HttpBuffer()
 {
+    ready_=false;
     buff_.Clear();
     temp_.Clear();
 }
-const VectorBuffer& HttpBuffer::GetData()
+VectorBuffer* HttpBuffer::GetData()
 {
-    return buff_;
+    return &buff_;
 }
 const String& HttpBuffer::GetUrl()
 {
