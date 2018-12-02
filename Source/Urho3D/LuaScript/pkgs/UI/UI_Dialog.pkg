@@ -3,7 +3,10 @@ class UI_Dialog : public UI_Box
 {
     UI_Dialog();
     virtual ~UI_Dialog();
-    void Show();
+    void SetXml(const String& str);
+    void InitAttribute();
+    void InitChilds();
+    void Show(bool mode =false);
 	void Close();
 };
 

@@ -20,6 +20,7 @@ namespace Urho3D
 		UIElement(context)
     {
 		SetTraversalMode(TM_DEPTH_FIRST);
+		SetEnabled(true);
     }
 
     UI_Box::~UI_Box() = default;
@@ -160,20 +161,6 @@ namespace Urho3D
             }
             else if (name == "tab") {
                 UI_Tab * box = new UI_Tab(GetContext());
-                box->SetXml(node);
-                box->InitAttribute(box_);
-                box->InitChilds(box_);
-                AddChild(box);
-            }
-            else if (name == "view") {
-                UI_View * box = new UI_View(GetContext());
-                box->SetXml(node);
-                box->InitAttribute(box_);
-                box->InitChilds(box_);
-                AddChild(box);
-            }
-            else if (name == "dialog") {
-                UI_Dialog * box = new UI_Dialog(GetContext());
                 box->SetXml(node);
                 box->InitAttribute(box_);
                 box->InitChilds(box_);

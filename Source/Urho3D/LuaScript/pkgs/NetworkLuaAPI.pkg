@@ -4,6 +4,7 @@ $pfile "Network/Network.pkg"
 $pfile "Network/NetworkPriority.pkg"
 $pfile "Network/TcpConn.pkg"
 $pfile "Network/HttpManager.pkg"
+$pfile "Network/HttpBuffer.pkg"
 
 $using namespace Urho3D;
 $#pragma warning(disable:4800)

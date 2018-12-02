@@ -123,25 +123,31 @@ function HandleControlClicked(eventType, eventData)
     print(fileSystem:GetUserDocumentsDir())
     print(fileSystem:GetAppPreferencesDir())
     print(fileSystem:GetTemporaryDir())
-    print(tcp)
     if not tcp then
-        http:Get('http://coolaf.com/static/js/ie-emulation-modes-warning.js')
-        http:SycGet('http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css')
-        http:SycGet('http://libs.baidu.com/jquery/1.9.1/jquery.min.js')
+        local body =  http:Get('http://coolaf.com/static/js/ie-emulation-modes-warning.js')
+        if body then
+            local buffer = body:GetData()
+           -- print(buffer,buffer:ReadString())
+            print(body:GetUrl())
+            body:Save("ie-emulation-modes-warning.js")
+            body:Free()
+        end
+        --http:SycGet('http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css')
+       -- http:SycGet('http://libs.baidu.com/jquery/1.9.1/jquery.min.js')
         
-        SubscribeToEvent('RequestOK', function(_, e)
-            if e.Buffer then
-                local buffer = e.Buffer:GetVoidPtr('VectorBuffer')
-                print(buffer:ReadString())
-            else
+        --SubscribeToEvent('RequestOK', function(_, e)
+        --    if e.Buffer then
+        --        local buffer = e.Buffer:GetVoidPtr('VectorBuffer')
+        --        print(buffer:ReadString())
+        --    else
                 --print('download ok', e.Filepath:GetString())
-            end
-        end)
-        SubscribeToEvent('RequestErr', function(_, e)
-            local buffer = e.Message:GetString()
-            print(buffer)
-        end)
-        local arr = fileSystem:ScanDir("./","*.*",SCAN_FILES,false)
+        --    end
+        --end)
+        --SubscribeToEvent('RequestErr', function(_, e)
+        --    local buffer = e.Message:GetString()
+        --    print(buffer)
+        --end)
+        --local arr = fileSystem:ScanDir("./","*.*",SCAN_FILES,false)
         --for i, v in ipairs(arr) do
         --    print(i, v)
         --end 

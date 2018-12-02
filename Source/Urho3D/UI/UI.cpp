@@ -253,7 +253,7 @@ bool UI::SetModalElement(UIElement* modalElement, bool enable)
         return false;
 
     // Currently only allow modal window
-    if (modalElement->GetType() != Window::GetTypeStatic())
+    if (modalElement->GetType() != Window::GetTypeStatic() && modalElement->GetType()!="UI_Dialog")
         return false;
 
     assert(rootModalElement_);
@@ -2116,6 +2116,10 @@ void UI::ResizeRootElement()
     IntVector2 effectiveSize = GetEffectiveRootElementSize();
     rootElement_->SetSize(effectiveSize);
     rootModalElement_->SetSize(effectiveSize);
+	if (rootModalElement_->GetChild(0) != nullptr && rootModalElement_->GetChild(0)->GetName() == "mode")
+	{
+		rootModalElement_->GetChild(0)->SetSize(effectiveSize);
+	}
 }
 
 IntVector2 UI::GetEffectiveRootElementSize(bool applyScale) const

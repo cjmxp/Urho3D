@@ -13,22 +13,8 @@ function Start()
     -- Create "Hello World" Text
     CreateText()
     input.mouseVisible = true
-    -- Set the mouse mode to use in the sample
-    --SampleInitMouseMode(MM_FREE)
-    local uiStyle = cache:GetResource("XMLFile", "UI/DefaultStyle.xml")
-    if uiStyle == nil then
-        return
-    end
-
-    -- Create console
-    engine:CreateConsole()
-    console.defaultStyle = uiStyle
-    console.background.opacity = 0.8
-    console:SetVisible(true)
-    local arr = fileSystem:ScanDir("./","*.*",SCAN_FILES,false)
-    for i, v in ipairs(arr) do
-        print(i, v)
-    end 
+    local Debug = require("LuaScripts/utils/Debug")
+    Debug:InitConsole();
     -- Finally, hook-up this HelloWorld instance to handle update events
    -- SubscribeToEvents()
 end
@@ -130,8 +116,10 @@ function CreateText()
     clip:SetSize(200,200)
 ]]--
     local box = require("mornui/List")
-    --box:SetValue(Vector(Variant(10)))
     ui.root:AddChild(box)
+    box2 = require("mornui/List2")
+    box2:Show()
+
 
 end
 

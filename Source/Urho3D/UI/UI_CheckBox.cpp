@@ -6,7 +6,6 @@ namespace Urho3D
 	UI_CheckBox::UI_CheckBox(Context* context) :
     UI_Button(context)
     {
-        SetEnabled(true);
     }
 	UI_CheckBox::~UI_CheckBox() = default;
 

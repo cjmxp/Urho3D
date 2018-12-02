@@ -1,0 +1,12 @@
+$#include "Network/HttpBuffer.h"
+
+
+class HttpBuffer  : public Object
+{
+    VectorBuffer* GetData();
+    const String& GetUrl();
+    const String& GetState();
+    void Save(const String& path);
+    void Free();
+};
+

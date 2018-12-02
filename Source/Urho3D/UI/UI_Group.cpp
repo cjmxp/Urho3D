@@ -6,7 +6,6 @@ namespace Urho3D
 		UI_Box(context),
 		blendMode_(BLEND_REPLACE)
 	{
-		SetEnabled(true);
 	}
 
 	UI_Group::~UI_Group(){};

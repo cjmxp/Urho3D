@@ -7,6 +7,7 @@ namespace Urho3D
         imageRect_(IntRect::ZERO),
 		blendMode_(BLEND_ALPHA)
 	{
+		SetEnabled(false);
 	}
 
 	UI_Clip::~UI_Clip() = default;

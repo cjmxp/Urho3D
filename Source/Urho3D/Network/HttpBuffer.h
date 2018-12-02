@@ -16,6 +16,7 @@ public:
     HttpBuffer(Context* c);
     ~HttpBuffer() override;
     VectorBuffer* GetData();
+	void Save(const String& path);
     const String& GetUrl();
     void SetUrl(const String& url);
     const String& GetState();

@@ -7,7 +7,6 @@ namespace Urho3D
 	{
         SetEnabled(true);
 		SetClipChildren(true);
-        SetEnabled(true);
         focusMode_ = FM_FOCUSABLE_DEFOCUSABLE;
         
 	}

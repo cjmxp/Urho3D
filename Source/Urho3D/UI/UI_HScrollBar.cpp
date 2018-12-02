@@ -5,7 +5,6 @@ namespace Urho3D
 	UI_HScrollBar::UI_HScrollBar(Context* context) :
 		UI_Box(context)
 	{
-		SetEnabled(true);
 	}
 
 	UI_HScrollBar::~UI_HScrollBar() = default;
