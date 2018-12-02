@@ -45,11 +45,6 @@ bool HttpBuffer::Load()
             state_ = request_->GetError();
             return true;
         }
-        else if (request_->GetState() == HTTP_CLOSED)
-        {
-            state_ = "Close";
-            return true;
-        }
         else if (request_->IsEof())
         {
             state_ = "Ok";

@@ -161,9 +161,7 @@ bool ResourceCache::AddPackageFile(const String& fileName, unsigned priority)
     
 bool ResourceCache::InitUIPackage(const String& url)
 {
-    auto* http = GetSubsystem<HttpManager>();
-    HttpRequest* ret  = http->Get(url);
-    //http
+
     return true;
 }
 bool ResourceCache::AddManualResource(Resource* resource)

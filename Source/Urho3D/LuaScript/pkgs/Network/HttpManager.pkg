@@ -4,7 +4,7 @@ $#include "Network/HttpManager.h"
 class HttpManager
 {
     HttpBuffer* Get(const String& url);
-    HttpBuffer* Download(const String& url);
+    HttpBuffer* SycGet(const String& url);
 };
 
 
